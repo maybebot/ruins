@@ -9,7 +9,9 @@ const createLintFile = async () => {
   await execSync('touch "ruins-lint.json"');
 
   try {
-    await execSync("./node_modules/.bin/eslint -o ./ruins-lint.json -f json");
+    await execSync(
+      "./node_modules/.bin/eslint -o ./ruins-lint.json -f ./node_modules/ruins/cli/json.js"
+    );
   } catch {
     // It always has a non-zero exit code
   }
