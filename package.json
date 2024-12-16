@@ -12,10 +12,13 @@
     "prepare": "nitro prepare",
     "preview": "node .output/server/index.mjs"
   },
+  "dependencies": {
+    "consola": "^3.2.3"
+  },
   "devDependencies": {
     "nitropack": "latest"
   },
-  "dependencies": {
-    "consola": "^3.2.3"
+  "peerDependencies": {
+    "eslint": "*"
   }
 }
