@@ -1,5 +1,11 @@
 {
+  "name": "ruins",
+  "version": "0.0.1",
   "private": true,
+  "type": "module",
+  "bin": {
+    "ruins": "./cli/index.js"
+  },
   "scripts": {
     "build": "nitro build",
     "dev": "nitro dev",
@@ -8,5 +14,8 @@
   },
   "devDependencies": {
     "nitropack": "latest"
+  },
+  "dependencies": {
+    "consola": "^3.2.3"
   }
 }
