@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "bin": {
-    "ruins": "./cli/index.js"
+    "ruins": "./cli.js"
   },
   "scripts": {
     "build": "nitro build",

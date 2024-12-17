@@ -3,14 +3,17 @@
 "use strict";
 
 import { consola } from "consola";
+import path from "path";
 import { exec, execSync } from "child_process";
 
 const createLintFile = async () => {
-  await execSync('touch "ruins-lint.json"');
+  await execSync('touch "lint-ruins.json"');
 
   try {
+    const binPath = path.resolve(process.cwd(), "node_modules", ".bin");
+    const currentPath = import.meta.dirname;
     await execSync(
-      "./node_modules/.bin/eslint -o ./ruins-lint.json -f ./node_modules/ruins/cli/json.js"
+      `${binPath}/eslint -o ./lint-ruins.json -f ${currentPath}/utils/format.js`
     );
   } catch {
     // It always has a non-zero exit code
@@ -19,7 +22,9 @@ const createLintFile = async () => {
 
 const openDashboard = async () => {
   consola.start("Preparing dashboard");
-  await exec("node ./node_modules/ruins/.output/server/index.mjs");
+  const currentPath = import.meta.dirname;
+  console.log(currentPath);
+  await exec(`node ${currentPath}/.output/server/index.mjs`);
   consola.box("Dashboard available on http://localhost:3000");
 };
 
