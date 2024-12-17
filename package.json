@@ -13,6 +13,7 @@
     "preview": "node .output/server/index.mjs"
   },
   "dependencies": {
+    "c12": "^2.0.1",
     "consola": "^3.2.3"
   },
   "devDependencies": {
