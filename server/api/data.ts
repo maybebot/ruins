@@ -5,6 +5,10 @@ interface DataRes {
   issues: EslintOutput[];
 }
 
-export default eventHandler(async (event): Promise<DataRes> => {
-  return getLintResults();
-});
+export default defineCachedEventHandler(
+  async (event): Promise<DataRes> => {
+    const lint = (await getLintResults()) as DataRes;
+    return lint;
+  },
+  { maxAge: 10 /* 10 sec */ }
+);

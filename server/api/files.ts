@@ -13,7 +13,7 @@ interface FilesRes {
 
 /** sortBy: error | warning | total, grouped */
 export default eventHandler(async (event): Promise<FilesRes> => {
-  const lint = await getLintResults();
+  const lint = await $fetch("/api/data");
   const config = await getConfig();
 
   const params = new URLSearchParams(event.path.split("?")[1]);
