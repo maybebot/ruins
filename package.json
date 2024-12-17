@@ -1,7 +1,17 @@
 {
   "name": "ruins",
   "version": "0.0.1",
-  "private": true,
+  "keywords": [
+    "ruins",
+    "lint",
+    "eslint",
+    "dashboard"
+  ],
+  "author": "Ian Bobinac",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/maybebot/ruins"
+  },
   "type": "module",
   "bin": {
     "ruins": "./cli.js"
