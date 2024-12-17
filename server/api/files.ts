@@ -1,6 +1,6 @@
-import { getLintResults, getConfig } from "#imports";
+import { getConfig } from "#imports";
 
-interface DataPoint {
+export interface DataPoint {
   name: string;
   error: number;
   warning: number;
