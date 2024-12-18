@@ -19,3 +19,14 @@ const boilerplate = (content: string) => `<!doctype html>
 </html>
 `;
 export const html = (content: string) => boilerplate(content);
+
+export const htmlNoData = () =>
+  html(`
+    <pyro-dialog open>
+      <div slot="content">
+        No data available
+        <br>
+        Most likely you have not generated a <code>ruins-lint.json</code> file.
+      </div>
+    </pyro-dialog>
+  `);

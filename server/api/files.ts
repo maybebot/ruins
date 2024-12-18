@@ -8,13 +8,17 @@ export interface DataPoint {
   data?: DataPoint[];
 }
 interface FilesRes {
-  data: DataPoint[];
+  data: DataPoint[] | false;
 }
 
 /** sortBy: error | warning | total, grouped */
 export default eventHandler(async (event): Promise<FilesRes> => {
   const lint = await $fetch("/api/data");
   const config = await getConfig();
+
+  if (!lint.issues) {
+    return { data: false };
+  }
 
   const params = new URLSearchParams(event.path.split("?")[1]);
   let sortBy = params.get("sortBy") as "error" | "warning" | "total";

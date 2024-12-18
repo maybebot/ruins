@@ -2,6 +2,7 @@ import { DataPoint } from "~/api/files";
 
 export default eventHandler(async (event) => {
   const { data } = await $fetch("/api/files");
+  if (!data) return htmlNoData();
   const { data: grouped } = await $fetch("/api/files?grouped=1");
 
   const toCard = (name: string, content: DataPoint[]) => {
