@@ -17,17 +17,30 @@
     "ruins": "./cli.js"
   },
   "scripts": {
-    "build": "nitro build",
-    "dev": "nitro dev",
     "prepare": "nitro prepare",
-    "preview": "node .output/server/index.mjs"
+    "nitro:build": "nitro build",
+    "nitro:dev": "nitro dev",
+    "serve": "http-server -p 8080 ./dist",
+    "nitro:preview": "node .output/server/index.mjs",
+    "vite:dev": "vite",
+    "vite:build": "vite build",
+    "vite:preview": "vite preview",
+    "dev": "concurrently \"npm run nitro:dev\" \"npm run vite:dev\"",
+    "build": "vite build && nitro build"
   },
   "dependencies": {
     "c12": "^2.0.1",
-    "consola": "^3.2.3"
+    "concurrently": "^9.1.2",
+    "consola": "^3.2.3",
+    "http-server": "^14.1.1",
+    "rollup-plugin-vue": "^6.0.0",
+    "vue": "^3.5.13"
   },
   "devDependencies": {
-    "nitropack": "latest"
+    "@vitejs/plugin-vue": "^5.2.1",
+    "nitropack": "latest",
+    "vite": "^6.1.0",
+    "vite-plugin-vue-devtools": "^7.7.2"
   },
   "peerDependencies": {
     "eslint": "*"
