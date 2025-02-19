@@ -23,9 +23,10 @@ const createLintFile = async () => {
 const openDashboard = async () => {
   consola.start("Preparing dashboard");
   const currentPath = import.meta.dirname;
-  console.log(currentPath);
   await exec(`node ${currentPath}/.output/server/index.mjs`);
-  consola.box("Dashboard available on http://localhost:3000");
+  const binPath = path.resolve(process.cwd(), "node_modules", ".bin");
+  await exec(`${binPath}/http-server -p 4848 ${currentPath}/dist`);
+  consola.box("Dashboard available on http://localhost:4848");
 };
 
 export const cli = async () => {
