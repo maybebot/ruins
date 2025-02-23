@@ -2,7 +2,7 @@
     <header class="header">
         <pyro-box class="flex">
             <Ghost />
-            Ruins
+            <span class="accent">Ruins</span>
             <ASpacer />
             <a href="https://github.com/maybebot/ruins">
                 <Github />

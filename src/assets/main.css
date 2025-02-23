@@ -8,6 +8,7 @@ body {
   font-weight: 200;
 
   --pyro-border-radius: 0;
+  --pyro-accent-color: #8558ff;
 }
 #app {
   display: flex;
@@ -36,4 +37,8 @@ pyro-box.flex {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.accent {
+  color: var(--pyro-accent-color);
 }
