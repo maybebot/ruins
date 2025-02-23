@@ -1,11 +1,29 @@
+<template>
+    <TheHeader />
+    <main>
+        <Suspense>
+            <ErrorsPanel :loader="getErrors" name="Errors by file" />
+        </Suspense>
+        <Suspense>
+            <ErrorsPanel :loader="getGroupedErrors" name="Grouped errorrs" />
+        </Suspense>
+    </main>
+</template>
+
 <script setup lang="ts">
-import HelloWorld from './components/HelloWorld.vue'
+import TheHeader from './components/TheHeader.vue'
+import ErrorsPanel from './components/ErrorsPanel.vue';
+import { getErrors, getGroupedErrors } from './api/api';
+import 'pyro/pyro.css';
+import 'pyro/skeleton'
+
 </script>
 
-<template>
-    <header>
-        <div class="wrapper">
-            <HelloWorld msg="You did it!" />
-        </div>
-    </header>
-</template>
+<style scoped>
+main {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: var(--pyro-spacing);
+}
+</style>

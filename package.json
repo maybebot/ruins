@@ -19,7 +19,7 @@
   "scripts": {
     "prepare": "nitro prepare",
     "nitro:build": "nitro build",
-    "nitro:dev": "nitro dev",
+    "nitro:dev": "nitro dev && vite dev",
     "serve": "http-server -p 8080 ./dist",
     "nitro:preview": "node .output/server/index.mjs",
     "vite:dev": "vite",
@@ -33,7 +33,9 @@
     "concurrently": "^9.1.2",
     "consola": "^3.2.3",
     "http-server": "^14.1.1",
+    "pyro": "^0.1.26",
     "rollup-plugin-vue": "^6.0.0",
+    "vite-svg-loader": "^5.1.0",
     "vue": "^3.5.13"
   },
   "devDependencies": {
