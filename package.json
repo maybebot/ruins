@@ -33,6 +33,7 @@
     "concurrently": "^9.1.2",
     "consola": "^3.2.3",
     "http-server": "^14.1.1",
+    "monogon": "^0.1.2",
     "pyro": "^0.1.26",
     "rollup-plugin-vue": "^6.0.0",
     "vite-svg-loader": "^5.1.0",
