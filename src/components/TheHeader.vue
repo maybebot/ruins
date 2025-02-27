@@ -1,11 +1,14 @@
 <template>
     <header class="header">
         <pyro-box class="flex">
-            <Ghost />
+            <GhostIcon />
             <span class="accent">Ruins</span>
             <ASpacer />
+            <ConfigModal>
+                <ConfigIcon />
+            </ConfigModal>
             <a href="https://github.com/maybebot/ruins">
-                <Github />
+                <GithubIcon />
             </a>
 
         </pyro-box>
@@ -14,8 +17,10 @@
 
 <script setup lang="ts">
 import 'pyro/box';
-import Ghost from '@/assets/ghost.svg';
-import Github from '@/assets/github.svg';
+import ConfigModal from './ConfigModal.vue';
+import GhostIcon from '@/assets/ghost.svg';
+import GithubIcon from '@/assets/github.svg';
+import ConfigIcon from '@/assets/config.svg';
 import ASpacer from './ASpacer.vue';
 </script>
 
