@@ -8,7 +8,7 @@
                 Your config:
             </div>
             <pyro-scrollbox>
-                <monogon-el v-if="config" lang="json" :content="parsedConfig"></monogon-el>
+                <monogon-el lang="json" :content="parsedConfig"></monogon-el>
             </pyro-scrollbox>
         </div>
     </pyro-dialog>
@@ -31,7 +31,6 @@ const parsedConfig = computed(() => {
     return JSON.stringify(config.value);
 });
 
-// TODO: remove v-if when monogon reactive, think about below font override
 </script>
 
 <style scoped>

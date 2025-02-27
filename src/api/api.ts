@@ -7,13 +7,13 @@ export const getErrors = async () => {
 };
 
 export const getGroupedErrors = async () => {
-  const x = await fetch(`${baseUrl}//files?grouped=1`);
+  const x = await fetch(`${baseUrl}/files?grouped=1`);
   const y = await x.json();
   return y;
 };
 
 export const getConfig = async () => {
-  const x = await fetch(`${baseUrl}//config`);
+  const x = await fetch(`${baseUrl}/config`);
   const res = await x.json();
   return res;
 };
