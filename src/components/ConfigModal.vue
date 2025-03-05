@@ -8,8 +8,9 @@
                 Your config:
             </div>
             <pyro-scrollbox>
-                <monogon-el lang="json" :content="parsedConfig"></monogon-el>
+                <MonogonCode :content="config" lang="json" @input="handleChange" />
             </pyro-scrollbox>
+            <pyro-button :disabled="!hasConfigChanged" @click="saveChanges">Save</pyro-button>
         </div>
     </pyro-dialog>
 </template>
@@ -19,17 +20,30 @@ import { ref, computed } from 'vue';
 import 'pyro/dialog';
 import 'pyro/button';
 import 'pyro/scrollbox';
-import 'monogon';
+import MonogonCode from 'monogon/vue';
 import { getConfig } from '../api/api';
 
-const config = ref(null);
+const config = ref('');
+const editedConfig = ref('');
 
 getConfig().then((data) => {
-    config.value = data;
+    const parsed = JSON.stringify(JSON.parse(JSON.stringify(data)), null, 2);
+    config.value = parsed;
+    editedConfig.value = parsed;
 });
-const parsedConfig = computed(() => {
-    return JSON.stringify(config.value);
-});
+
+const handleChange = (e) => {
+    editedConfig.value = e.target.value;
+}
+
+const hasConfigChanged = computed(() => {
+    return editedConfig.value !== config.value;
+})
+
+const saveChanges = () => {
+    console.log(editedConfig.value);
+    // TODO
+}
 
 </script>
 

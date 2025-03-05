@@ -33,7 +33,6 @@ const setFilter = (e) => {
 
 const filteredErrors = computed(() => {
     return errors.filter((error) => {
-        console.log('every day im filtering');
         return error.name.includes(filter.value);
     });
 });
