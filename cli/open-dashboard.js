@@ -10,7 +10,7 @@ import { exec } from "child_process";
  */
 export const openDashboard = async (ruinsPath) => {
   consola.start("Preparing dashboard");
-  await exec(`node ${currentPath}/.output/server/index.mjs`);
+  await exec(`node ${ruinsPath}/.output/server/index.mjs`);
   const binPath = path.resolve(process.cwd(), "node_modules", ".bin");
   await exec(`${binPath}/http-server -p 4848 ${ruinsPath}/dist/`);
   console.log(`${binPath}/http-server -p 4848 ${ruinsPath}/dist/`);

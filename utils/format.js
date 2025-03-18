@@ -1,4 +1,4 @@
-export default (results, context) => {
+export default (results) => {
   const res = results
     .filter((r) => r.messages.length > 0)
     .map((r) => ({ ...r, source: undefined }));

@@ -1,9 +1,10 @@
 import { consola } from "consola";
 import { createLintFile } from "./create-lint-file.js";
+import { addEslintIgnore } from "./add-eslint-ignore.js";
 import { openDashboard } from "./open-dashboard.js";
 import path from "path";
 
-const ruinsDir = path.resolve(import.meta.url, "..");
+const ruinsDir = path.resolve(import.meta.dirname, "..");
 
 /**
  * Ruins CLI
