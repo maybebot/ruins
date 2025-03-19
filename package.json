@@ -17,17 +17,17 @@
     "ruins": "./cli.js"
   },
   "scripts": {
-    "try": "bash ./scripts/try.sh",
-    "prepare": "nitro prepare",
-    "nitro:build": "nitro build",
-    "nitro:dev": "nitro dev && vite dev",
-    "serve": "http-server -p 8080 ./dist",
-    "nitro:preview": "node .output/server/index.mjs",
-    "vite:dev": "vite",
-    "vite:build": "vite build",
-    "vite:preview": "vite preview",
-    "dev": "concurrently \"npm run nitro:dev\" \"npm run vite:dev\"",
-    "build": "vite build && nitro build"
+    "api:prepare": "cd api && nitro prepare",
+    "api:build": "cd api && nitro build",
+    "api:dev": "nitro dev && vite dev",
+    "api:preview": "node .output/server/index.mjs",
+    "serve": "http-server -p 8080 ./ui/dist",
+    "ui:dev": "cd ui && vite",
+    "ui:build": "cd ui && vite build",
+    "ui:preview": "cd ui && vite preview",
+    "dev": "concurrently \"npm run api:dev\" \"npm run ui:dev\"",
+    "build": "cd ui && vite build && cd ../api && nitro build",
+    "try": "bash ./scripts/try.sh"
   },
   "dependencies": {
     "c12": "^2.0.1",
