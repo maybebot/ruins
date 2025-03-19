@@ -13,7 +13,7 @@ export const createLintFile = async (ruinsPath) => {
   try {
     const binPath = path.resolve(process.cwd(), "node_modules", ".bin");
     await execSync(
-      `${binPath}/eslint -o ./lint-ruins.json -f ${ruinsPath}/utils/format.js`
+      `${binPath}/eslint -o ./lint-ruins.json -f ${ruinsPath}/cli/utils/format.js`
     );
   } catch {
     // It always has a non-zero exit code
