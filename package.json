@@ -17,6 +17,7 @@
     "ruins": "./cli.js"
   },
   "scripts": {
+    "try": "bash ./scripts/try.sh",
     "prepare": "nitro prepare",
     "nitro:build": "nitro build",
     "nitro:dev": "nitro dev && vite dev",

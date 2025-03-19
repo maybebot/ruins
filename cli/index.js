@@ -22,14 +22,14 @@ export const cli = async () => {
         hint: "Open a dashboard in the browser with linting errors state",
       },
       {
-        label: "Re-run linting",
+        label: "Collect linting errors",
         value: "relint",
-        hint: "Collect all eslint errors of the project in a file",
+        hint: "Collect all eslint errors of the project on a file per file basis.",
       },
       {
-        label: "Add eslint errors to ignore",
+        label: "Disable existing linting errors",
         value: "add-eslint-ignore",
-        hint: "Collect all eslint errors of the project in a file",
+        hint: "Disables collected errors for the file where they are used.",
       },
     ],
   });
