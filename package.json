@@ -26,7 +26,7 @@
     "ui:build": "cd ui && vite build",
     "ui:preview": "cd ui && vite preview",
     "dev": "concurrently \"npm run api:dev\" \"npm run ui:dev\"",
-    "build": "cd ui && vite build && cd ../api && nitro build",
+    "build": "tsc && cd ui && vite build && cd ../api && nitro build",
     "try": "bash ./scripts/try.sh"
   },
   "dependencies": {

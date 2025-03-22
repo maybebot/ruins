@@ -8,7 +8,7 @@ import { exec } from "child_process";
  * @param {string} ruinsPath - path to Ruins project directory
  * @returns {Promise<void>}
  */
-export const openDashboard = async (ruinsPath) => {
+export const openDashboard = async (ruinsPath: string) => {
   consola.start("Preparing dashboard");
   await exec(`node ${ruinsPath}/.output/server/index.mjs`);
   const binPath = path.resolve(process.cwd(), "node_modules", ".bin");

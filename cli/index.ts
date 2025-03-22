@@ -38,7 +38,7 @@ export const cli = async () => {
       createLintFile(ruinsDir);
       break;
     case "add-eslint-ignore":
-      addEslintIgnore();
+      addEslintIgnore(ruinsDir);
       break;
     case "dashboard":
     default:
