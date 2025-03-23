@@ -1,4 +1,6 @@
 import { execSync } from "child_process";
+import { getConfig } from "../config/getConfig.js";
+import { resolve } from "node:path";
 
 /**
  * Create a lint file
@@ -7,11 +9,12 @@ import { execSync } from "child_process";
  * @returns {Promise<void>}
  */
 export const createLintFile = async (ruinsPath: string, binPath: string) => {
-  await execSync('touch "lint-ruins.json"');
+  const settings = await getConfig();
+  const outputFile = resolve(settings.dir, settings.files.eslintIssues);
 
   try {
     await execSync(
-      `${binPath}/eslint -o ./lint-ruins.json -f ${ruinsPath}/dist/cli/formatters/output.js`
+      `${binPath}/eslint -o ${outputFile} -f ${ruinsPath}/dist/cli/formatters/output.js`
     );
   } catch {
     // It always has a non-zero exit code

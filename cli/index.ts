@@ -20,13 +20,13 @@ export const cli = async () => {
         hint: "Open a dashboard in the browser with linting errors state",
       },
       {
-        label: "Collect linting errors",
-        value: "relint",
+        label: "[eslint] Collect errors",
+        value: "eslint-collect",
         hint: "Collect all eslint errors of the project on a file per file basis.",
       },
       {
-        label: "Disable existing linting errors",
-        value: "add-eslint-ignore",
+        label: "[eslint] Create ignores",
+        value: "eslint-ignore",
         hint: "Disables collected errors for the file where they are used.",
       },
     ],
@@ -35,11 +35,11 @@ export const cli = async () => {
     case "dashboard":
       openDashboard(ruinsPath, binPath);
       break;
-    case "relint":
+    case "eslint-collect":
       createLintFile(ruinsPath, binPath);
       break;
-    case "add-eslint-ignore":
-      addEslintIgnore(ruinsPath, binPath);
+    case "eslint-ignore":
+      addEslintIgnore();
       break;
   }
 };
