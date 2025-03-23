@@ -1,4 +1,3 @@
-import path from "path";
 import { execSync } from "child_process";
 
 /**
@@ -12,7 +11,7 @@ export const createLintFile = async (ruinsPath: string, binPath: string) => {
 
   try {
     await execSync(
-      `${binPath}/eslint -o ./lint-ruins.json -f ${ruinsPath}/dist/cli/utils/format.js`
+      `${binPath}/eslint -o ./lint-ruins.json -f ${ruinsPath}/dist/cli/formatters/output.js`
     );
   } catch {
     // It always has a non-zero exit code

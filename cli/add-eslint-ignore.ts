@@ -13,7 +13,7 @@ export const addEslintIgnore = async (ruinsPath: string) => {
   try {
     const binPath = path.resolve(process.cwd(), "node_modules", ".bin");
     await execSync(
-      `${binPath}/eslint -o ./lint-ruins.json --quiet -f ${ruinsPath}/dist/utils/errors.js`
+      `${binPath}/eslint -o ./lint-ruins.json --quiet -f ${ruinsPath}/dist/formatters/errors.js`
     );
   } catch {
     // It always has a non-zero exit code
