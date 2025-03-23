@@ -1,4 +1,4 @@
-import { getConfig } from "#imports";
+import { getConfig } from "../utils/getConfig";
 import type { RuinsConfig } from "~/types/config";
 
 interface FilesRes {

@@ -1,4 +1,4 @@
-import { getConfig } from "#imports";
+import { getConfig } from "../utils/getConfig";
 
 export interface DataPoint {
   name: string;
@@ -15,10 +15,6 @@ interface FilesRes {
 export default eventHandler(async (event): Promise<FilesRes> => {
   const lint = await $fetch("/api/data");
   const config = await getConfig();
-
-  if (!lint.issues) {
-    return { data: false };
-  }
 
   const params = new URLSearchParams(event.path.split("?")[1]);
   let sortBy = params.get("sortBy") as "error" | "warning" | "total";

@@ -19,8 +19,8 @@
   "scripts": {
     "api:prepare": "cd api && nitro prepare",
     "api:build": "cd api && nitro build",
-    "api:dev": "nitro dev && vite dev",
-    "api:preview": "node .output/server/index.mjs",
+    "api:dev": "cd api && nitro dev",
+    "api:preview": "node ./api/.output/server/index.mjs",
     "serve": "http-server -p 8080 ./ui/dist",
     "ui:dev": "cd ui && vite",
     "ui:build": "cd ui && vite build",

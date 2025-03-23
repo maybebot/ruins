@@ -2,6 +2,6 @@
 
 "use strict";
 
-import { cli } from "./dist/index.js";
+import { cli } from "./dist/cli/index.js";
 
 cli();

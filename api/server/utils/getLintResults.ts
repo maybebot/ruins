@@ -1,8 +1,12 @@
 import { loadConfig } from "c12";
-import { EslintOutput } from "~/types/eslint";
+import { RuinsEslintOutput } from "../../../types/eslint";
 
 export const getLintResults = async () => {
-  const { config } = await loadConfig<{ issues: EslintOutput[] }>({
+  // TODO: fix this path stuff
+  const cwdFromNpm = process.cwd().replace(/\/api/, "");
+
+  const { config } = await loadConfig<RuinsEslintOutput>({
+    cwd: cwdFromNpm,
     configFile: "lint-ruins.json",
   });
   return config;

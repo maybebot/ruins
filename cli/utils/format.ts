@@ -1,7 +1,23 @@
-export default (results: any) => {
-  const res = results
-    .filter((r: any) => r.messages.length > 0)
-    .map((r: any) => ({ ...r, source: undefined }));
-  return JSON.stringify({ issues: res }, null, 2);
+import type { EslintOutput, RuinsEslintOutput } from "../../types/eslint.js";
+
+export default (output: EslintOutput) => {
+  const res: RuinsEslintOutput = {
+    issues: output
+      .filter((r) => r.messages.length > 0)
+      .map((r) => ({
+        filePath: r.filePath,
+        messages: r.messages.map((m) => ({
+          ruleId: m.ruleId,
+          severity: m.severity,
+          message: m.message,
+          line: m.line,
+        })),
+        errorCount: r.errorCount,
+        fatalErrorCount: r.fatalErrorCount,
+        warningCount: r.warningCount,
+        fixableErrorCount: r.fixableErrorCount,
+        fixableWarningCount: r.fixableWarningCount,
+      })),
+  };
+  return JSON.stringify(res, null, 2);
 };
-// TODO: remove anys

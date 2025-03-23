@@ -4,14 +4,14 @@ import { addEslintIgnore } from "./add-eslint-ignore.js";
 import { openDashboard } from "./open-dashboard.js";
 import path from "path";
 
-const ruinsDir = path.resolve(import.meta.dirname, "..");
-
 /**
  * Ruins CLI
  *
  * @returns {Promise<void>}
  */
 export const cli = async () => {
+  const ruinsPath = path.resolve(process.cwd(), "node_modules", "ruins");
+  const binPath = path.resolve(process.cwd(), "node_modules", ".bin");
   consola.start("Preparing Ruins.");
   const action = await consola.prompt("Ruins up and running", {
     type: "select",
@@ -35,14 +35,14 @@ export const cli = async () => {
   });
   switch (action) {
     case "relint":
-      createLintFile(ruinsDir);
+      createLintFile(ruinsPath, binPath);
       break;
     case "add-eslint-ignore":
-      addEslintIgnore(ruinsDir);
+      addEslintIgnore(ruinsPath);
       break;
     case "dashboard":
     default:
-      openDashboard(ruinsDir);
+      openDashboard(ruinsPath, binPath);
       break;
   }
 };
