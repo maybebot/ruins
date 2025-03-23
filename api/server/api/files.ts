@@ -1,4 +1,4 @@
-import { getConfig } from "../utils/getConfig";
+import { getConfig } from "../../../config/getConfig";
 
 export interface DataPoint {
   name: string;

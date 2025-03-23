@@ -1,7 +1,7 @@
 import { loadConfig } from "c12";
-import { RuinsEslintOutput } from "../../../types/eslint";
+import { RuinsEslintOutput } from "../types/eslint.js";
 
-export const getLintResults = async () => {
+export const getLintIssues = async () => {
   // TODO: fix this path stuff
   const cwdFromNpm = process.cwd().replace(/\/api/, "");
 

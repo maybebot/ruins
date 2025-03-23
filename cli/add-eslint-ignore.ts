@@ -1,21 +1,22 @@
-import path from "path";
-import { execSync } from "child_process";
+import { getEslintIgnoreByFile } from "./formatters/errors.js";
+import { getLintIssues } from "../config/getLintIssues.js";
+import { writeFile } from "node:fs/promises";
+import { resolve } from "node:path";
 
 /**
- * Adds all errors found to the ignore file
+ * Create a lint file
  *
  * @param {string} ruinsPath - path to Ruins project directory
  * @returns {Promise<void>}
  */
-export const addEslintIgnore = async (ruinsPath: string) => {
-  await execSync('touch "lint-ruins.json"');
+export const addEslintIgnore = async (ruinsPath: string, binPath: string) => {
+  const ignoreFilePath = resolve(process.cwd(), "ignores.js");
+  const issues = await getLintIssues();
 
-  try {
-    const binPath = path.resolve(process.cwd(), "node_modules", ".bin");
-    await execSync(
-      `${binPath}/eslint -o ./lint-ruins.json --quiet -f ${ruinsPath}/dist/formatters/errors.js`
-    );
-  } catch {
-    // It always has a non-zero exit code
-  }
+  const ignores = getEslintIgnoreByFile(issues);
+
+  await writeFile(
+    ignoreFilePath,
+    `export const ruinsIgnores = ${JSON.stringify(ignores, null, 2)}`
+  );
 };

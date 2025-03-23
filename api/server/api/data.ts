@@ -1,9 +1,9 @@
-import { getLintResults } from "../utils/getLintResults";
+import { getLintIssues } from "../../../config/getLintIssues";
 import consola from "consola";
 
 export default defineCachedEventHandler(
   async (event) => {
-    const issues = await getLintResults();
+    const issues = await getLintIssues();
     if (!issues) {
       consola.error("Lint file not found, did you generate ruins-lint.json?");
       return;

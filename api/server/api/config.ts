@@ -1,11 +1,6 @@
-import { getConfig } from "../utils/getConfig";
-import type { RuinsConfig } from "~/types/config";
+import { getConfig, type RuinsConfig } from "../../../config/getConfig";
 
-interface FilesRes {
-  data: RuinsConfig;
-}
-
-export default eventHandler(async (): Promise<FilesRes> => {
+export default eventHandler(async (): Promise<{ data: RuinsConfig }> => {
   const config = await getConfig();
 
   return { data: config };

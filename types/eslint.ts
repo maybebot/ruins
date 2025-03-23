@@ -40,3 +40,8 @@ interface RuinsEslintMessage {
   message: string;
   line: number;
 }
+
+export type EslintIgnoreByFile = {
+  files: string[];
+  rules: Record<string, "off" | "warn">;
+}[];

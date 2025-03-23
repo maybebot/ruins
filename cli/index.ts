@@ -6,8 +6,6 @@ import path from "path";
 
 /**
  * Ruins CLI
- *
- * @returns {Promise<void>}
  */
 export const cli = async () => {
   const ruinsPath = path.resolve(process.cwd(), "node_modules", "ruins");
@@ -34,15 +32,14 @@ export const cli = async () => {
     ],
   });
   switch (action) {
+    case "dashboard":
+      openDashboard(ruinsPath, binPath);
+      break;
     case "relint":
       createLintFile(ruinsPath, binPath);
       break;
     case "add-eslint-ignore":
-      addEslintIgnore(ruinsPath);
-      break;
-    case "dashboard":
-    default:
-      openDashboard(ruinsPath, binPath);
+      addEslintIgnore(ruinsPath, binPath);
       break;
   }
 };
