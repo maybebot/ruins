@@ -13,6 +13,7 @@ const staticConfig = {
   files: {
     eslintIssues: "eslint-issues.json",
     eslintIgnores: "eslint-ignores.js",
+    todos: "todos.json",
   },
 };
 

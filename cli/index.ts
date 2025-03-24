@@ -2,6 +2,7 @@ import { consola } from "consola";
 import { createLintFile } from "./create-lint-file.js";
 import { addEslintIgnore } from "./add-eslint-ignore.js";
 import { openDashboard } from "./open-dashboard.js";
+import { createTodoFile } from "./create-todo-file.js";
 import path from "path";
 
 /**
@@ -29,6 +30,11 @@ export const cli = async () => {
         value: "eslint-ignore",
         hint: "Disables collected errors for the file where they are used.",
       },
+      {
+        label: "(alpha)[todos] Collect TODOs",
+        value: "todo-collect",
+        hint: "Collect all TODOs found in the project on a file per file basis.",
+      },
     ],
   });
   switch (action) {
@@ -40,6 +46,9 @@ export const cli = async () => {
       break;
     case "eslint-ignore":
       addEslintIgnore();
+      break;
+    case "todo-collect":
+      createTodoFile(ruinsPath);
       break;
   }
 };
