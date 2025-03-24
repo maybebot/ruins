@@ -1,19 +1,20 @@
 const baseUrl = "http://localhost:3000/api";
 
 export const getErrors = async () => {
-  const x = await fetch(`${baseUrl}/files?sortBy=error`);
-  const y = await x.json();
-  return y;
+  const res = await fetch(`${baseUrl}/files?sortBy=error`);
+  if (res.status === 204) return { data: false };
+
+  return res.json();
 };
 
 export const getGroupedErrors = async () => {
-  const x = await fetch(`${baseUrl}/files?grouped=1`);
-  const y = await x.json();
-  return y;
+  const res = await fetch(`${baseUrl}/files?grouped=1`);
+  if (res.status === 204) return { data: false };
+
+  return res.json();
 };
 
 export const getConfig = async () => {
-  const x = await fetch(`${baseUrl}/config`);
-  const res = await x.json();
-  return res;
+  const res = await fetch(`${baseUrl}/config`);
+  return res.json();
 };

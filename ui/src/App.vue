@@ -5,7 +5,7 @@
             <ErrorsPanel :loader="getErrors" name="Errors by file" />
         </Suspense>
         <Suspense>
-            <ErrorsPanel :loader="getGroupedErrors" name="Grouped errorrs" />
+            <ErrorsPanel :loader="getGroupedErrors" name="Grouped errors" />
         </Suspense>
     </main>
 </template>

@@ -9,8 +9,8 @@ export const getLintIssues = async () => {
   const cwdFromNpm = process.cwd().replace(/\/api/, "");
 
   const { config } = await loadConfig<RuinsEslintOutput>({
-    cwd: cwdFromNpm,
-    configFile: resolve(settings.dir, settings.files.eslintIssues),
+    cwd: resolve(cwdFromNpm, settings.dir),
+    configFile: settings.files.eslintIssues,
   });
   return config;
 };

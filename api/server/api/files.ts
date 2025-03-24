@@ -14,6 +14,12 @@ interface FilesRes {
 /** sortBy: error | warning | total, grouped */
 export default eventHandler(async (event): Promise<FilesRes> => {
   const lint = await $fetch("/api/data");
+  if (!lint.meta) {
+    throw createError({
+      status: 204,
+      statusMessage: "No file",
+    });
+  }
   const config = await getConfig();
 
   const params = new URLSearchParams(event.path.split("?")[1]);

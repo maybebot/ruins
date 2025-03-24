@@ -5,7 +5,8 @@
         <pyro-box>
             <FilterBar @input="setFilter" />
             <pyro-scrollbox style="height: 100%">
-                <div v-for="error in filteredErrors" :key="error.id" class="errors-table">
+                <EmptyState v-if="noData" />
+                <div v-else v-for="error in filteredErrors" :key="error.id" class="errors-table">
                     <div>{{ error.name }}</div>
                     <div>{{ error.total }}</div>
                 </div>
@@ -17,6 +18,7 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
 import FilterBar from './FilterBar.vue';
+import EmptyState from './EmptyState.vue';
 import 'pyro/scrollbox';
 
 const props = defineProps<{
@@ -25,6 +27,9 @@ const props = defineProps<{
 }>()
 
 const { data: errors } = await props.loader();
+const noData = computed(() => {
+    return errors === false;
+})
 
 const filter = ref('');
 const setFilter = (e) => {

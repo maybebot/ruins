@@ -27,7 +27,7 @@ import ASpacer from './ASpacer.vue';
 <style scoped>
 .header {
     font-size: 24px;
-    padding: var(--pyro-spacing);
+    padding: var(--pyro-spacing) 0;
     gap: var(--pyro-spacing);
 }
 

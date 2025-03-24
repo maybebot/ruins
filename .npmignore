@@ -3,3 +3,4 @@ api/.data
 api/.nitro
 api/.cache
 .env
+scripts
