@@ -7,13 +7,16 @@
         <Suspense>
             <ErrorsPanel :loader="getGroupedErrors" name="Grouped errors" />
         </Suspense>
+        <Suspense>
+            <ErrorsPanel :loader="getTodos" name="TODOs" />
+        </Suspense>
     </main>
 </template>
 
 <script setup lang="ts">
 import TheHeader from './components/TheHeader.vue'
 import ErrorsPanel from './components/ErrorsPanel.vue';
-import { getErrors, getGroupedErrors } from './api/api';
+import { getErrors, getGroupedErrors, getTodos } from './api/api';
 import 'pyro/pyro.css';
 import 'pyro/skeleton'
 
