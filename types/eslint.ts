@@ -1,3 +1,5 @@
+import type { RuinsMeta } from "./ruins.js";
+
 export type EslintOutput = Array<{
   filePath: string;
   messages: EslintMessage[];
@@ -23,6 +25,7 @@ export interface EslintMessage {
   endColumn: number;
 }
 export type RuinsEslintOutput = {
+  meta: RuinsMeta;
   issues: {
     filePath: string;
     messages: RuinsEslintMessage[];

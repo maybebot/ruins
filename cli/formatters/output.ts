@@ -3,6 +3,9 @@ import type { EslintOutput, RuinsEslintOutput } from "../../types/eslint.js";
 export default (output: EslintOutput) => {
   const projectDir = process.cwd();
   const res: RuinsEslintOutput = {
+    meta: {
+      timestamp: Date.now(),
+    },
     issues: output
       .filter((r) => r.messages.length > 0)
       .map((r) => ({
