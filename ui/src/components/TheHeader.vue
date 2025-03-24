@@ -1,7 +1,7 @@
 <template>
     <header class="header">
         <pyro-box class="flex">
-            <GhostIcon />
+            <GhostIcon @mouseover="handleOnHover" :class="{ animated: isHovering }" />
             <span class="accent">Ruins</span>
             <ASpacer />
             <ConfigModal>
@@ -16,12 +16,21 @@
 </template>
 
 <script setup lang="ts">
+import { ref } from 'vue';
 import 'pyro/box';
 import ConfigModal from './ConfigModal.vue';
 import GhostIcon from '@/assets/ghost.svg';
 import GithubIcon from '@/assets/github.svg';
 import ConfigIcon from '@/assets/config.svg';
 import ASpacer from './ASpacer.vue';
+
+const isHovering = ref(false)
+const handleOnHover = () => {
+    isHovering.value = true;
+    setTimeout(() => {
+        isHovering.value = false;
+    }, 10000)
+}
 </script>
 
 <style scoped>
@@ -34,5 +43,33 @@ import ASpacer from './ASpacer.vue';
 pyro-box {
     width: 100%;
     gap: var(--pyro-spacing);
+}
+
+@keyframes moveUpShakeFade {
+    0% {
+        transform: translate(0, 0);
+        opacity: 1;
+    }
+
+    5% {
+        transform: translate(-10px, -10px);
+    }
+
+    10% {
+        transform: translate(10px, -20px);
+    }
+
+    15% {
+        transform: translate(-10px, -30px);
+    }
+
+    20% {
+        transform: translate(0, -40px);
+        opacity: 0;
+    }
+}
+
+.animated {
+    animation: moveUpShakeFade 10s ease-in-out;
 }
 </style>
