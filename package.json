@@ -5,7 +5,8 @@
     "ruins",
     "lint",
     "eslint",
-    "dashboard"
+    "migration",
+    "todos"
   ],
   "author": "Ian Bobinac",
   "repository": {
@@ -27,7 +28,7 @@
     "ui:preview": "cd ui && vite preview",
     "todo:build": "cd cli/todos && go build -o ../../dist/collect-todo main.go",
     "dev": "concurrently \"npm run api:dev\" \"npm run ui:dev\"",
-    "build": "tsc && cd ui && vite build && cd ../api && nitro build",
+    "build": "tsc && cd ui && vite build && cd ../api && nitro build && npm run todo:build",
     "try": "bash ./scripts/try.sh"
   },
   "dependencies": {
