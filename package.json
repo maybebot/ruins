@@ -37,8 +37,7 @@
     "consola": "^3.2.3",
     "http-server": "^14.1.1",
     "monogon": "^0.2.1",
-    "pyro": "^0.1.26",
-    "rollup-plugin-vue": "^6.0.0",
+    "pyro": "^0.1.27",
     "vite-svg-loader": "^5.1.0",
     "vue": "^3.5.13"
   },
