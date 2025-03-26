@@ -25,3 +25,10 @@ export const getTodos = async () => {
 
   return res.json();
 };
+
+export const getStructuredTodos = async () => {
+  const res = await fetch(`${baseUrl}/todos?structured=1`);
+  if (res.status === 204) return { data: false };
+
+  return res.json();
+};

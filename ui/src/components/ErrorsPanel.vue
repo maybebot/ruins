@@ -8,7 +8,15 @@
                 <EmptyState v-if="noData" />
                 <div v-else v-for="error in filteredErrors" :key="error.id" class="errors-table">
                     <div style="display: flex; gap: 0.5em">
-                        <component :is="getCountSvg(error.total)" style="opacity: 0.3" />{{ error.name }}
+                        <component :is="getCountSvg(error.total)" style="opacity: 0.3" />
+                        <div v-if="error.name">
+                            {{ error.name }}
+                        </div>
+                        <div v-else>
+                            <!-- TODO: this is horrible -->
+                            <span>{{ error.message }} <br> {{ error.filename }} <br>
+                                <code>{{ error.metadata }}</code></span>
+                        </div>
                     </div>
                     <div>{{ error.total }}</div>
                 </div>
@@ -18,6 +26,7 @@
 </template>
 
 <script setup lang="ts">
+// TODO(created=2025-03-26, author=ian): all of this is horribly written and unmaintanable
 import { computed, ref } from 'vue';
 import FilterBar from './FilterBar.vue';
 import EmptyState from './EmptyState.vue';
@@ -44,9 +53,15 @@ const setFilter = (e) => {
 }
 
 const filteredErrors = computed(() => {
-    return errors.filter((error) => {
-        return error.name.includes(filter.value);
-    });
+    try {
+
+        return errors.filter((error) => {
+            return error.name.includes(filter.value);
+        });
+    }
+    catch {
+        return errors;
+    }
 });
 
 const countMap = {
