@@ -12,6 +12,11 @@ export const cli = async () => {
   const ruinsPath = path.resolve(process.cwd(), "node_modules", "ruins");
   const binPath = path.resolve(process.cwd(), "node_modules", ".bin");
   consola.start("Preparing Ruins.");
+  prompt(ruinsPath, binPath);
+};
+
+const prompt = async (ruinsPath: string, binPath: string) => {
+  const rePrompt = () => setTimeout(() => prompt(ruinsPath, binPath), 600);
   const action = await consola.prompt("Ruins up and running", {
     type: "select",
     options: [
@@ -39,16 +44,20 @@ export const cli = async () => {
   });
   switch (action) {
     case "dashboard":
-      openDashboard(ruinsPath, binPath);
+      await openDashboard(ruinsPath, binPath);
+      rePrompt();
       break;
     case "eslint-collect":
-      createLintFile(ruinsPath, binPath);
+      await createLintFile(ruinsPath, binPath);
+      rePrompt();
       break;
     case "eslint-ignore":
-      addEslintIgnore();
+      await addEslintIgnore();
+      rePrompt();
       break;
     case "todo-collect":
-      createTodoFile(ruinsPath);
+      await createTodoFile(ruinsPath);
+      rePrompt();
       break;
   }
 };
