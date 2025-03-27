@@ -42,3 +42,8 @@ pyro-box.flex {
 .accent {
   color: var(--pyro-accent-color);
 }
+
+h2 {
+  font-size: 1.25em;
+  margin: 0;
+}

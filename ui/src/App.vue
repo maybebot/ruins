@@ -1,9 +1,7 @@
 <template>
     <TheHeader />
     <main>
-        <Suspense>
-            <ErrorsPanel :loader="getErrors" name="Errors by file" />
-        </Suspense>
+        <LintIssues />
         <Suspense>
             <ErrorsPanel :loader="getGroupedErrors" name="Grouped errors" />
         </Suspense>
@@ -19,10 +17,10 @@
 <script setup lang="ts">
 import TheHeader from './components/TheHeader.vue'
 import ErrorsPanel from './components/ErrorsPanel.vue';
-import { getErrors, getGroupedErrors, getTodos, getStructuredTodos } from './api/api';
+import { getGroupedErrors, getTodos, getStructuredTodos } from './api/api';
+import LintIssues from './components/LintIssues.vue';
 import 'pyro/pyro.css';
 import 'pyro/skeleton'
-
 </script>
 
 <style scoped>
