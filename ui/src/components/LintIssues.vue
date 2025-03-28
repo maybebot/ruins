@@ -16,9 +16,9 @@
 
 <script setup lang="ts">
 import { useLintIssues } from '../composables/useLintIssues';
-import Panel from './Panel.vue';
-import TheCounter from './TheCounter.vue';
-import EmptyState from './EmptyState.vue';
+import Panel from './atom/Panel.vue';
+import EmptyState from './atom/EmptyState.vue';
+import TheCounter from './molecule/TheCounter.vue';
 
 const { data, hasData } = useLintIssues();
 

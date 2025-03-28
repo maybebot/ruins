@@ -7,7 +7,6 @@ export function useLintIssues() {
   onMounted(async () => {
     const res = await getErrors();
     data.value = res?.data;
-    console.log("asdasda", data.value);
   });
 
   const hasData = computed(() => {

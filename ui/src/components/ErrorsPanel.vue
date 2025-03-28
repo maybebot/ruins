@@ -28,9 +28,9 @@
 <script setup lang="ts">
 // TODO(created=2025-03-26, author=ian): all of this is horribly written and unmaintanable
 import { computed, ref } from 'vue';
-import FilterBar from './FilterBar.vue';
-import EmptyState from './EmptyState.vue';
-import TheCounter from './TheCounter.vue'
+import EmptyState from './atom/EmptyState.vue';
+import FilterBar from './molecule/FilterBar.vue';
+import TheCounter from './molecule/TheCounter.vue'
 import 'pyro/scrollbox';
 
 const props = defineProps<{

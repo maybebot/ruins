@@ -1,5 +1,9 @@
 <template>
-    <TheHeader />
+    <TheHeader>
+        <ConfigModal>
+            <ConfigIcon />
+        </ConfigModal>
+    </TheHeader>
     <main>
         <LintIssues />
         <Suspense>
@@ -15,10 +19,12 @@
 </template>
 
 <script setup lang="ts">
-import TheHeader from './components/TheHeader.vue'
+import ConfigIcon from '@/assets/config.svg';
+import TheHeader from './components/molecule/TheHeader.vue'
 import ErrorsPanel from './components/ErrorsPanel.vue';
 import { getGroupedErrors, getTodos, getStructuredTodos } from './api/api';
 import LintIssues from './components/LintIssues.vue';
+import ConfigModal from './components/ConfigModal.vue';
 import 'pyro/pyro.css';
 import 'pyro/skeleton'
 </script>

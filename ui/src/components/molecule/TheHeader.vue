@@ -4,13 +4,10 @@
             <GhostIcon @mouseover="handleOnHover" :class="{ animated: isHovering }" />
             <span class="accent">Ruins</span>
             <ASpacer />
-            <ConfigModal>
-                <ConfigIcon />
-            </ConfigModal>
+            <slot></slot>
             <a href="https://github.com/maybebot/ruins">
                 <GithubIcon />
             </a>
-
         </pyro-box>
     </header>
 </template>
@@ -18,11 +15,9 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import 'pyro/box';
-import ConfigModal from './ConfigModal.vue';
 import GhostIcon from '@/assets/ghost.svg';
 import GithubIcon from '@/assets/github.svg';
-import ConfigIcon from '@/assets/config.svg';
-import ASpacer from './ASpacer.vue';
+import ASpacer from './../atom/ASpacer.vue';
 
 const isHovering = ref(false)
 const handleOnHover = () => {

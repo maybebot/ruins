@@ -11,16 +11,9 @@ import Count4 from '@/assets/count/4.svg';
 import Count5 from '@/assets/count/5.svg';
 
 const props = defineProps<{
-    total?: string;
+    total?: number;
 }>()
 
-const countMap = {
-    1: Count1,
-    2: Count2,
-    3: Count3,
-    4: Count4,
-    5: Count5,
-}
 const getCountSvg = (count) => {
     switch (count) {
         case 1:
@@ -33,7 +26,6 @@ const getCountSvg = (count) => {
             return Count4;
         default:
             return Count5;
-
     }
 }
 </script>
