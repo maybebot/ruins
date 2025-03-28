@@ -3,7 +3,7 @@ import type { RuinsTodos } from "../../../types/todos";
 import consola from "consola";
 
 export interface DataPoint {
-  name: string;
+  todo: string;
   total: number;
   data?: DataPoint[];
 }
@@ -41,7 +41,7 @@ export default eventHandler(async (event): Promise<FilesRes> => {
   }
 
   const data = Object.entries(todos).map((entry) => ({
-    name: entry[0],
+    todo: entry[0],
     total: entry[1].length,
   }));
   return { data };

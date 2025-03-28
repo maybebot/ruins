@@ -7,21 +7,17 @@
     <main>
         <LintIssues />
         <LintIssues grouped />
-        <Suspense>
-            <ErrorsPanel :loader="getTodos" name="TODOs" />
-        </Suspense>
-        <Suspense>
-            <ErrorsPanel :loader="getStructuredTodos" name="Structured TODOs" />
-        </Suspense>
+        <StructuredTodos />
+        <StructuredTodos structured />
     </main>
 </template>
 
 <script setup lang="ts">
 import ConfigIcon from '@/assets/config.svg';
 import TheHeader from './components/molecule/TheHeader.vue'
-import ErrorsPanel from './components/ErrorsPanel.vue';
 import { getGroupedErrors, getTodos, getStructuredTodos } from './api/api';
 import LintIssues from './components/LintIssues.vue';
+import StructuredTodos from './components/StructuredTodos.vue';
 import ConfigModal from './components/ConfigModal.vue';
 import 'pyro/pyro.css';
 import 'pyro/skeleton'
