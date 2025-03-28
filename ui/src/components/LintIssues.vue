@@ -1,5 +1,5 @@
 <template>
-    <Panel name="Lint issues">
+    <Panel :name="grouped ? 'Grouped lint issues' : 'Lint issues'">
         <EmptyState v-if="!hasData" />
         <div v-else style="gap: 0.5em">
             <article v-for="issue in data">
@@ -20,7 +20,11 @@ import Panel from './atom/Panel.vue';
 import EmptyState from './atom/EmptyState.vue';
 import TheCounter from './molecule/TheCounter.vue';
 
-const { data, hasData } = useLintIssues();
+const props = withDefaults(defineProps<{ grouped?: boolean }>(), {
+    grouped: false,
+})
+
+const { data, hasData } = useLintIssues(props.grouped);
 
 </script>
 

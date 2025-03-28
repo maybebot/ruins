@@ -6,9 +6,7 @@
     </TheHeader>
     <main>
         <LintIssues />
-        <Suspense>
-            <ErrorsPanel :loader="getGroupedErrors" name="Grouped errors" />
-        </Suspense>
+        <LintIssues grouped />
         <Suspense>
             <ErrorsPanel :loader="getTodos" name="TODOs" />
         </Suspense>

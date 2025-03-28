@@ -1,11 +1,12 @@
 import { ref, onMounted, computed } from "vue";
-import { getErrors } from "../api/api";
+import { getErrors, getGroupedErrors } from "../api/api";
 
-export function useLintIssues() {
+export function useLintIssues(grouped = false) {
   const data = ref();
 
   onMounted(async () => {
-    const res = await getErrors();
+    const fetchIssues = grouped ? getGroupedErrors : getErrors;
+    const res = await fetchIssues();
     data.value = res?.data;
   });
 
