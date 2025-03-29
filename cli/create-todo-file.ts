@@ -1,6 +1,12 @@
-import { execSync } from "child_process";
+import { exec } from "child_process";
+import { writeFile } from "node:fs/promises";
+import { promisify } from "node:util";
 import { getConfig } from "../config/getConfig.js";
 import { resolve } from "node:path";
+import consola from "consola";
+import type { RuinsOutput } from "../types/ruins.js";
+
+const execPromise = promisify(exec);
 
 /**
  * Create a file collecting all TODOs in the project
@@ -11,10 +17,31 @@ import { resolve } from "node:path";
 export const createTodoFile = async (ruinsPath: string) => {
   const settings = await getConfig();
   const outputFile = resolve(settings.dir, settings.files.todos);
-
+  const searchString = "// TODO";
   try {
-    await execSync(`${ruinsPath}/dist/collect-todo ./ ${outputFile}`);
+    const grepOutput = await execPromise(
+      `cd ${process.cwd()} && git grep -rn "${searchString}" *`
+    );
+    const formattedOutput = grepOutput.stdout
+      .split(/\r?\n/)
+      .map((line) => {
+        if (!line) return;
+        const file = line.split(":")[0];
+        const todo = line.split("//")[1];
+        return {
+          file: file,
+          todo: `//${todo}`,
+        };
+      })
+      .filter(Boolean);
+    const output: RuinsOutput = {
+      meta: {
+        timestamp: Date.now(),
+      },
+      data: formattedOutput,
+    };
+    await writeFile(outputFile, JSON.stringify(output, null, 2));
   } catch {
-    // It always has a non-zero exit code
+    consola.error("Something went wrong!");
   }
 };
