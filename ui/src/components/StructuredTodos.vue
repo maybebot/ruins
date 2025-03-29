@@ -1,5 +1,5 @@
 <template>
-    <Panel :name="structured ? 'Structured TODOs' : 'TODOs'">
+    <Panel :name="activeTab === 'structured' ? 'Structured TODOs' : 'TODOs'">
         <template #bar>
             <FilterBar @input="setFilter">
                 <pyro-tab-group>
@@ -15,17 +15,17 @@
         <section v-if="activeTab === 'structured'">
             <EmptyState v-if="!plain.hasData" />
             <div v-else style="gap: 0.5em">
-                <article v-for="issue in filteredStructured">
-                    <div v-if="issue?.todo">
+                <article v-for="todo in filteredStructured">
+                    <div v-if="todo?.todo">
                         <span style="opacity: 0.25">// </span>
-                        {{ issue.message }}
+                        {{ todo.message }}
                     </div>
                     <div style="flex: 1"></div>
-                    <div v-if="issue.metadata?.author" class="fixed-w">
-                        {{ '@' + issue.metadata?.author }}
+                    <div v-if="todo.metadata?.author" class="fixed-w">
+                        {{ '@' + todo.metadata?.author }}
                     </div>
-                    <div v-if="issue.metadata?.created" class="fixed-w">
-                        {{ getTimeAgo(issue.metadata?.created) }}
+                    <div v-if="todo.metadata?.created" class="fixed-w">
+                        {{ getTimeAgo(todo.metadata?.created) }}
                     </div>
                 </article>
             </div>

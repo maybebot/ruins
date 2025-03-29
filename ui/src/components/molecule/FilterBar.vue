@@ -1,8 +1,8 @@
 <template>
     <div class="filter-bar">
-        <pyro-textfield style="width: 100%" value="" placeholder="Search" clearable></pyro-textfield>
+        <pyro-textfield style="width: 100%" value="" placeholder="Filter" clearable></pyro-textfield>
         <slot></slot>
-        <pyro-button size="s">Filter</pyro-button>
+        <div class="spacer" />
     </div>
 </template>
 
@@ -18,5 +18,10 @@ const emits = defineEmits(['change']);
 .filter-bar {
     display: flex;
     justify-content: space-between;
+}
+
+.spacer {
+    width: 1em;
+    background-color: var(--pyro-surface-color);
 }
 </style>
