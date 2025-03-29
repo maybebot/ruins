@@ -41,6 +41,6 @@ article {
     display: flex;
     border-bottom: 1px solid #e5e7eb44;
     width: 100%;
-    padding: 0 var(--pyro-spacing);
+    padding: var(--pyro-spacing-s) var(--pyro-spacing);
 }
 </style>

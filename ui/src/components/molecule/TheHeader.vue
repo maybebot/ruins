@@ -2,7 +2,7 @@
     <header class="header">
         <pyro-box class="flex">
             <GhostIcon @mouseover="handleOnHover" :class="{ animated: isHovering }" />
-            <span class="accent">Ruins</span>
+            <span class="accent">ruins</span>
             <ASpacer />
             <slot></slot>
             <a href="https://github.com/maybebot/ruins">
