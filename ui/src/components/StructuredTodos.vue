@@ -1,7 +1,7 @@
 <template>
     <Panel :name="activeTab === 'structured' ? 'Structured TODOs' : 'TODOs'">
         <template #bar>
-            <FilterBar @input="setFilter">
+            <FilterBar :value="filter" @input="setFilter">
                 <pyro-tab-group>
                     <pyro-tab @click="activeTab = 'structured'" :selected="activeTab === 'structured'">
                         <StructuredIcon />

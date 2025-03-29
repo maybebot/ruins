@@ -1,12 +1,12 @@
 <template>
     <Panel :name="activeTab === 'grouped' ? 'Grouped lint issues' : 'Lint issues'">
         <template #bar>
-            <FilterBar @input="setFilter">
+            <FilterBar :value="filter" @input="onFilter">
                 <pyro-tab-group>
                     <pyro-tab @click="activeTab = 'plain'" :selected="activeTab === 'plain'">
                         <ListIcon />
                     </pyro-tab>
-                    <pyro-tab @click="activeTab = 'grouped'" :selected="activeTab === 'grouped'">
+                    <pyro-tab @click="changeTab('grouped')" :selected="activeTab === 'grouped'">
                         <FoldersIcon />
                     </pyro-tab>
                 </pyro-tab-group>
@@ -28,7 +28,7 @@
         <section v-if="activeTab === 'grouped'">
             <EmptyState v-if="!grouped?.hasData" />
             <div v-else style="gap: 0.5em">
-                <article v-for="issue in filteredGrouped">
+                <article v-for="issue in filteredGrouped" @click="setFilter(issue.name)">
                     <TheCounter :total="issue?.total" />
                     <div v-if="issue?.name">
                         {{ issue.name }}
@@ -58,17 +58,20 @@ import FilterBar from './molecule/FilterBar.vue'
 import ListIcon from '@/assets/list.svg';
 import FoldersIcon from '@/assets/folders.svg';
 
-// const props = withDefaults(defineProps<{ grouped?: boolean }>(), {
-//     grouped: false,
-// })
-
 const activeTab = ref<'grouped' | 'plain'>('plain')
+const changeTab = (tab: 'grouped' | 'plain') => {
+    activeTab.value = tab;
+    if (tab === 'grouped') {
+        filter.value = ''
+    }
+}
 
 const plain = useLintIssues();
 const grouped = useLintIssues(true);
 
 const filter = ref('');
-const setFilter = ({ target }) => { filter.value = target.value }
+const setFilter = (v) => { filter.value = v; changeTab('plain') }
+const onFilter = ({ target }) => { filter.value = target.value }
 
 const filteredPlain = computed(() => plain.data.value?.filter((error) => error.name?.includes(filter.value)));
 const filteredGrouped = computed(() => grouped.data.value.filter((error) => error.name.includes(filter.value)));
