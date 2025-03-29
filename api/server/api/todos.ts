@@ -12,6 +12,16 @@ const getStructured = (data: RuinsTodos) => {
   data.forEach((entry) => {
     structuredData.push({ ...parseTodo(entry.todo), filename: entry.file });
   });
+  structuredData.sort((a, b) => {
+    const dateA = a.metadata?.created
+      ? new Date(a.metadata.created).getTime()
+      : Infinity;
+    const dateB = b.metadata?.created
+      ? new Date(b.metadata.created).getTime()
+      : Infinity;
+
+    return dateA - dateB;
+  });
   return structuredData;
 };
 
