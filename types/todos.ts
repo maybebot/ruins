@@ -1,1 +1,1 @@
-export type RuinsTodos = Record<string, string[]>;
+export type RuinsTodos = Array<{ file: string; todo: string }>;

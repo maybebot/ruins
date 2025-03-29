@@ -5,6 +5,7 @@ import { getConfig } from "../config/getConfig.js";
 import { resolve } from "node:path";
 import consola from "consola";
 import type { RuinsOutput } from "../types/ruins.js";
+import type { RuinsTodos } from "../types/todos.js";
 
 const execPromise = promisify(exec);
 
@@ -33,8 +34,8 @@ export const createTodoFile = async (ruinsPath: string) => {
           todo: `//${todo}`,
         };
       })
-      .filter(Boolean);
-    const output: RuinsOutput = {
+      .filter((line) => line !== undefined);
+    const output: RuinsOutput<RuinsTodos> = {
       meta: {
         timestamp: Date.now(),
       },

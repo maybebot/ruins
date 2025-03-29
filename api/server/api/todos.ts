@@ -2,49 +2,34 @@ import { getTodos } from "../../../config/getTodos";
 import type { RuinsTodos } from "../../../types/todos";
 import consola from "consola";
 
-export interface DataPoint {
-  todo: string;
-  total: number;
-  data?: DataPoint[];
-}
-interface FilesRes {
-  data: DataPoint[] | false;
-}
-
 /**
  * Parse structured TODOs to their elements.
  * Example of structured TODO:
  * // TODO(anyKey=anyValye, anyKey= 2025-03-26): some normal todo message
  */
 const getStructured = (data: RuinsTodos) => {
-  let potatos = [];
-  Object.entries(data).forEach((entry) => {
-    entry[1].forEach((comment) => {
-      potatos.push({ ...parseTodo(comment), filename: entry[0] });
-    });
+  let structuredData = [];
+  data.forEach((entry) => {
+    structuredData.push({ ...parseTodo(entry.todo), filename: entry.file });
   });
-  return { data: potatos };
+  return structuredData;
 };
 
-export default eventHandler(async (event): Promise<FilesRes> => {
+export default eventHandler(async (event) => {
   const params = new URLSearchParams(event.path.split("?")[1]);
   const isStructured = Boolean(params.get("structured"));
 
   const todos = await getTodos();
-  if (!todos) {
+  if (!todos?.meta) {
     consola.error("Collection file not found, did you generate it?");
     return;
   }
 
   if (isStructured) {
-    return getStructured(todos);
+    todos.data = getStructured(todos.data);
   }
 
-  const data = Object.entries(todos).map((entry) => ({
-    todo: entry[0],
-    total: entry[1].length,
-  }));
-  return { data };
+  return todos;
 });
 
 /**
