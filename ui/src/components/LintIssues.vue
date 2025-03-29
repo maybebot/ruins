@@ -36,6 +36,13 @@
                     <div style="flex: 1"></div>
                     <div>{{ issue.total }}</div>
                 </article>
+                <article style="opacity: 0.5;">
+                    <div>
+                        In other places
+                    </div>
+                    <div style="flex: 1"></div>
+                    <div>{{ grouped.totals.value.total - grouped.totals.value.grouped }}</div>
+                </article>
             </div>
         </section>
     </Panel>

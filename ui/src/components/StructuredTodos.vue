@@ -72,7 +72,6 @@ const getTimeAgo = (d: string) => {
     const then = new Date(d);
     if (Number.isNaN(then)) return '-'
     const now = new Date();
-    console.log(then)
     const difference = Math.abs(now - then);
     const diffDays = Math.floor(difference / (1000 * 60 * 60 * 24) % 30.4);
     const diffMonths = Math.floor(difference / (1000 * 60 * 60 * 24 * 30.4));

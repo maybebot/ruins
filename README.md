@@ -57,6 +57,10 @@ export default {
   eslint: {
     preferOff: false, // disabled errors will be turned "off" instead of the default "error"
   },
+  group: {
+    // in the ui, shows these directories, grouping issues in them together
+    dirs: ["src/components/", "src/utils", "api/"],
+  },
 };
 ```
 

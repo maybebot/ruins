@@ -7,12 +7,9 @@ export interface DataPoint {
   total: number;
   data?: DataPoint[];
 }
-interface FilesRes {
-  data: DataPoint[] | false;
-}
 
 /** sortBy: error | warning | total, grouped */
-export default eventHandler(async (event): Promise<FilesRes> => {
+export default eventHandler(async (event) => {
   const lint = await $fetch("/api/data");
   if (!lint.meta) {
     throw createError({
@@ -53,7 +50,13 @@ export default eventHandler(async (event): Promise<FilesRes> => {
       }, [] as typeof data)
       .sort((a, b) => b[sortBy] - a[sortBy]);
 
-    return { data: grouped };
+    const totalGrouped = grouped.reduce((acc, entry) => acc + entry.total, 0);
+    const total = lint.issues.reduce(
+      (acc, entry) => acc + entry.messages.length,
+      0
+    );
+    const totals = { total, grouped: totalGrouped };
+    return { data: grouped, totals };
   }
 
   return { data };
