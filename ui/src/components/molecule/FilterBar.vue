@@ -1,6 +1,7 @@
 <template>
     <div class="filter-bar">
         <pyro-textfield style="width: 100%" value="" placeholder="Search" clearable></pyro-textfield>
+        <slot></slot>
         <pyro-button size="s">Filter</pyro-button>
     </div>
 </template>

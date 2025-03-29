@@ -8,7 +8,6 @@
         <LintIssues />
         <LintIssues grouped />
         <StructuredTodos />
-        <StructuredTodos structured />
     </main>
 </template>
 

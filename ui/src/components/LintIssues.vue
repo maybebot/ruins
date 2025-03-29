@@ -1,8 +1,10 @@
 <template>
     <Panel :name="grouped ? 'Grouped lint issues' : 'Lint issues'">
+        <template #bar>
+            <FilterBar @input="setFilter" />
+        </template>
         <EmptyState v-if="!hasData" />
         <div v-else style="gap: 0.5em">
-            <FilterBar @input="setFilter" />
             <article v-for="issue in filtered">
                 <TheCounter :total="issue?.total" />
                 <div v-if="issue?.name">

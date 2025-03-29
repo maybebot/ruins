@@ -1,8 +1,9 @@
 <template>
     <section>
         <h2>{{ name }}</h2>
+        <slot name="bar"></slot>
         <pyro-box>
-            <pyro-scrollbox style="height: 100%; max-height: 25vh">
+            <pyro-scrollbox style="height: 25vh">
                 <div class="errors-table">
                     <slot />
                 </div>
