@@ -73,7 +73,7 @@ const filter = ref('');
 const setFilter = (v) => { filter.value = v; changeTab('plain') }
 const onFilter = ({ target }) => { filter.value = target.value }
 
-const filteredPlain = computed(() => plain.data.value?.filter((error) => error.name?.includes(filter.value)));
+const filteredPlain = computed(() => plain.value?.filter((error) => error.name?.includes(filter.value)));
 const filteredGrouped = computed(() => grouped.data.value?.filter((error) => error.name.includes(filter.value)));
 </script>
 

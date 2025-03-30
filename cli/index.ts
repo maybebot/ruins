@@ -67,6 +67,7 @@ const prompt = async (ruinsPath: string, binPath: string) => {
       break;
     case "git-log-collect":
       await createGitLog();
+      rePrompt();
       break;
   }
 };

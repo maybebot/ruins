@@ -12,7 +12,7 @@ import consola from "consola";
 export const createLintFile = async (ruinsPath: string, binPath: string) => {
   const settings = await getConfig();
   const outputFile = resolve(settings.dir, settings.files.eslintIssues);
-  consola.info(`Searching ${settings.dir} for linting issues`);
+  consola.info(`Searching for linting issues`);
 
   try {
     await execSync(
