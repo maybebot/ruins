@@ -8,6 +8,7 @@ export interface RuinsOutput<T = any[]> {
     timestamp: number;
   };
   data: T;
+  totals?: any;
 }
 
 export type RuinsTodos = Array<{ file: string; todo: string }>;

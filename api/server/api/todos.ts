@@ -2,11 +2,11 @@ import { getTodos } from "../../../config/getTodos";
 import type { RuinsOutput, RuinsTodos } from "../../../types/ruins";
 import consola from "consola";
 
-interface PlainTodo {
+export interface PlainTodo {
   file: string;
   todo: string;
 }
-interface StructuredTodo {
+export interface StructuredTodo {
   todo: string;
   message: string;
   metadata: {

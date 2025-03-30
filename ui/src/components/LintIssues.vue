@@ -13,7 +13,7 @@
             </FilterBar>
         </template>
         <section v-if="activeTab === 'plain'">
-            <EmptyState v-if="!plain?.hasData" />
+            <EmptyState v-if="!hasData" />
             <div v-else style="gap: 0.5em">
                 <article v-for="issue in filteredPlain">
                     <TheCounter :total="issue?.total" />
@@ -26,7 +26,7 @@
             </div>
         </section>
         <section v-if="activeTab === 'grouped'">
-            <EmptyState v-if="!grouped?.hasData" />
+            <EmptyState v-if="!hasData" />
             <div v-else style="gap: 0.5em">
                 <article v-for="issue in filteredGrouped" @click="setFilter(issue.name)">
                     <TheCounter :total="issue?.total" />
@@ -66,7 +66,7 @@ const changeTab = (tab: 'grouped' | 'plain') => {
     }
 }
 
-const plain = useLintIssues();
+const { data: plain, hasData } = useLintIssues();
 const grouped = useLintIssues(true);
 
 const filter = ref('');
@@ -74,7 +74,7 @@ const setFilter = (v) => { filter.value = v; changeTab('plain') }
 const onFilter = ({ target }) => { filter.value = target.value }
 
 const filteredPlain = computed(() => plain.data.value?.filter((error) => error.name?.includes(filter.value)));
-const filteredGrouped = computed(() => grouped.data.value.filter((error) => error.name.includes(filter.value)));
+const filteredGrouped = computed(() => grouped.data.value?.filter((error) => error.name.includes(filter.value)));
 </script>
 
 <style scoped>

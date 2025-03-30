@@ -13,6 +13,7 @@
             </FilterBar>
         </template>
         <section v-if="activeTab === 'scope'">
+            <EmptyState v-if="!hasData" />
             <div style="gap: 0.5em">
                 <article v-for="item in filteredScope">
                     <div>{{ item.name }}</div>
@@ -48,12 +49,12 @@ import 'pyro/tab'
 
 const activeTab = ref<'scope' | 'type'>('scope')
 
-const { scope, type, hasData } = useGitlogs();
+const { data, hasData } = useGitlogs();
 const filter = ref('');
 const setFilter = ({ target }) => { filter.value = target.value }
 
-const filteredScope = computed(() => scope.value?.filter((item) => item.name?.includes(filter.value)));
-const filteredType = computed(() => type.value?.filter((item) => item.name?.includes(filter.value)));
+const filteredScope = computed(() => data.value?.scope?.filter((item) => item.name?.includes(filter.value)));
+const filteredType = computed(() => data.value?.type.filter((item) => item.name?.includes(filter.value)));
 
 </script>
 

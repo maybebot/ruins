@@ -13,7 +13,7 @@
             </FilterBar>
         </template>
         <section v-if="activeTab === 'structured'">
-            <EmptyState v-if="!plain.hasData" />
+            <EmptyState v-if="!hasData" />
             <div v-else style="gap: 0.5em">
                 <article v-for="todo in filteredStructured">
                     <div v-if="todo?.todo">
@@ -31,7 +31,7 @@
             </div>
         </section>
         <section v-if="activeTab === 'plain'">
-            <EmptyState v-if="!structured.hasData" />
+            <EmptyState v-if="!hasData" />
             <div v-else style="gap: 0.5em">
                 <article v-for="issue in filteredPlain">
                     <div v-if="issue?.todo">
@@ -45,26 +45,27 @@
 
 <script setup lang="ts">
 import { computed, ref } from 'vue';
-import { useStructuredTodos } from '../composables/useStructuredTodos';
+import { useTodos } from '../composables/useTodos';
 import Panel from './atom/Panel.vue';
 import EmptyState from './atom/EmptyState.vue';
 import FilterBar from './molecule/FilterBar.vue'
 import ListIcon from '@/assets/list.svg';
 import StructuredIcon from '@/assets/structured.svg';
+import type { StructuredTodo, PlainTodo } from '../../../api/server/api/todos';
 import 'pyro/tab-group'
 import 'pyro/tab'
 
 
 const activeTab = ref<'structured' | 'plain'>('structured')
 
-const plain = useStructuredTodos();
-const structured = useStructuredTodos(true);
+const { data: plain, hasData } = useTodos();
+const { data: structured } = useTodos(true);
 
 const filter = ref('');
 const setFilter = ({ target }) => { filter.value = target.value }
 
-const filteredStructured = computed(() => structured.data.value?.filter((error) => error.todo?.includes(filter.value)));
-const filteredPlain = computed(() => plain.data.value?.filter((error) => error.todo?.includes(filter.value)));
+const filteredPlain = computed(() => plain.value?.filter((error) => error.todo?.includes(filter.value)) as PlainTodo[]);
+const filteredStructured = computed(() => structured.value?.filter((error) => error.todo?.includes(filter.value)) as StructuredTodo[]);
 
 // This in an approximation, and that's ok
 const getTimeAgo = (d: string) => {

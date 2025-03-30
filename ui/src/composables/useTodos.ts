@@ -2,8 +2,8 @@ import { ref, onMounted } from "vue";
 import { fetchy } from "../fetchy";
 import type { TodoRes } from "../../../api/server/api/todos";
 
-export function useStructuredTodos(structured = false) {
-  const data = ref();
+export function useTodos(structured = false) {
+  const data = ref<TodoRes["data"]>();
   const hasData = ref(true);
 
   onMounted(async () => {
@@ -15,6 +15,7 @@ export function useStructuredTodos(structured = false) {
       hasData.value = false;
       return res.data;
     }
+
     data.value = res?.data;
   });
 

@@ -1,4 +1,5 @@
 import { getConfig } from "../../../config/getConfig";
+import { RuinsOutput } from "../../../types/ruins";
 
 interface Issue {
   name: string;
@@ -8,13 +9,7 @@ interface Issue {
   data?: Issue[];
 }
 
-export interface FilesRes {
-  data: Issue[];
-  totals?: {
-    total: number;
-    grouped: number;
-  };
-}
+export type FilesRes = RuinsOutput<Issue[]>;
 
 /** sortBy: error | warning | total, grouped */
 export default eventHandler(async (event): Promise<FilesRes> => {
