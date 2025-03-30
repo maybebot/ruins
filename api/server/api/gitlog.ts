@@ -1,7 +1,15 @@
-import { getGitlog } from "../../../config/getGitlog";
 import consola from "consola";
+import type { RuinsOutput } from "../../../types/ruins";
+import { getGitlog } from "../../../config/getGitlog";
 
-export default eventHandler(async (event) => {
+export type GitlogEntry = { name: string; total: number }[];
+
+export type GitlogRes = RuinsOutput<{
+  scope: GitlogEntry;
+  type: GitlogEntry;
+}>;
+
+export default eventHandler(async (event): Promise<GitlogRes> => {
   const gitlog = await getGitlog();
   if (!gitlog?.meta) {
     consola.error("[gitlog] Collection file not found, did you generate it?");

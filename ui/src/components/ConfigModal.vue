@@ -21,12 +21,13 @@ import 'pyro/dialog';
 import 'pyro/button';
 import 'pyro/scrollbox';
 import MonogonCode from 'monogon/vue';
-import { getConfig } from '../api/api';
+import { fetchy } from '../fetchy';
 
 const config = ref('');
 const editedConfig = ref('');
 
-getConfig().then((data) => {
+
+fetchy('/config').then((data) => {
     const parsed = JSON.stringify(JSON.parse(JSON.stringify(data)), null, 2);
     config.value = parsed;
     editedConfig.value = parsed;

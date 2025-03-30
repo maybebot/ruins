@@ -1,15 +1,10 @@
-import { ref, onMounted, computed } from "vue";
+import { ref, onMounted } from "vue";
 import { fetchy } from "../fetchy";
-
-type GitlogInfo = { name: string; total: number }[];
-interface GitlogRes {
-  scope: GitlogInfo;
-  type: GitlogInfo;
-}
+import type { GitlogRes, GitlogEntry } from "../../../api/server/api/gitlog";
 
 export function useGitlogs() {
-  const scope = ref<GitlogInfo>();
-  const type = ref<GitlogInfo>();
+  const scope = ref<GitlogEntry>();
+  const type = ref<GitlogEntry>();
   const hasData = ref(true);
 
   onMounted(async () => {

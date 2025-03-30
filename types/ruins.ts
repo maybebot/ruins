@@ -4,7 +4,7 @@ export interface RuinsMeta {
 
 /** Standard output of files in .ruins */
 export interface RuinsOutput<T = any[]> {
-  meta: {
+  meta?: {
     timestamp: number;
   };
   data: T;

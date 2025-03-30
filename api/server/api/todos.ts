@@ -1,6 +1,40 @@
 import { getTodos } from "../../../config/getTodos";
 import type { RuinsTodos } from "../../../types/todos";
+import type { RuinsOutput } from "../../../types/ruins";
 import consola from "consola";
+
+interface PlainTodo {
+  file: string;
+  todo: string;
+}
+interface StructuredTodo {
+  todo: string;
+  message: string;
+  metadata: {
+    created: string;
+    author: string;
+  };
+  filename: string;
+}
+
+export type TodoRes = RuinsOutput<PlainTodo[] | StructuredTodo[]>;
+
+export default eventHandler(async (event): Promise<TodoRes> => {
+  const params = new URLSearchParams(event.path.split("?")[1]);
+  const isStructured = Boolean(params.get("structured"));
+
+  const todos = await getTodos();
+  if (!todos?.meta) {
+    consola.error("[todos] Collection file not found, did you generate it?");
+    return;
+  }
+
+  if (isStructured) {
+    todos.data = getStructured(todos.data);
+  }
+
+  return todos;
+});
 
 /**
  * Parse structured TODOs to their elements.
@@ -24,23 +58,6 @@ const getStructured = (data: RuinsTodos) => {
   });
   return structuredData;
 };
-
-export default eventHandler(async (event) => {
-  const params = new URLSearchParams(event.path.split("?")[1]);
-  const isStructured = Boolean(params.get("structured"));
-
-  const todos = await getTodos();
-  if (!todos?.meta) {
-    consola.error("[todos] Collection file not found, did you generate it?");
-    return;
-  }
-
-  if (isStructured) {
-    todos.data = getStructured(todos.data);
-  }
-
-  return todos;
-});
 
 /**
  * Parses a TODO comment into meaningful pieces.

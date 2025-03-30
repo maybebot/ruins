@@ -1,15 +1,23 @@
 import { getConfig } from "../../../config/getConfig";
 
-export interface DataPoint {
+interface Issue {
   name: string;
   error: number;
   warning: number;
   total: number;
-  data?: DataPoint[];
+  data?: Issue[];
+}
+
+export interface FilesRes {
+  data: Issue[];
+  totals?: {
+    total: number;
+    grouped: number;
+  };
 }
 
 /** sortBy: error | warning | total, grouped */
-export default eventHandler(async (event) => {
+export default eventHandler(async (event): Promise<FilesRes> => {
   const lint = await $fetch("/api/data");
   if (!lint.meta) {
     throw createError({
@@ -37,7 +45,7 @@ export default eventHandler(async (event) => {
 
   if (isGrouped && config?.group?.dirs) {
     const grouped = config.group.dirs
-      .reduce((acc: DataPoint[], dir) => {
+      .reduce((acc: Issue[], dir) => {
         const files = data.filter((f) => f.name.startsWith(dir));
         acc.push({
           name: dir,
