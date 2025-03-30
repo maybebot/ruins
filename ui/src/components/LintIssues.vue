@@ -1,7 +1,7 @@
 <template>
     <Panel :name="activeTab === 'grouped' ? 'Grouped lint issues' : 'Lint issues'">
         <template #bar>
-            <FilterBar :value="filter" @input="onFilter">
+            <FilterBar :value="filter" @input="onFilter" @clear="filter = ''">
                 <pyro-tab-group>
                     <pyro-tab @click="activeTab = 'plain'" :selected="activeTab === 'plain'">
                         <ListIcon />
@@ -41,7 +41,7 @@
                         In other places
                     </div>
                     <div style="flex: 1"></div>
-                    <div>{{ grouped.totals.value.total - grouped.totals.value.grouped }}</div>
+                    <div>{{ grouped.totals.value?.total - grouped.totals.value?.grouped }}</div>
                 </article>
             </div>
         </section>
@@ -80,7 +80,7 @@ const filteredGrouped = computed(() => grouped.data.value?.filter((error) => err
 <style scoped>
 article {
     display: flex;
-    border-bottom: 1px solid #e5e7eb44;
+    border-bottom: 1px solid var(--pyro-border-color);
     width: 100%;
     padding: var(--pyro-spacing-s) var(--pyro-spacing);
 }

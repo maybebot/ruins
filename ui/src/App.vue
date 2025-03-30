@@ -8,6 +8,7 @@
         <LintIssues />
         <StructuredTodos />
         <Gitlogs />
+        <div style="height: 5vh"></div>
     </main>
 </template>
 

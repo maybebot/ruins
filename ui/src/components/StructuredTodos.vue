@@ -1,7 +1,7 @@
 <template>
     <Panel :name="activeTab === 'structured' ? 'Structured TODOs' : 'TODOs'">
         <template #bar>
-            <FilterBar :value="filter" @input="setFilter">
+            <FilterBar :value="filter" @input="setFilter" @clear="filter = ''">
                 <pyro-tab-group>
                     <pyro-tab @click="activeTab = 'structured'" :selected="activeTab === 'structured'">
                         <StructuredIcon />
@@ -83,7 +83,7 @@ const getTimeAgo = (d: string) => {
 <style scoped>
 article {
     display: flex;
-    border-bottom: 1px solid #e5e7eb44;
+    border-bottom: 1px solid var(--pyro-border-color);
     width: 100%;
     padding: var(--pyro-spacing-s) var(--pyro-spacing);
 }

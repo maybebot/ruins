@@ -8,7 +8,7 @@
 
 <style scoped>
 .empty-space {
-    height: 12vh;
+    height: 25vh;
     width: 100%;
     display: flex;
     justify-content: center;

@@ -1,13 +1,13 @@
 <template>
     <Panel :name="activeTab === 'scope' ? 'Scope' : 'Type'">
         <template #bar>
-            <FilterBar :value="filter" @input="setFilter">
+            <FilterBar :value="filter" @input="setFilter" @clear="filter = ''">
                 <pyro-tab-group>
                     <pyro-tab @click="activeTab = 'scope'" :selected="activeTab === 'scope'">
-                        <StructuredIcon />
+                        <PackageIcon />
                     </pyro-tab>
                     <pyro-tab @click="activeTab = 'type'" :selected="activeTab === 'type'">
-                        <ListIcon />
+                        <CommitIcon />
                     </pyro-tab>
                 </pyro-tab-group>
             </FilterBar>
@@ -41,8 +41,8 @@ import { useGitlogs } from '../composables/useGitlogs';
 import Panel from './atom/Panel.vue';
 import EmptyState from './atom/EmptyState.vue';
 import FilterBar from './molecule/FilterBar.vue'
-import ListIcon from '@/assets/list.svg';
-import StructuredIcon from '@/assets/structured.svg';
+import PackageIcon from '@/assets/package.svg';
+import CommitIcon from '@/assets/commit.svg';
 import 'pyro/tab-group'
 import 'pyro/tab'
 
@@ -61,7 +61,7 @@ const filteredType = computed(() => data.value?.type.filter((item) => item.name?
 <style scoped>
 article {
     display: flex;
-    border-bottom: 1px solid #e5e7eb44;
+    border-bottom: 1px solid var(--pyro-border-color);
     width: 100%;
     padding: var(--pyro-spacing-s) var(--pyro-spacing);
 }

@@ -1,5 +1,8 @@
 <template>
     <div class="filter-bar">
+        <pyro-button size="s" @click="emit('clear')" :disabled="value === ''">
+            <FilterIcon />
+        </pyro-button>
         <pyro-textfield style="width: 100%" :value="value" placeholder="Filter" clearable></pyro-textfield>
         <slot></slot>
         <div class="spacer" />
@@ -9,12 +12,13 @@
 <script setup lang="ts">
 import 'pyro/textfield';
 import 'pyro/button';
+import FilterIcon from '@/assets/filter.svg';
 
 withDefaults(defineProps<{ value?: string }>(), {
     value: '',
 })
 
-const emits = defineEmits(['change']);
+const emit = defineEmits(['change', 'clear']);
 
 </script>
 
@@ -22,10 +26,27 @@ const emits = defineEmits(['change']);
 .filter-bar {
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    background-color: var(--pyro-surface-color);
+
+    --pyro-disabled-color: none;
+    --pyro-button-border: none;
 }
 
 .spacer {
     width: 1em;
-    background-color: var(--pyro-surface-color);
+}
+
+pyro-textfield:hover {
+    --pyro-surface-color: #9991;
+}
+
+pyro-textfield {
+    --pyro-textfield-border: none;
+    margin: 0 1em;
+}
+
+pyro-button[disabled] {
+    color: var(--pyro-border-color);
 }
 </style>

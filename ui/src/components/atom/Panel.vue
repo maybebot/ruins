@@ -21,6 +21,9 @@ defineProps<{ name?: string; }>()
 
 <style scoped>
 pyro-box {
-    --pyro-box-border: 1px solid #e5e7eb44;
+    --pyro-box-border: 1px solid var(--pyro-border-color);
+    border-top: none;
+    background-color: #292a2d11;
+
 }
 </style>
