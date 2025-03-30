@@ -7,6 +7,9 @@ const baseConfig: RuinsConfig = {
     /** turns ignored from error to off, instead of default warn */
     preferOff: false,
   },
+  gitlog: {
+    months: 3,
+  },
 };
 
 const staticConfig = {
@@ -14,6 +17,7 @@ const staticConfig = {
     eslintIssues: "eslint-issues.json",
     eslintIgnores: "eslint-ignores.js",
     todos: "todos.json",
+    gitlog: "gitlog.json",
   },
 };
 
@@ -38,5 +42,8 @@ export interface RuinsConfig {
   };
   group?: {
     dirs: string[];
+  };
+  gitlog: {
+    months: 1 | 2 | 3 | 4 | 5 | 6;
   };
 }

@@ -9,3 +9,10 @@ export interface RuinsOutput<T = any[]> {
   };
   data: T;
 }
+
+export type RuinsGitlog = Array<{
+  hash: string;
+  email: string;
+  message: string;
+  date: string;
+}>;

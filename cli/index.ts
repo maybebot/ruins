@@ -3,6 +3,7 @@ import { createLintFile } from "./create-lint-file.js";
 import { addEslintIgnore } from "./add-eslint-ignore.js";
 import { openDashboard } from "./open-dashboard.js";
 import { createTodoFile } from "./create-todo-file.js";
+import { createGitLog } from "./create-git-log.js";
 import path from "path";
 
 /**
@@ -40,6 +41,11 @@ const prompt = async (ruinsPath: string, binPath: string) => {
         value: "todo-collect",
         hint: "Collect all TODOs found in the project on a file per file basis.",
       },
+      {
+        label: "(alpha)[git] Collect conventional commits",
+        value: "git-log-collect",
+        hint: "Collect recent git conventional commits for analysis, 3 months by default",
+      },
     ],
   });
   switch (action) {
@@ -58,6 +64,9 @@ const prompt = async (ruinsPath: string, binPath: string) => {
     case "todo-collect":
       await createTodoFile(ruinsPath);
       rePrompt();
+      break;
+    case "git-log-collect":
+      await createGitLog(ruinsPath);
       break;
   }
 };
