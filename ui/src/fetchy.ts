@@ -1,5 +1,3 @@
-import type { RuinsOutput } from "../../types/ruins";
-
 const baseUrl = "http://localhost:3000/api";
 
 export const fetchy = async <T>(url): Promise<T | { data: false }> => {

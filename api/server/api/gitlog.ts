@@ -9,7 +9,7 @@ export type GitlogRes = RuinsOutput<{
   type: GitlogEntry;
 }>;
 
-export default eventHandler(async (event): Promise<GitlogRes> => {
+export default eventHandler(async (): Promise<GitlogRes> => {
   const gitlog = await getGitlog();
   if (!gitlog?.meta) {
     consola.error("[gitlog] Collection file not found, did you generate it?");

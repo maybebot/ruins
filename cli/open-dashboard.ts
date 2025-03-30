@@ -1,5 +1,4 @@
 import consola from "consola";
-import path from "path";
 import { exec } from "child_process";
 
 /**

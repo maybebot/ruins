@@ -15,7 +15,7 @@ const execPromise = promisify(exec);
  * @param {string} ruinsPath - path to Ruins project directory
  * @returns {Promise<void>}
  */
-export const createTodoFile = async (ruinsPath: string) => {
+export const createTodoFile = async () => {
   const settings = await getConfig();
   const outputFile = resolve(settings.dir, settings.files.todos);
   const searchString = "// TODO";

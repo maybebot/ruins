@@ -62,11 +62,11 @@ const prompt = async (ruinsPath: string, binPath: string) => {
       rePrompt();
       break;
     case "todo-collect":
-      await createTodoFile(ruinsPath);
+      await createTodoFile();
       rePrompt();
       break;
     case "git-log-collect":
-      await createGitLog(ruinsPath);
+      await createGitLog();
       break;
   }
 };
