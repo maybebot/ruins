@@ -1,5 +1,8 @@
 <template>
-    <Panel :name="activeTab === 'structured' ? 'Structured TODOs' : 'TODOs'">
+    <Panel>
+        <template #title>
+            <PickaxeIcon />{{ activeTab === 'structured' ? 'Structured TODOs' : 'TODOs' }}
+        </template>
         <template #bar>
             <FilterBar :value="filter" @input="setFilter" @clear="filter = ''">
                 <pyro-tab-group>
@@ -51,6 +54,7 @@ import EmptyState from './atom/EmptyState.vue';
 import FilterBar from './molecule/FilterBar.vue'
 import ListIcon from '@/assets/list.svg';
 import StructuredIcon from '@/assets/structured.svg';
+import PickaxeIcon from '@/assets/pickaxe.svg';
 import type { StructuredTodo, PlainTodo } from '../../../api/server/api/todos';
 import 'pyro/tab-group'
 import 'pyro/tab'

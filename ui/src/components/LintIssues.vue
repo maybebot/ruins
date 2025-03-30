@@ -1,5 +1,8 @@
 <template>
-    <Panel :name="activeTab === 'grouped' ? 'Grouped lint issues' : 'Lint issues'">
+    <Panel>
+        <template #title>
+            <SwordsIcon /> {{ activeTab === 'grouped' ? 'Grouped lint issues' : 'Lint issues' }}
+        </template>
         <template #bar>
             <FilterBar :value="filter" @input="onFilter" @clear="filter = ''">
                 <pyro-tab-group>
@@ -56,6 +59,7 @@ import EmptyState from './atom/EmptyState.vue';
 import TheCounter from './molecule/TheCounter.vue';
 import FilterBar from './molecule/FilterBar.vue'
 import ListIcon from '@/assets/list.svg';
+import SwordsIcon from '@/assets/swords.svg';
 import FoldersIcon from '@/assets/folders.svg';
 
 const activeTab = ref<'grouped' | 'plain'>('plain')

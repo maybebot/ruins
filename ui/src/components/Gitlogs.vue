@@ -1,5 +1,8 @@
 <template>
-    <Panel :name="activeTab === 'scope' ? 'Scope' : 'Type'">
+    <Panel>
+        <template #title>
+            <CompassIcon />{{ activeTab === 'scope' ? 'Scope' : 'Type' }}
+        </template>
         <template #bar>
             <FilterBar :value="filter" @input="setFilter" @clear="filter = ''">
                 <pyro-tab-group>
@@ -43,6 +46,7 @@ import EmptyState from './atom/EmptyState.vue';
 import FilterBar from './molecule/FilterBar.vue'
 import PackageIcon from '@/assets/package.svg';
 import CommitIcon from '@/assets/commit.svg';
+import CompassIcon from '@/assets/compass.svg';
 import 'pyro/tab-group'
 import 'pyro/tab'
 

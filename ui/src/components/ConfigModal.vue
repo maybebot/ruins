@@ -3,12 +3,12 @@
         <div slot="action">
             <slot></slot>
         </div>
-        <div slot="content">
+        <div slot="content" style="min-width: 50vw">
             <div style="padding: var(--pyro-spacing);">
                 Your config:
             </div>
             <pyro-scrollbox>
-                <MonogonCode :content="config" lang="json" @input="handleChange" />
+                <MonogonCode :content="config" lang="json" @input="handleChange" style="width: 100%" />
             </pyro-scrollbox>
             <pyro-button :disabled="!hasConfigChanged" @click="saveChanges">Save</pyro-button>
         </div>

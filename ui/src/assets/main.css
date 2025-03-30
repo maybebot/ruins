@@ -10,12 +10,15 @@ body {
 
   --pyro-border-radius: 0;
   --pyro-accent-color: #8558ff;
+
+  --pyro-scrollbox-bar-color: var(--pyro-text-color);
+  --pyro-scrollbox-background: var(--pyro-surface-color);
 }
 #app {
   display: flex;
   justify-content: center;
   flex-direction: column;
-  width: min(90%, 1200px);
+  width: 95%;
   margin: 0 auto;
 }
 

@@ -1,6 +1,8 @@
 <template>
     <section>
-        <h2>{{ name }}</h2>
+        <h2>
+            <slot name="title" />
+        </h2>
         <slot name="bar"></slot>
         <pyro-box>
             <pyro-scrollbox unstable style="height: 25vh">
@@ -14,12 +16,14 @@
 
 <script setup lang="ts">
 import 'pyro/scrollbox';
-
-defineProps<{ name?: string; }>()
-
 </script>
 
 <style scoped>
+h2 {
+    display: flex;
+    gap: 0.5em;
+}
+
 pyro-box {
     --pyro-box-border: 1px solid var(--pyro-border-color);
     border-top: none;

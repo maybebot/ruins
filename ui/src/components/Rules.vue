@@ -1,5 +1,8 @@
 <template>
-    <Panel name="Lint rules">
+    <Panel>
+        <template #title>
+            <ShieldIcon />Lint rules
+        </template>
         <template #bar>
             <FilterBar :value="filter" @input="setFilter" @clear="filter = ''" />
         </template>
@@ -20,6 +23,7 @@
 import { computed, ref } from 'vue';
 import { useRules } from '../composables/useRules';
 import Panel from './atom/Panel.vue';
+import ShieldIcon from '@/assets/shield.svg';
 import EmptyState from './atom/EmptyState.vue';
 import FilterBar from './molecule/FilterBar.vue'
 
