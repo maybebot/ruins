@@ -7,6 +7,7 @@
     <main>
         <LintIssues />
         <StructuredTodos />
+        <Gitlogs />
     </main>
 </template>
 
@@ -18,6 +19,7 @@ import StructuredTodos from './components/StructuredTodos.vue';
 import ConfigModal from './components/ConfigModal.vue';
 import 'pyro/pyro.css';
 import 'pyro/skeleton'
+import Gitlogs from './components/Gitlogs.vue';
 </script>
 
 <style scoped>

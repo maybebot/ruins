@@ -31,7 +31,7 @@ export default eventHandler(async (event) => {
 
   const todos = await getTodos();
   if (!todos?.meta) {
-    consola.error("Collection file not found, did you generate it?");
+    consola.error("[todos] Collection file not found, did you generate it?");
     return;
   }
 

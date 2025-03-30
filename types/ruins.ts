@@ -10,9 +10,16 @@ export interface RuinsOutput<T = any[]> {
   data: T;
 }
 
+export type RuinsTodos = Array<{ file: string; todo: string }>;
+
 export type RuinsGitlog = Array<{
   hash: string;
   email: string;
   message: string;
   date: string;
+  meta?: {
+    type: string;
+    scope: string;
+    description: string;
+  };
 }>;
