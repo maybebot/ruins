@@ -37,7 +37,7 @@ export type RuinsEslintOutput = {
   }[];
 };
 
-interface RuinsEslintMessage {
+export interface RuinsEslintMessage {
   ruleId: string;
   severity: 0 | 1 | 2;
   message: string;

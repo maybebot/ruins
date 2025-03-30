@@ -6,6 +6,7 @@
     </TheHeader>
     <main>
         <LintIssues />
+        <Rules />
         <StructuredTodos />
         <Gitlogs />
         <div style="height: 5vh"></div>
@@ -17,6 +18,7 @@ import ConfigIcon from '@/assets/config.svg';
 import TheHeader from './components/molecule/TheHeader.vue'
 import LintIssues from './components/LintIssues.vue';
 import StructuredTodos from './components/StructuredTodos.vue';
+import Rules from './components/Rules.vue';
 import ConfigModal from './components/ConfigModal.vue';
 import 'pyro/pyro.css';
 import 'pyro/skeleton'
