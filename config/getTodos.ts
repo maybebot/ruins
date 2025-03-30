@@ -1,7 +1,6 @@
 import { loadConfig } from "c12";
 import { getConfig } from "./getConfig.js";
-import { RuinsTodos } from "../types/todos.js";
-import type { RuinsOutput } from "../types/ruins.js";
+import type { RuinsOutput, RuinsTodos } from "../types/ruins.js";
 import { resolve } from "node:path";
 
 export const getTodos = async () => {

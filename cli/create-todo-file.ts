@@ -4,8 +4,7 @@ import { promisify } from "node:util";
 import { getConfig } from "../config/getConfig.js";
 import { resolve } from "node:path";
 import consola from "consola";
-import type { RuinsOutput } from "../types/ruins.js";
-import type { RuinsTodos } from "../types/todos.js";
+import type { RuinsOutput, RuinsTodos } from "../types/ruins.js";
 
 const execPromise = promisify(exec);
 

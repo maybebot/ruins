@@ -1,6 +1,5 @@
 import { getTodos } from "../../../config/getTodos";
-import type { RuinsTodos } from "../../../types/todos";
-import type { RuinsOutput } from "../../../types/ruins";
+import type { RuinsOutput, RuinsTodos } from "../../../types/ruins";
 import consola from "consola";
 
 interface PlainTodo {
