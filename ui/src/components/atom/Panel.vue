@@ -27,7 +27,6 @@ h2 {
 pyro-box {
     --pyro-box-border: 1px solid var(--pyro-border-color);
     border-top: none;
-    background-color: #292a2d11;
-
+    background-color: #191919;
 }
 </style>

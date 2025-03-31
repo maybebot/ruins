@@ -29,7 +29,14 @@ import Gitlogs from './components/Gitlogs.vue';
 main {
     width: 100%;
     display: flex;
-    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: space-between;
     gap: var(--pyro-spacing);
+}
+
+main>* {
+    min-width: 48%;
+    margin-top: 1em;
+    flex: 1 0 auto;
 }
 </style>
