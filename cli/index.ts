@@ -27,17 +27,12 @@ const prompt = async (ruinsPath: string, binPath: string) => {
         hint: "Open a dashboard in the browser with linting errors state",
       },
       {
-        label: "[eslint] Collect errors",
-        value: "eslint-collect",
-        hint: "Collect all eslint errors of the project on a file per file basis.",
+        label: "[eslint] Collect linting errors",
+        value: "eslint-collect-ignore",
+        hint: "Collect project errors, create issues and ignore file",
       },
       {
-        label: "[eslint] Create ignores",
-        value: "eslint-ignore",
-        hint: "Disables collected errors for the file where they are used.",
-      },
-      {
-        label: "(alpha)[todos] Collect TODOs",
+        label: "(beta)[todos] Collect TODOs",
         value: "todo-collect",
         hint: "Collect all TODOs found in the project on a file per file basis.",
       },
@@ -53,11 +48,8 @@ const prompt = async (ruinsPath: string, binPath: string) => {
       await openDashboard(ruinsPath, binPath);
       rePrompt();
       break;
-    case "eslint-collect":
+    case "eslint-collect-ignore":
       await createLintFile(ruinsPath, binPath);
-      rePrompt();
-      break;
-    case "eslint-ignore":
       await addEslintIgnore();
       rePrompt();
       break;

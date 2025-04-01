@@ -32,9 +32,13 @@ export const addEslintIgnore = async () => {
     `export const ruinsIgnores = ${JSON.stringify(ignores, null, 2)}`
   );
   consola.success(
-    `Collected ignores in ${settings.dir}${settings.files.eslintIgnores}`
+    `Collected ignores in ${settings.dir}/${settings.files.eslintIgnores}`
   );
-  consola.info(
-    "Now import the file in your eslint config and spread it at the end of the flat config."
+  consola.box(
+    `Now import the ignore file in your eslint.config and spread the object at the end of it.
+
+    import ruinsIgnores from '${settings.dir}/${settings.files.eslintIgnores}';
+    // existing config
+    ...ruinsIgnores,`
   );
 };
