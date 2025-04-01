@@ -20,6 +20,12 @@
   },
   "module": "./dist/all.js",
   "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/config/index.d.ts",
+        "default": "./dist/config/index.js"
+      }
+    },
     "./rule-todo": {
       "import": "./dist/plugins/structured-todos.js"
     }

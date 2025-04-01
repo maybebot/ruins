@@ -25,7 +25,7 @@ export const getConfig = async () => {
   const cwdFromNpm = process.cwd().replace(/\/api/, "");
   const { config } = await loadConfig<RuinsConfig>({
     cwd: cwdFromNpm,
-    configFile: "ruins.config.js",
+    configFile: "ruins.config",
   });
   return {
     ...staticConfig,
@@ -50,3 +50,8 @@ export interface RuinsConfig {
     months: 1 | 2 | 3 | 4 | 5 | 6;
   };
 }
+
+type DeepPartial<T> = {
+  [P in keyof T]?: T[P] extends object ? DeepPartial<T[P]> : T[P];
+};
+export type UserRuinsConfig = DeepPartial<RuinsConfig>;

@@ -48,11 +48,13 @@ A UI dashboard can be lauched from the CLI. It's in a rudimentary state, but giv
 
 ## Config (beta)
 
-While ruins works out-of-the-box with no configuration, a growing list of aspects can be configured with a `ruins.config.js` file in your root directory.
+While ruins works out-of-the-box with no configuration, a growing list of aspects can be configured with a `ruins.config.js`(or `.ts`) file in your root directory.
 
-```js
-// ruins.config.js
-export default {
+```ts
+// ruins.config.ts
+import type { RuinsConfig } from 'ruins';
+
+const config: RuinsConfig = {
   dir: ".ruins", // directory where files are stored. Not recommended to .gitignore it
   eslint: {
     preferOff: false, // disabled errors will be turned "off" instead of the default "error"
@@ -63,6 +65,7 @@ export default {
     dirs: ["src/components/", "src/utils", "api/"],
   },
 };
+export default config
 ```
 
 ## Known issues
