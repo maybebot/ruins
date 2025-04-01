@@ -13,7 +13,7 @@ PACKAGE_FILE=$(ls *.tgz)
 
 echo "# Installing in pyro"
 cd ../pyro/
-npm install ../ruins/"$PACKAGE_FILE"
+npm install -D ../ruins/"$PACKAGE_FILE"
 cd ../ruins/
 
 
