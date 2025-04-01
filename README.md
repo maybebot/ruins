@@ -56,6 +56,7 @@ export default {
   dir: ".ruins", // directory where files are stored. Not recommended to .gitignore it
   eslint: {
     preferOff: false, // disabled errors will be turned "off" instead of the default "error"
+    filenameOnly: boolean; // identify files by filename only, not path. Inaccurate, useful only if making big directory changes
   },
   group: {
     // in the ui, shows these directories, grouping issues in them together

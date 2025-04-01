@@ -4,8 +4,8 @@ const baseConfig: RuinsConfig = {
   /** directory where ruins files are generated */
   dir: ".ruins/",
   eslint: {
-    /** turns ignored from error to off, instead of default warn */
     preferOff: false,
+    filenameOnly: false,
   },
   gitlog: {
     months: 3,
@@ -38,7 +38,10 @@ export const getConfig = async () => {
 export interface RuinsConfig {
   dir: string;
   eslint: {
+    /** turns ignored from error to off, instead of default warn */
     preferOff: boolean;
+    /** identify files by filename only, not path. Inaccurate, useful only if making big directory changes */
+    filenameOnly: boolean;
   };
   group?: {
     dirs: string[];

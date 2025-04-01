@@ -21,7 +21,11 @@ export const addEslintIgnore = async () => {
   consola.info("Looking at lint issues");
   const issues = await getLintIssues();
 
-  const ignores = getEslintIgnoreByFile(issues, settings.eslint.preferOff);
+  const ignores = getEslintIgnoreByFile(
+    issues,
+    settings.eslint.preferOff,
+    settings.eslint.filenameOnly
+  );
 
   await writeFile(
     ignoreFilePath,
