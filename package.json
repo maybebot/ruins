@@ -18,6 +18,12 @@
   "bin": {
     "ruins": "./cli.js"
   },
+  "module": "./dist/all.js",
+  "exports": {
+    "./rule-todo": {
+      "import": "./dist/plugins/structured-todos.js"
+    }
+  },
   "scripts": {
     "api:prepare": "cd api && nitro prepare",
     "api:build": "cd api && nitro build",
@@ -36,6 +42,7 @@
     "c12": "^2.0.1",
     "concurrently": "^9.1.2",
     "consola": "^3.2.3",
+    "eslint-plugin-structured-todo": "^0.2.2",
     "http-server": "^14.1.1",
     "monogon": "^0.2.2",
     "pyro": "^0.1.27",

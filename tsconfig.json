@@ -1,5 +1,5 @@
 {
-    "include": ["cli", "config"],
+    "include": ["cli", "config", "plugins"],
     "compilerOptions": {
       "target": "ES2020",
       "module": "NodeNext",
