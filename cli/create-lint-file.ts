@@ -16,7 +16,7 @@ export const createLintFile = async (ruinsPath: string, binPath: string) => {
 
   try {
     await execSync(
-      `${binPath}/eslint -o ${outputFile} -f ${ruinsPath}/dist/cli/formatters/output.js`
+      `${binPath}/eslint --quiet -o ${outputFile} -f ${ruinsPath}/dist/cli/formatters/output.js`
     );
     consola.success(
       `Collected issues in ${settings.dir}${settings.files.eslintIssues}`
