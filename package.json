@@ -39,9 +39,8 @@
     "ui:dev": "cd ui && vite",
     "ui:build": "cd ui && vite build",
     "ui:preview": "cd ui && vite preview",
-    "todo:build": "cd cli/todos && go build -o ../../dist/collect-todo main.go",
     "dev": "concurrently \"npm run api:dev\" \"npm run ui:dev\"",
-    "build": "tsc && cd ui && vite build && cd ../api && nitro build && npm run todo:build",
+    "build": "tsc && cd ui && vite build && cd ../api && nitro build",
     "try": "bash ./scripts/try.sh"
   },
   "dependencies": {
