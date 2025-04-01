@@ -1,7 +1,7 @@
 <template>
     <Panel>
         <template #title>
-            <CompassIcon />{{ activeTab === 'scope' ? 'Scope' : 'Type' }}
+            <CompassIcon style="opacity: 0.5" /> Commits <span style="opacity: 0.5">{{ activeTabText }}</span>
         </template>
         <template #bar>
             <FilterBar :value="filter" @input="setFilter" @clear="filter = ''">
@@ -52,6 +52,7 @@ import 'pyro/tab'
 
 
 const activeTab = ref<'scope' | 'type'>('scope')
+const activeTabText = computed(() => activeTab.value === 'scope' ? '/ Scope' : '/ Type')
 
 const { data, hasData } = useGitlogs();
 const filter = ref('');

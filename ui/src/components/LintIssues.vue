@@ -1,7 +1,7 @@
 <template>
     <Panel>
         <template #title>
-            <SwordsIcon /> {{ activeTab === 'grouped' ? 'Grouped lint issues' : 'Lint issues' }}
+            <SwordsIcon style="opacity: 0.5" /> Lint issues <span style="opacity: 0.5">{{ activeTabText }}</span>
         </template>
         <template #bar>
             <FilterBar :value="filter" @input="onFilter" @clear="filter = ''">
@@ -63,6 +63,7 @@ import SwordsIcon from '@/assets/swords.svg';
 import FoldersIcon from '@/assets/folders.svg';
 
 const activeTab = ref<'grouped' | 'plain'>('plain')
+const activeTabText = computed(() => activeTab.value === 'grouped' ? '/ Grouped' : '/ List')
 const changeTab = (tab: 'grouped' | 'plain') => {
     activeTab.value = tab;
     if (tab === 'grouped') {

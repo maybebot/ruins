@@ -1,7 +1,7 @@
 <template>
     <Panel>
         <template #title>
-            <ShieldIcon />Lint rules
+            <ShieldIcon style="opacity: 0.5" />Lint rules
         </template>
         <template #bar>
             <FilterBar :value="filter" @input="setFilter" @clear="filter = ''" />

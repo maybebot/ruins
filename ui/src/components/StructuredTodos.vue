@@ -1,7 +1,7 @@
 <template>
     <Panel>
         <template #title>
-            <PickaxeIcon />{{ activeTab === 'structured' ? 'Structured TODOs' : 'TODOs' }}
+            <PickaxeIcon style="opacity: 0.5" /> TODOs <span style="opacity: 0.5">{{ activeTabText }}</span>
         </template>
         <template #bar>
             <FilterBar :value="filter" @input="setFilter" @clear="filter = ''">
@@ -61,6 +61,7 @@ import 'pyro/tab'
 
 
 const activeTab = ref<'structured' | 'plain'>('structured')
+const activeTabText = computed(() => activeTab.value === 'structured' ? '/ Structured' : '/ List')
 
 const { data: plain, hasData } = useTodos();
 const { data: structured } = useTodos(true);

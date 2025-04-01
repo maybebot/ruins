@@ -31,11 +31,11 @@ main {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    gap: var(--pyro-spacing);
+    gap: 1em;
 }
 
 main>* {
-    min-width: 48%;
+    min-width: calc(50% - 1em);
     margin-top: 1em;
     flex: 1 0 auto;
 }
