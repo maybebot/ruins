@@ -17,36 +17,32 @@
         </template>
         <section v-if="activeTab === 'plain'">
             <EmptyState v-if="!hasData" />
-            <div v-else style="gap: 0.5em">
-                <article v-for="issue in filteredPlain">
-                    <TheCounter :total="issue?.total" />
-                    <div v-if="issue?.name">
-                        {{ issue.name }}
-                    </div>
-                    <div style="flex: 1"></div>
-                    <div>{{ issue.total }}</div>
-                </article>
-            </div>
+            <article v-for="issue in filteredPlain">
+                <TheCounter :total="issue?.total" />
+                <div v-if="issue?.name">
+                    {{ issue.name }}
+                </div>
+                <div style="flex: 1"></div>
+                <div>{{ issue.total }}</div>
+            </article>
         </section>
         <section v-if="activeTab === 'grouped'">
             <EmptyState v-if="!hasData" />
-            <div v-else style="gap: 0.5em">
-                <article v-for="issue in filteredGrouped" @click="setFilter(issue.name)">
-                    <TheCounter :total="issue?.total" />
-                    <div v-if="issue?.name">
-                        {{ issue.name }}
-                    </div>
-                    <div style="flex: 1"></div>
-                    <div>{{ issue.total }}</div>
-                </article>
-                <article style="opacity: 0.5;">
-                    <div>
-                        In other places
-                    </div>
-                    <div style="flex: 1"></div>
-                    <div>{{ grouped.totals.value?.total - grouped.totals.value?.grouped }}</div>
-                </article>
-            </div>
+            <article v-for="issue in filteredGrouped" @click="setFilter(issue.name)">
+                <TheCounter :total="issue?.total" />
+                <div v-if="issue?.name">
+                    {{ issue.name }}
+                </div>
+                <div style="flex: 1"></div>
+                <div>{{ issue.total }}</div>
+            </article>
+            <article style="opacity: 0.5;">
+                <div>
+                    In other places
+                </div>
+                <div style="flex: 1"></div>
+                <div>{{ grouped.totals.value?.total - grouped.totals.value?.grouped }}</div>
+            </article>
         </section>
     </Panel>
 </template>

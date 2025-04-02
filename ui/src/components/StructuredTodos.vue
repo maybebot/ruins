@@ -17,31 +17,27 @@
         </template>
         <section v-if="activeTab === 'structured'">
             <EmptyState v-if="!hasData" />
-            <div v-else style="gap: 0.5em">
-                <article v-for="todo in filteredStructured">
-                    <div v-if="todo?.todo">
-                        <span style="opacity: 0.25">// </span>
-                        {{ todo.message }}
-                    </div>
-                    <div style="flex: 1"></div>
-                    <div v-if="todo.metadata?.author" class="fixed-w">
-                        {{ '@' + todo.metadata?.author }}
-                    </div>
-                    <div v-if="todo.metadata?.created" class="fixed-w">
-                        {{ getTimeAgo(todo.metadata?.created) }}
-                    </div>
-                </article>
-            </div>
+            <article v-for="todo in filteredStructured">
+                <div v-if="todo?.todo">
+                    <span style="opacity: 0.25">// </span>
+                    {{ todo.message }}
+                </div>
+                <div style="flex: 1"></div>
+                <div v-if="todo.metadata?.author" class="fixed-w">
+                    {{ '@' + todo.metadata?.author }}
+                </div>
+                <div v-if="todo.metadata?.created" class="fixed-w">
+                    {{ getTimeAgo(todo.metadata?.created) }}
+                </div>
+            </article>
         </section>
         <section v-if="activeTab === 'plain'">
             <EmptyState v-if="!hasData" />
-            <div v-else style="gap: 0.5em">
-                <article v-for="issue in filteredPlain">
-                    <div v-if="issue?.todo">
-                        {{ issue.todo }}
-                    </div>
-                </article>
-            </div>
+            <article v-for="issue in filteredPlain">
+                <div v-if="issue?.todo">
+                    {{ issue.todo }}
+                </div>
+            </article>
         </section>
     </Panel>
 </template>

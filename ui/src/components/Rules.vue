@@ -8,13 +8,11 @@
         </template>
         <section>
             <EmptyState v-if="!hasData" />
-            <div style="gap: 0.5em">
-                <article v-for="item in filteredRules">
-                    <div>{{ item.name }}</div>
-                    <div style="flex: 1"></div>
-                    <div>{{ item.total }}</div>
-                </article>
-            </div>
+            <article v-for="item in filteredRules">
+                <div>{{ item.name }}</div>
+                <div style="flex: 1"></div>
+                <div>{{ item.total }}</div>
+            </article>
         </section>
     </Panel>
 </template>

@@ -6,9 +6,7 @@
         <slot name="bar"></slot>
         <pyro-box>
             <pyro-scrollbox unstable style="height: 25vh">
-                <div class="errors-table">
-                    <slot />
-                </div>
+                <slot />
             </pyro-scrollbox>
         </pyro-box>
     </section>
