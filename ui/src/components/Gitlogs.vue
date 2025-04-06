@@ -5,9 +5,10 @@
         </template>
         <template #bar>
             <FilterBar :value="filter" @input="setFilter" @clear="filter = ''">
-                <div class="icon" :class="{ selected: isBarchart }">
+                <div class="icon" :class="{ 'selected-icon': isBarchart }">
                     <BarchartIcon @click="isBarchart = !isBarchart" />
                 </div>
+                <div style="color: var(--pyro-border-color); margin: var(--pyro-spacing-s)">|</div>
                 <pyro-tab-group>
                     <pyro-tab @click="activeTab = 'scope'" :selected="activeTab === 'scope'">
                         <PackageIcon />
@@ -18,29 +19,31 @@
                 </pyro-tab-group>
             </FilterBar>
         </template>
-        <section v-if="activeTab === 'scope'">
+        <section v-if="activeTab === 'scope'" class="with-chart">
             <EmptyState v-if="!hasData" />
-            <article v-if="isBarchart" class="chart">
-                <nev-barchart :data="chartData.data" style="height: 100%; width: auto;"></nev-barchart>
-                {{ chartData.legend }}
-            </article>
-            <article v-else v-for="item in filteredScope">
-                <div>{{ item.name }}</div>
-                <div style="flex: 1"></div>
-                <div>{{ item.total }}</div>
-            </article>
+            <template v-else>
+                <div>
+                    <article v-for="item in filteredScope" :class="{ 'hovered-item': item.selected }">
+                        <div>{{ item.name }}</div>
+                        <div style="flex: 1"></div>
+                        <div>{{ item.total }}</div>
+                    </article>
+                </div>
+                <nev-barchart v-if="isBarchart" @mouseover="handleMouseover" :data="chartData"></nev-barchart>
+            </template>
         </section>
-        <section v-if="activeTab === 'type'">
+        <section v-if="activeTab === 'type'" class="with-chart">
             <EmptyState v-if="!hasData" />
-            <article v-if="isBarchart" class="chart">
-                <nev-barchart :data="chartData.data" style="height: 100%; width: auto;"></nev-barchart>
-                {{ chartData.legend }}
-            </article>
-            <article v-else v-for="item in filteredType">
-                <div>{{ item.name }}</div>
-                <div style="flex: 1"></div>
-                <div>{{ item.total }}</div>
-            </article>
+            <template v-else>
+                <div>
+                    <article v-for="item in filteredType" :class="{ 'hovered-item': item.selected }">
+                        <div>{{ item.name }}</div>
+                        <div style="flex: 1"></div>
+                        <div>{{ item.total }}</div>
+                    </article>
+                </div>
+                <nev-piechart v-if="isBarchart" @mouseover="handleMouseover" :data="chartData"></nev-piechart>
+            </template>
         </section>
     </Panel>
 </template>
@@ -59,46 +62,73 @@ import 'pyro/tab-group'
 import 'pyro/tab'
 import 'nevera';
 
+// TODO: solve this mess, to much repetition and looping on the same thing, consider abstracting
 
 const activeTab = ref<'scope' | 'type'>('scope')
 const activeTabText = computed(() => activeTab.value === 'scope' ? '/ Scope' : '/ Type')
-
-
-const isBarchart = ref(false)
-const mockData = [
-    { key: "A", value: 123 },
-    { key: "B", value: 444, fill: 'green' },
-    { key: "C", value: 222 },
-    { key: "D", value: 333 },
-];
-
+const isBarchart = ref(true)
 
 const { data, hasData } = useGitlogs();
 const filter = ref('');
 const setFilter = ({ target }) => { filter.value = target.value }
 
-const filteredScope = computed(() => data.value?.scope?.filter((item) => item.name?.includes(filter.value)));
-const filteredType = computed(() => data.value?.type.filter((item) => item.name?.includes(filter.value)));
+const hovered = ref();
 
+const filteredScope = computed(() => {
+    if (!data.value?.scope) return []
+    const filtered = data.value?.scope.filter((item) => item.name?.includes(filter.value))
+    return filtered.map((item) => {
+        return { ...item, selected: item.name === hovered.value }
+    })
+});
+const filteredType = computed(() => {
+    if (!data.value?.type) return []
+    const filtered = data.value?.type.filter((item) => item.name?.includes(filter.value))
+    return filtered.map((item) => {
+        return { ...item, selected: item.name === hovered.value }
+    })
+});
+
+const chartColors = ['#6a4aff', '#1fa96b', '#ff3366', '#3f5eff', '#d6aa00', '#ff5c00', '#ff1a1a'];
 const toChart = (data) => {
     if (!data || data.value) return []
 
-    return data.map(d => ({
+    return data.map((d, i) => ({
         key: d.name,
         value: d.total,
+        fill: `${chartColors[i % chartColors.length]}${hovered.value !== d.name ? '66' : ''}`, // apply opacity
     }))
 }
 const chartData = computed(() => {
-    const d = activeTab.value === 'scope' ? filteredScope.value : filteredType.value;
-    const forChart = toChart(d);
-    return {
-        data: forChart,
-        legend: forChart.map(d => d.key).join(' /')
-    }
+    return toChart(activeTab.value === 'scope' ? filteredScope.value : filteredType.value);
 })
+const handleMouseover = (e) => {
+    console.log(e);
+    console.log(e.detail.value);
+    hovered.value = e.detail.value;
+}
 </script>
 
 <style scoped>
+section.with-chart {
+    display: flex;
+    height: 100%;
+}
+
+section.with-chart>* {
+    flex: 1;
+}
+
+nev-barchart,
+nev-piechart {
+    margin: 1em;
+}
+
+.hovered-item {
+    background-color: var(--pyro-accent-color);
+    color: var(--pyro-background-color);
+}
+
 article {
     display: flex;
     border-bottom: 1px solid var(--pyro-border-color);
@@ -115,20 +145,12 @@ pyro-tab-group {
     background-color: var(--pyro-surface-color)
 }
 
-.chart {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    --nev-fill: var(--pyro-text-color);
-}
-
 .icon {
     width: 24px;
     margin: 0 var(--pyro-spacing-s);
 }
 
-.selected {
+.selected-icon {
     color: var(--pyro-accent-color);
 }
 </style>

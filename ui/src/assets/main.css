@@ -17,6 +17,9 @@ body {
 
   --pyro-scrollbox-bar-color: var(--pyro-text-color);
   --pyro-scrollbox-background: var(--pyro-surface-color);
+
+  --nev-fill: var(--pyro-text-color);
+  --nev-bg: var(--pyro-background-color);
 }
 #app {
   display: flex;
