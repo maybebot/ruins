@@ -40,10 +40,30 @@ This will set the error level to `warn` instead of `error` for the files where t
 
 A UI dashboard can be lauched from the CLI. It's in a rudimentary state, but gives a nicer idea of what rules have been broken then looking at the json or js files.
 
-## TODOs (alpha)
+## TODOs (beta)
+
+Collects TODO comments in the codebase and allows to have them contain structured metadata. An example would be:
 
 ```js
 // TODO(created=2025-03-26, author= ian): make vergil happy
+```
+
+To enforce the use of this format and the created date, you can use the integrated eslint rule:
+
+```js
+// eslint.config.xx
+import ruinsIgnores from 'ruins/rule-todo';
+
+export default [
+  {...}
+  {
+    files: ['src/**/*.ts'],
+    plugins: { 'eslint-plugin-structured-todo': ruinsIgnores },
+    rules: {
+      'eslint-plugin-structured-todo/no-unstructured-todo': 'warn',
+    },
+  },
+}
 ```
 
 ## Config (beta)
