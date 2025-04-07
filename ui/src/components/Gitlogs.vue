@@ -22,14 +22,14 @@
         <DataSection v-if="activeTab === 'scope'" :hasData="hasData" :data="filteredScope">
             <template #chart>
                 <nev-barchart v-if="isChartOpen" @mouseover="handleMouseover"
-                    :data="toChartData(filteredScope, hovered)">
+                    :data="toChartData(filteredScope, hovered, 6)">
                 </nev-barchart>
             </template>
         </DataSection>
         <DataSection v-if="activeTab === 'type'" :hasData="hasData" :data="filteredType">
             <template #chart>
                 <nev-piechart v-if="isChartOpen" @mouseover="handleMouseover"
-                    :data="toChartData(filteredType, hovered)">
+                    :data="toChartData(filteredType, hovered, 6)">
                 </nev-piechart>
             </template>
         </DataSection>
