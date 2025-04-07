@@ -58,6 +58,7 @@ import PackageIcon from '@/assets/package.svg';
 import CommitIcon from '@/assets/commit.svg';
 import CompassIcon from '@/assets/compass.svg';
 import BarchartIcon from '@/assets/barchart.svg';
+import { toChartData } from '../utils/chart';
 import 'pyro/tab-group'
 import 'pyro/tab'
 import 'nevera';
@@ -89,22 +90,10 @@ const filteredType = computed(() => {
     })
 });
 
-const chartColors = ['#6a4aff', '#1fa96b', '#ff3366', '#3f5eff', '#d6aa00', '#ff5c00', '#ff1a1a'];
-const toChart = (data) => {
-    if (!data || data.value) return []
-
-    return data.map((d, i) => ({
-        key: d.name,
-        value: d.total,
-        fill: `${chartColors[i % chartColors.length]}${hovered.value !== d.name ? '66' : ''}`, // apply opacity
-    }))
-}
-const chartData = computed(() => {
-    return toChart(activeTab.value === 'scope' ? filteredScope.value : filteredType.value);
-})
+const chartData = computed(() =>
+    toChartData(activeTab.value === 'scope' ? filteredScope.value : filteredType.value, hovered.value)
+)
 const handleMouseover = (e) => {
-    console.log(e);
-    console.log(e.detail.value);
     hovered.value = e.detail.value;
 }
 </script>
