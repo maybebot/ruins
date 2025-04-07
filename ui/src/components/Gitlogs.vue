@@ -5,8 +5,8 @@
         </template>
         <template #bar>
             <FilterBar :value="filter" @input="setFilter" @clear="filter = ''">
-                <div class="icon" :class="{ 'selected-icon': isBarchart }">
-                    <BarchartIcon @click="isBarchart = !isBarchart" />
+                <div class="icon" :class="{ 'selected-icon': isChartOpen }">
+                    <BarchartIcon @click="isChartOpen = !isChartOpen" />
                 </div>
                 <div style="color: var(--pyro-border-color); margin: var(--pyro-spacing-s)">|</div>
                 <pyro-tab-group>
@@ -19,32 +19,20 @@
                 </pyro-tab-group>
             </FilterBar>
         </template>
-        <section v-if="activeTab === 'scope'" class="with-chart">
-            <EmptyState v-if="!hasData" />
-            <template v-else>
-                <div>
-                    <article v-for="item in filteredScope" :class="{ 'hovered-item': item.selected }">
-                        <div>{{ item.name }}</div>
-                        <div style="flex: 1"></div>
-                        <div>{{ item.total }}</div>
-                    </article>
-                </div>
-                <nev-barchart v-if="isBarchart" @mouseover="handleMouseover" :data="chartData"></nev-barchart>
+        <DataSection v-if="activeTab === 'scope'" :hasData="hasData" :data="filteredScope">
+            <template #chart>
+                <nev-barchart v-if="isChartOpen" @mouseover="handleMouseover"
+                    :data="toChartData(filteredScope, hovered)">
+                </nev-barchart>
             </template>
-        </section>
-        <section v-if="activeTab === 'type'" class="with-chart">
-            <EmptyState v-if="!hasData" />
-            <template v-else>
-                <div>
-                    <article v-for="item in filteredType" :class="{ 'hovered-item': item.selected }">
-                        <div>{{ item.name }}</div>
-                        <div style="flex: 1"></div>
-                        <div>{{ item.total }}</div>
-                    </article>
-                </div>
-                <nev-piechart v-if="isBarchart" @mouseover="handleMouseover" :data="chartData"></nev-piechart>
+        </DataSection>
+        <DataSection v-if="activeTab === 'type'" :hasData="hasData" :data="filteredType">
+            <template #chart>
+                <nev-piechart v-if="isChartOpen" @mouseover="handleMouseover"
+                    :data="toChartData(filteredType, hovered)">
+                </nev-piechart>
             </template>
-        </section>
+        </DataSection>
     </Panel>
 </template>
 
@@ -52,83 +40,40 @@
 import { computed, ref } from 'vue';
 import { useGitlogs } from '../composables/useGitlogs';
 import Panel from './atom/Panel.vue';
-import EmptyState from './atom/EmptyState.vue';
+import DataSection from './molecule/DataSection.vue';
 import FilterBar from './molecule/FilterBar.vue'
 import PackageIcon from '@/assets/package.svg';
 import CommitIcon from '@/assets/commit.svg';
 import CompassIcon from '@/assets/compass.svg';
 import BarchartIcon from '@/assets/barchart.svg';
 import { toChartData } from '../utils/chart';
-import 'pyro/tab-group'
-import 'pyro/tab'
 import 'nevera';
-
-// TODO: solve this mess, to much repetition and looping on the same thing, consider abstracting
 
 const activeTab = ref<'scope' | 'type'>('scope')
 const activeTabText = computed(() => activeTab.value === 'scope' ? '/ Scope' : '/ Type')
-const isBarchart = ref(true)
+const isChartOpen = ref(false)
 
 const { data, hasData } = useGitlogs();
 const filter = ref('');
 const setFilter = ({ target }) => { filter.value = target.value }
-
 const hovered = ref();
 
-const filteredScope = computed(() => {
-    if (!data.value?.scope) return []
-    const filtered = data.value?.scope.filter((item) => item.name?.includes(filter.value))
-    return filtered.map((item) => {
-        return { ...item, selected: item.name === hovered.value }
+const filterData = (data, filter, hovered) => {
+    if (!data) return []
+    return data.filter((item) => item.name?.includes(filter)).map((item) => {
+        return { ...item, selected: item.name === hovered }
     })
-});
-const filteredType = computed(() => {
-    if (!data.value?.type) return []
-    const filtered = data.value?.type.filter((item) => item.name?.includes(filter.value))
-    return filtered.map((item) => {
-        return { ...item, selected: item.name === hovered.value }
-    })
-});
+}
+const filteredScope = computed(() => filterData(data.value?.scope, filter.value, hovered.value));
+const filteredType = computed(() => filterData(data.value?.type, filter.value, hovered.value));
 
-const chartData = computed(() =>
-    toChartData(activeTab.value === 'scope' ? filteredScope.value : filteredType.value, hovered.value)
-)
+
 const handleMouseover = (e) => {
     hovered.value = e.detail.value;
 }
 </script>
 
 <style scoped>
-section.with-chart {
-    display: flex;
-    height: 100%;
-}
-
-section.with-chart>* {
-    flex: 1;
-}
-
-nev-barchart,
-nev-piechart {
-    margin: 1em;
-}
-
-.hovered-item {
-    background-color: var(--pyro-accent-color);
-    color: var(--pyro-background-color);
-}
-
-article {
-    display: flex;
-    border-bottom: 1px solid var(--pyro-border-color);
-    width: 100%;
-    padding: var(--pyro-spacing-s) var(--pyro-spacing);
-}
-
-.fixed-w {
-    width: 4em;
-}
-
 pyro-tab,
 pyro-tab-group {
     background-color: var(--pyro-surface-color)
@@ -141,5 +86,10 @@ pyro-tab-group {
 
 .selected-icon {
     color: var(--pyro-accent-color);
+}
+
+nev-barchart,
+nev-piechart {
+    margin: 1em;
 }
 </style>

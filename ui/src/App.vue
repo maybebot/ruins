@@ -21,6 +21,8 @@ import StructuredTodos from './components/StructuredTodos.vue';
 import Rules from './components/Rules.vue';
 import ConfigModal from './components/ConfigModal.vue';
 import 'pyro/pyro.css';
+import 'pyro/tab-group'
+import 'pyro/tab'
 import 'pyro/skeleton'
 import Gitlogs from './components/Gitlogs.vue';
 </script>

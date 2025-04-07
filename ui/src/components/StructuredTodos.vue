@@ -52,9 +52,6 @@ import ListIcon from '@/assets/list.svg';
 import StructuredIcon from '@/assets/structured.svg';
 import PickaxeIcon from '@/assets/pickaxe.svg';
 import type { StructuredTodo, PlainTodo } from '../../../api/server/api/todos';
-import 'pyro/tab-group'
-import 'pyro/tab'
-
 
 const activeTab = ref<'structured' | 'plain'>('structured')
 const activeTabText = computed(() => activeTab.value === 'structured' ? '/ Structured' : '/ List')
