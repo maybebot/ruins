@@ -15,30 +15,30 @@
                 </pyro-tab-group>
             </FilterBar>
         </template>
-        <section v-if="activeTab === 'structured'">
-            <EmptyState v-if="!hasData" />
-            <article v-for="todo in filteredStructured">
-                <div v-if="todo?.todo">
-                    <span style="opacity: 0.25">// </span>
-                    {{ todo.message }}
-                </div>
-                <div style="flex: 1"></div>
-                <div v-if="todo.metadata?.author" class="fixed-w">
-                    {{ '@' + todo.metadata?.author }}
-                </div>
-                <div v-if="todo.metadata?.created" class="fixed-w">
-                    {{ getTimeAgo(todo.metadata?.created) }}
-                </div>
-            </article>
-        </section>
-        <section v-if="activeTab === 'plain'">
-            <EmptyState v-if="!hasData" />
-            <article v-for="issue in filteredPlain">
-                <div v-if="issue?.todo">
+        <DataSection v-if="activeTab === 'structured'" :hasData="hasData" :data="[]">
+            <template #table>
+                <article v-for="todo in filteredStructured">
+                    <div v-if="todo?.todo">
+                        <span style="opacity: 0.25">// </span>
+                        {{ todo.message }}
+                    </div>
+                    <div style="flex: 1"></div>
+                    <div v-if="todo.metadata?.author" class="field">
+                        {{ '@' + todo.metadata?.author }}
+                    </div>
+                    <div v-if="todo.metadata?.created" class="field">
+                        {{ getTimeAgo(todo.metadata?.created) }}
+                    </div>
+                </article>
+            </template>
+        </DataSection>
+        <DataSection v-if="activeTab === 'plain'" :hasData="hasData" :data="[]">
+            <template #table>
+                <article v-for="issue in filteredPlain">
                     {{ issue.todo }}
-                </div>
-            </article>
-        </section>
+                </article>
+            </template>
+        </DataSection>
     </Panel>
 </template>
 
@@ -46,8 +46,8 @@
 import { computed, ref } from 'vue';
 import { useTodos } from '../composables/useTodos';
 import Panel from './atom/Panel.vue';
-import EmptyState from './atom/EmptyState.vue';
 import FilterBar from './molecule/FilterBar.vue'
+import DataSection from './molecule/DataSection.vue';
 import ListIcon from '@/assets/list.svg';
 import StructuredIcon from '@/assets/structured.svg';
 import PickaxeIcon from '@/assets/pickaxe.svg';
@@ -79,14 +79,7 @@ const getTimeAgo = (d: string) => {
 </script>
 
 <style scoped>
-article {
-    display: flex;
-    border-bottom: 1px solid var(--pyro-border-color);
-    width: 100%;
-    padding: var(--pyro-spacing-s) var(--pyro-spacing);
-}
-
-.fixed-w {
+.field {
     width: 4em;
 }
 

@@ -15,35 +15,26 @@
                 </pyro-tab-group>
             </FilterBar>
         </template>
-        <section v-if="activeTab === 'plain'">
-            <EmptyState v-if="!hasData" />
-            <article v-for="issue in filteredPlain">
-                <TheCounter :total="issue?.total" />
-                <div v-if="issue?.name">
-                    {{ issue.name }}
-                </div>
-                <div style="flex: 1"></div>
-                <div>{{ issue.total }}</div>
-            </article>
-        </section>
-        <section v-if="activeTab === 'grouped'">
-            <EmptyState v-if="!hasData" />
-            <article v-for="issue in filteredGrouped" @click="setFilter(issue.name)">
-                <TheCounter :total="issue?.total" />
-                <div v-if="issue?.name">
-                    {{ issue.name }}
-                </div>
-                <div style="flex: 1"></div>
-                <div>{{ issue.total }}</div>
-            </article>
-            <article style="opacity: 0.5;">
-                <div>
-                    In other places
-                </div>
-                <div style="flex: 1"></div>
-                <div>{{ grouped.totals.value?.total - grouped.totals.value?.grouped }}</div>
-            </article>
-        </section>
+        <DataSection v-if="activeTab === 'plain'" :hasData="hasData" :data="filteredPlain" />
+        <DataSection v-if="activeTab === 'grouped'" :hasData="hasData" :data="[]">
+            <template #table>
+                <article v-for="issue in filteredGrouped" @click="setFilter(issue.name)">
+                    <TheCounter :total="issue?.total" />
+                    <div v-if="issue?.name">
+                        {{ issue.name }}
+                    </div>
+                    <div style="flex: 1"></div>
+                    <div>{{ issue.total }}</div>
+                </article>
+                <article style="opacity: 0.5;">
+                    <div>
+                        In other places
+                    </div>
+                    <div style="flex: 1"></div>
+                    <div>{{ groupedTotals.total - groupedTotals.grouped }}</div>
+                </article>
+            </template>
+        </DataSection>
     </Panel>
 </template>
 
@@ -51,9 +42,9 @@
 import { computed, ref } from 'vue';
 import { useLintIssues } from '../composables/useLintIssues';
 import Panel from './atom/Panel.vue';
-import EmptyState from './atom/EmptyState.vue';
 import TheCounter from './molecule/TheCounter.vue';
 import FilterBar from './molecule/FilterBar.vue'
+import DataSection from './molecule/DataSection.vue';
 import ListIcon from '@/assets/list.svg';
 import SwordsIcon from '@/assets/swords.svg';
 import FoldersIcon from '@/assets/folders.svg';
@@ -67,25 +58,26 @@ const changeTab = (tab: 'grouped' | 'plain') => {
     }
 }
 
-const { data: plain, hasData } = useLintIssues();
-const grouped = useLintIssues(true);
+const { data: plainData, hasData } = useLintIssues();
+const { data: groupedData, totals: groupedTotals } = useLintIssues(true);
 
 const filter = ref('');
 const setFilter = (v) => { filter.value = v; changeTab('plain') }
 const onFilter = ({ target }) => { filter.value = target.value }
+const hovered = ref();
 
-const filteredPlain = computed(() => plain.value?.filter((error) => error.name?.includes(filter.value)));
-const filteredGrouped = computed(() => grouped.data.value?.filter((error) => error.name.includes(filter.value)));
+const filterData = (data, filter, hovered) => {
+    if (!data) return []
+    return data.filter((item) => item.name?.includes(filter)).map((item) => {
+        return { ...item, selected: item.name === hovered }
+    })
+}
+
+const filteredPlain = computed(() => filterData(plainData.value, filter.value, hovered.value));
+const filteredGrouped = computed(() => filterData(groupedData.value, filter.value, hovered.value));
 </script>
 
 <style scoped>
-article {
-    display: flex;
-    border-bottom: 1px solid var(--pyro-border-color);
-    width: 100%;
-    padding: var(--pyro-spacing-s) var(--pyro-spacing);
-}
-
 pyro-tab,
 pyro-tab-group {
     background-color: var(--pyro-surface-color)

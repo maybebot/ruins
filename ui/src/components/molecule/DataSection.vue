@@ -8,6 +8,7 @@
                     <div style="flex: 1"></div>
                     <div>{{ item.total }}</div>
                 </article>
+                <slot name="table"></slot>
             </div>
             <slot name="chart" />
         </template>
@@ -20,7 +21,7 @@ import EmptyState from '../atom/EmptyState.vue';
 type DataList = Array<{
     name: string;
     total: number;
-    selected: boolean;
+    selected?: boolean;
 }>
 const props = defineProps<{
     hasData: boolean;
@@ -44,7 +45,7 @@ const props = defineProps<{
     color: var(--pyro-background-color);
 }
 
-article {
+:deep(article) {
     display: flex;
     border-bottom: 1px solid var(--pyro-border-color);
     width: 100%;
