@@ -51,4 +51,13 @@ const props = defineProps<{
     width: 100%;
     padding: var(--pyro-spacing-s) var(--pyro-spacing);
 }
+
+:deep(nev-barchart,
+    nev-piechart) {
+    margin: 1em;
+}
+
+:deep(.field) {
+    width: 4em;
+}
 </style>

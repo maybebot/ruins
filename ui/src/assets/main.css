@@ -58,3 +58,8 @@ h2 {
   font-size: 1.25em;
   margin: 0.5em 0;
 }
+
+pyro-tab,
+pyro-tab-group {
+  background-color: var(--pyro-surface-color);
+}

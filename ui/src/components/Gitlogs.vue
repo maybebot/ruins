@@ -5,7 +5,7 @@
         </template>
         <template #bar>
             <FilterBar :value="filter" @input="setFilter" @clear="filter = ''">
-                <div class="icon" :class="{ 'selected-icon': isChartOpen }">
+                <div class="icon" :class="{ 'accent': isChartOpen }">
                     <BarchartIcon @click="isChartOpen = !isChartOpen" />
                 </div>
                 <div style="color: var(--pyro-border-color); margin: var(--pyro-spacing-s)">|</div>
@@ -74,22 +74,8 @@ const handleMouseover = (e) => {
 </script>
 
 <style scoped>
-pyro-tab,
-pyro-tab-group {
-    background-color: var(--pyro-surface-color)
-}
-
 .icon {
     width: 24px;
     margin: 0 var(--pyro-spacing-s);
-}
-
-.selected-icon {
-    color: var(--pyro-accent-color);
-}
-
-nev-barchart,
-nev-piechart {
-    margin: 1em;
 }
 </style>

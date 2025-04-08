@@ -76,10 +76,3 @@ const filterData = (data, filter, hovered) => {
 const filteredPlain = computed(() => filterData(plainData.value, filter.value, hovered.value));
 const filteredGrouped = computed(() => filterData(groupedData.value, filter.value, hovered.value));
 </script>
-
-<style scoped>
-pyro-tab,
-pyro-tab-group {
-    background-color: var(--pyro-surface-color)
-}
-</style>

@@ -77,14 +77,3 @@ const getTimeAgo = (d: string) => {
     return `${diffMonths}m ${diffDays}d`
 }
 </script>
-
-<style scoped>
-.field {
-    width: 4em;
-}
-
-pyro-tab,
-pyro-tab-group {
-    background-color: var(--pyro-surface-color)
-}
-</style>
