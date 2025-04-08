@@ -94,12 +94,6 @@ export default config
   `Error [ERR_MODULE_NOT_FOUND]: Cannot find module '[...]/.ruins/ignores.js' imported from [...]/eslint.config.mjs`
   Solution: temporarily remove/comment out usage of ruins ignores in your eslint config.
 
-- Very slow TODO collection
-  No solution. I should have used grep. Will be fixed
-
-- Bad UI/Dashboard
-  Will be fixed
-
 ---
 
 Made with 🍕 in Amsterdam.
