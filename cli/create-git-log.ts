@@ -22,7 +22,7 @@ export const createGitLog = async () => {
   try {
     const m = settings.gitlog.months;
     const grepOutput = await execPromise(
-      `cd ${process.cwd()} && git log --since="${m} months ago" --pretty=format:"%h | %ae | %s | %ad" --date=short`
+      `cd ${process.cwd()} && git log --since="${m} months ago" --pretty=format:"%h | %ae | %s | %ad" --date=short --no-merges`
     );
     const formattedOutput = grepOutput.stdout
       .split(/\r?\n/)
