@@ -14,7 +14,7 @@ export const cli = async () => {
   const ruinsPath = path.resolve(process.cwd(), "node_modules", "ruins");
   const binPath = path.resolve(process.cwd(), "node_modules", ".bin");
   consola.start("Preparing Ruins.");
-  const custom = getCustomCommands();
+  const custom = await getCustomCommands();
   prompt(ruinsPath, binPath, custom);
 };
 

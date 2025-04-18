@@ -7,20 +7,22 @@ import consola from "consola";
 import type { RuinsOutput } from "../types/ruins.js";
 
 const execPromise = promisify(exec);
+// TODO(created=2023-10-12): add stacked/comparison option
 
-export const customOccurances = async (searchString: string, file: string) => {
+export const customFilenames = async (searchString: string, file: string) => {
   const settings = await getConfig();
   const outputFile = resolve(settings.dir, `${file}.json`);
 
   try {
-    const grepOutput = await execPromise(`cd ${process.cwd()} && git grep -rn "${searchString}" *`);
-    const formattedOutput = grepOutput.stdout.split(/\r?\n/).filter(Boolean);
+    const allFiles = await execPromise(`cd ${process.cwd()} && git ls-files`);
+    const files = allFiles.stdout.split(/\r?\n/).filter(Boolean);
+    const filteredFiles = files.filter((f) => f.includes(searchString));
 
-    const output: RuinsOutput<any> = {
+    const output: RuinsOutput<string[]> = {
       meta: {
         timestamp: Date.now(),
       },
-      data: formattedOutput,
+      data: filteredFiles,
     };
 
     await writeFile(outputFile, JSON.stringify(output, null, 2));
