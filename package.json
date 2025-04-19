@@ -58,7 +58,6 @@
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.2.1",
     "nitropack": "latest",
-    "oxlint": "^0.16.3",
     "vite": "^6.1.0",
     "vite-plugin-vue-devtools": "^7.7.2"
   },
