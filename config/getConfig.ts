@@ -4,10 +4,15 @@ const baseConfig: RuinsConfig = {
   /** directory where ruins files are generated */
   dir: ".ruins/",
   eslint: {
+    enabled: true,
     preferOff: false,
     filenameOnly: false,
   },
+  todos: {
+    enabled: true,
+  },
   gitlog: {
+    enabled: true,
     months: 3,
   },
 };
@@ -31,13 +36,16 @@ export const getConfig = async () => {
     ...staticConfig,
     ...baseConfig,
     ...config,
-    eslint: { ...config?.eslint },
+    eslint: { ...baseConfig.eslint, ...config?.eslint },
+    todos: { ...baseConfig.todos, ...config?.todos },
+    gitlog: { ...baseConfig.gitlog, ...config?.gitlog },
   };
 };
 
 export interface RuinsConfig {
   dir: string;
   eslint: {
+    enabled: boolean;
     /** turns ignored from error to off, instead of default warn */
     preferOff: boolean;
     /** identify files by filename only, not path. Inaccurate, useful only if making big directory changes */
@@ -46,7 +54,11 @@ export interface RuinsConfig {
   group?: {
     dirs: string[];
   };
+  todos: {
+    enabled: boolean;
+  };
   gitlog: {
+    enabled: boolean;
     months: 1 | 2 | 3 | 4 | 5 | 6;
   };
 }
