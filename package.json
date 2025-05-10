@@ -41,7 +41,8 @@
     "ui:preview": "cd ui && vite preview",
     "dev": "concurrently \"npm run api:dev\" \"npm run ui:dev\"",
     "build": "tsc && cd ui && vite build && cd ../api && nitro build",
-    "try": "bash ./scripts/try.sh"
+    "try": "bash ./scripts/try.sh",
+    "release": "release-it"
   },
   "dependencies": {
     "c12": "^2.0.1",
@@ -60,6 +61,7 @@
     "@vitejs/plugin-vue": "^5.2.1",
     "eslint": "^9.26.0",
     "nitropack": "latest",
+    "release-it": "^19.0.2",
     "typescript": "^5.8.3",
     "typescript-eslint": "^8.31.1",
     "vite": "^6.1.0",
