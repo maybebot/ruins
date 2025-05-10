@@ -41,17 +41,13 @@ export default eventHandler(async (event): Promise<TodoRes> => {
  * // TODO(anyKey=anyValye, anyKey= 2025-03-26): some normal todo message
  */
 const getStructured = (data: RuinsTodos) => {
-  let structuredData = [];
+  const structuredData = [];
   data.forEach((entry) => {
     structuredData.push({ ...parseTodo(entry.todo), filename: entry.file });
   });
   structuredData.sort((a, b) => {
-    const dateA = a.metadata?.created
-      ? new Date(a.metadata.created).getTime()
-      : Infinity;
-    const dateB = b.metadata?.created
-      ? new Date(b.metadata.created).getTime()
-      : Infinity;
+    const dateA = a.metadata?.created ? new Date(a.metadata.created).getTime() : Infinity;
+    const dateB = b.metadata?.created ? new Date(b.metadata.created).getTime() : Infinity;
 
     return dateA - dateB;
   });
