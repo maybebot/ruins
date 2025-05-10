@@ -1,13 +1,13 @@
 import { ref, onMounted } from "vue";
 import { fetchy } from "../fetchy";
-import type { GitlogRes } from "../../../api/server/api/gitlog";
+import type { CommitsRes } from "../../../api/server/api/commits";
 
-export function useGitlogs() {
-  const data = ref<GitlogRes["data"]>();
+export function useCommits() {
+  const data = ref<CommitsRes["data"]>();
   const hasData = ref(true);
 
   onMounted(async () => {
-    const res = await fetchy<GitlogRes>("/gitlog");
+    const res = await fetchy<CommitsRes>("/commits");
     if (!res.data) {
       hasData.value = false;
       return;

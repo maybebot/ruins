@@ -3,7 +3,7 @@ import { createLintFile } from "./create-lint-file.js";
 import { addEslintIgnore } from "./add-eslint-ignore.js";
 import { openDashboard } from "./open-dashboard.js";
 import { createTodoFile } from "./create-todo-file.js";
-import { createGitLog } from "./create-git-log.js";
+import { createCommits } from "./create-commits.js";
 import { getCustomCommands } from "./customCommands.js";
 import path from "path";
 
@@ -39,13 +39,14 @@ const prompt = async (ruinsPath: string, binPath: string, custom: any[]) => {
         hint: "Collect all TODOs found in the project on a file per file basis.",
       },
       {
-        label: "(alpha)[git] Collect conventional commits",
-        value: "git-log-collect",
+        label: "(alpha)[commits] Collect conventional commits",
+        value: "commits-collect",
         hint: "Collect recent git conventional commits for analysis, 3 months by default",
       },
       ...custom,
     ],
   });
+  const customCommand = custom.find((cmd) => cmd.value === action);
   switch (action) {
     case "dashboard":
       await openDashboard(ruinsPath, binPath);
@@ -60,12 +61,11 @@ const prompt = async (ruinsPath: string, binPath: string, custom: any[]) => {
       await createTodoFile();
       rePrompt();
       break;
-    case "git-log-collect":
-      await createGitLog();
+    case "commits-collect":
+      await createCommits();
       rePrompt();
       break;
     default:
-      const customCommand = custom.find((cmd) => cmd.value === action);
       if (customCommand) {
         await customCommand.exec();
       }
