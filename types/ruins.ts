@@ -13,7 +13,7 @@ export interface RuinsOutput<T = any[]> {
 
 export type RuinsTodos = Array<{ file: string; todo: string }>;
 
-export type RuinsGitlog = Array<{
+export type RuinsCommits = Array<{
   hash: string;
   email: string;
   message: string;

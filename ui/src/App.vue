@@ -8,7 +8,7 @@
         <LintIssues v-if="config?.eslint?.enabled" />
         <Rules v-if="config?.eslint?.enabled" />
         <StructuredTodos v-if="config?.todos?.enabled" />
-        <Gitlogs v-if="config?.gitlog?.enabled" />
+        <Commits v-if="config?.commits?.enabled" />
         <div style="height: 5vh"></div>
     </main>
 </template>
@@ -25,7 +25,7 @@ import 'pyro/pyro.css';
 import 'pyro/tab-group'
 import 'pyro/tab'
 import 'pyro/skeleton'
-import Gitlogs from './components/Gitlogs.vue';
+import Commits from './components/Commits.vue';
 import { fetchy } from './fetchy';
 
 const config = ref();

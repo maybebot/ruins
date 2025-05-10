@@ -11,7 +11,7 @@ const baseConfig: RuinsConfig = {
   todos: {
     enabled: true,
   },
-  gitlog: {
+  commits: {
     enabled: true,
     months: 3,
   },
@@ -22,7 +22,7 @@ const staticConfig = {
     eslintIssues: "eslint-issues.json",
     eslintIgnores: "eslint-ignores.js",
     todos: "todos.json",
-    gitlog: "gitlog.json",
+    commits: "commits.json",
   },
 };
 
@@ -38,7 +38,7 @@ export const getConfig = async () => {
     ...config,
     eslint: { ...baseConfig.eslint, ...config?.eslint },
     todos: { ...baseConfig.todos, ...config?.todos },
-    gitlog: { ...baseConfig.gitlog, ...config?.gitlog },
+    commits: { ...baseConfig.commits, ...config?.commits },
   };
 };
 
@@ -57,7 +57,7 @@ export interface RuinsConfig {
   todos: {
     enabled: boolean;
   };
-  gitlog: {
+  commits: {
     enabled: boolean;
     months: 1 | 2 | 3 | 4 | 5 | 6;
   };

@@ -4,7 +4,7 @@ import { promisify } from "node:util";
 import { getConfig } from "../config/getConfig.js";
 import { resolve } from "node:path";
 import consola from "consola";
-import type { RuinsGitlog, RuinsOutput } from "../types/ruins.js";
+import type { RuinsCommits, RuinsOutput } from "../types/ruins.js";
 import { parseConventionalCommit } from "./utils/conventional-commit.js";
 
 const execPromise = promisify(exec);
@@ -15,12 +15,12 @@ const execPromise = promisify(exec);
  * @param {string} ruinsPath - path to Ruins project directory
  * @returns {Promise<void>}
  */
-export const createGitLog = async () => {
+export const createCommits = async () => {
   const settings = await getConfig();
-  const outputFile = resolve(settings.dir, settings.files.gitlog);
+  const outputFile = resolve(settings.dir, settings.files.commits);
 
   try {
-    const m = settings.gitlog.months;
+    const m = settings.commits.months;
     const grepOutput = await execPromise(
       `cd ${process.cwd()} && git log --since="${m} months ago" --pretty=format:"%h | %ae | %s | %ad" --date=short --no-merges`
     );
@@ -38,7 +38,7 @@ export const createGitLog = async () => {
         };
       })
       .filter((line) => line !== undefined);
-    const output: RuinsOutput<RuinsGitlog> = {
+    const output: RuinsOutput<RuinsCommits> = {
       meta: {
         timestamp: Date.now(),
       },
