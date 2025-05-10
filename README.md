@@ -1,7 +1,7 @@
 # ruins
 
 > [!IMPORTANT]
-> This is in early alpha. Do not use if you don't know what you're doing
+> This is in beta. Not everything is ironed out and some modules might misbehave
 
 A CLI tool to track tech debt and aid in migration.
 
@@ -87,12 +87,6 @@ const config: RuinsConfig = {
 };
 export default config
 ```
-
-## Known issues
-
-- Error while running collection commands:
-  `Error [ERR_MODULE_NOT_FOUND]: Cannot find module '[...]/.ruins/ignores.js' imported from [...]/eslint.config.mjs`
-  Solution: temporarily remove/comment out usage of ruins ignores in your eslint config.
 
 ---
 
