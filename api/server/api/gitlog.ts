@@ -17,14 +17,14 @@ export default eventHandler(async (): Promise<GitlogRes> => {
   }
 
   const scopes = Object.groupBy(gitlog.data, (l) => l.meta?.scope);
-  let scope = [];
+  const scope = [];
   for (const [key, value] of Object.entries(scopes)) {
     scope.push({ name: key, total: value.length });
   }
   scope.sort((a, b) => b.total - a.total);
 
   const types = Object.groupBy(gitlog.data, (l) => l.meta?.type);
-  let type = [];
+  const type = [];
   for (const [key, value] of Object.entries(types)) {
     type.push({ name: key, total: value.length });
   }
