@@ -1,6 +1,0 @@
-node_modules
-api/.data
-api/.nitro
-api/.cache
-.env
-scripts

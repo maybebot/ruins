@@ -1,6 +1,10 @@
 {
   "name": "ruins",
-  "version": "0.2.3",
+  "version": "0.3.0-beta.0",
+  "type": "module",
+  "license": "MIT",
+  "author": "Ian Bobinac",
+  "description": "",
   "keywords": [
     "ruins",
     "lint",
@@ -8,66 +12,12 @@
     "migration",
     "todos"
   ],
-  "author": "Ian Bobinac",
-  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/maybebot/ruins"
   },
-  "type": "module",
-  "bin": {
-    "ruins": "./cli.js"
-  },
-  "module": "./dist/all.js",
-  "exports": {
-    ".": {
-      "import": {
-        "types": "./dist/config/index.d.ts",
-        "default": "./dist/config/index.js"
-      }
-    },
-    "./rule-todo": {
-      "import": "./dist/plugins/structured-todos.js"
-    }
-  },
   "scripts": {
-    "api:prepare": "cd api && nitro prepare",
-    "api:build": "cd api && nitro build",
-    "api:dev": "cd api && nitro dev",
-    "api:preview": "node ./api/.output/server/index.mjs",
-    "serve": "http-server -p 8080 ./ui/dist",
-    "ui:dev": "cd ui && vite",
-    "ui:build": "cd ui && vite build",
-    "ui:preview": "cd ui && vite preview",
-    "dev": "concurrently \"npm run api:dev\" \"npm run ui:dev\"",
-    "build": "tsc && cd ui && vite build && cd ../api && nitro build",
-    "try": "bash ./scripts/try.sh",
-    "release": "release-it"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "dependencies": {
-    "c12": "^2.0.1",
-    "concurrently": "^9.1.2",
-    "consola": "^3.2.3",
-    "eslint-plugin-structured-todo": "^0.2.2",
-    "http-server": "^14.1.1",
-    "monogon": "^0.2.2",
-    "nevera": "^0.0.7",
-    "pyro": "^0.1.27",
-    "vite-svg-loader": "^5.1.0",
-    "vue": "^3.5.13"
-  },
-  "devDependencies": {
-    "@eslint/js": "^9.26.0",
-    "@vitejs/plugin-vue": "^5.2.1",
-    "eslint": "^9.26.0",
-    "nitropack": "latest",
-    "release-it": "^19.0.2",
-    "typescript": "^5.8.3",
-    "typescript-eslint": "^8.31.1",
-    "vite": "^6.1.0",
-    "vite-plugin-vue-devtools": "^7.7.2"
-  },
-  "peerDependencies": {
-    "eslint": "*"
-  }
+  "main": "index.js"
 }
