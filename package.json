@@ -16,6 +16,21 @@
     "type": "git",
     "url": "https://github.com/maybebot/ruins"
   },
-  "scripts": {},
-  "main": "index.js"
+  "scripts": {
+    "build": "tsdown",
+    "dev": "tsdown --watch"
+  },
+  "main": "index.js",
+  "bin": {
+    "ruins": "./dist/cli.js"
+  },
+  "devDependencies": {
+    "tsdown": "^0.15.12",
+    "typescript": "~5.9.3",
+    "unplugin-vue": "^7.0.4"
+  },
+  "dependencies": {
+    "citty": "catalog:",
+    "consola": "catalog:"
+  }
 }

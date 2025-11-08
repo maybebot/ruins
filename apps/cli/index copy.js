@@ -24,4 +24,4 @@ const main = defineCommand({
 });
 
 consola.start("Preparing Ruins.");
-runMain(main);
+export const cli = () => runMain(main);
