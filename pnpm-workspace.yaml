@@ -5,3 +5,4 @@ packages:
 catalog:
   citty: ^0.1.6
   consola: ^3.4.2
+  c12: "^3.3.1"
