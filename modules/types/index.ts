@@ -16,7 +16,7 @@ export interface RuinsModule<ModuleSpecificSettings = {}> {
       label: string;
       value: string;
       hint: string;
-      action: (settings: ModuleSpecificSettings, config?: RuinsConfig) => void;
+      action: () => void;
     }[];
   };
   ui?: {
