@@ -1,8 +1,10 @@
+import type { RuinsConfig } from "@ruins/config";
+
 /**
  * A module is a a plugin that adds functionality to ruins.
  */
-export type RuinsModule = {
-  config: {
+export interface RuinsModule<ModuleSpecificSettings = {}> {
+  meta: {
     name: string;
     description: string;
     /** File where the information is stored, inside ./ruins folder */
@@ -14,7 +16,7 @@ export type RuinsModule = {
       label: string;
       value: string;
       hint: string;
-      action: (outputFile: string) => Promise<void>;
+      action: (settings: ModuleSpecificSettings, config?: RuinsConfig) => void;
     }[];
   };
   ui?: {
@@ -25,4 +27,5 @@ export type RuinsModule = {
       processFn?: (data: any) => any[];
     }[];
   };
-};
+  settings?: ModuleSpecificSettings;
+}

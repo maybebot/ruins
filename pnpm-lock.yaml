@@ -99,7 +99,11 @@ importers:
         specifier: ^24.9.2
         version: 24.9.2
 
-  modules/types: {}
+  modules/types:
+    dependencies:
+      '@ruins/config':
+        specifier: workspace:*
+        version: link:../config
 
 packages:
 
