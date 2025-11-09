@@ -18,7 +18,8 @@
   },
   "scripts": {
     "build": "tsdown",
-    "dev": "tsdown --watch"
+    "dev": "tsdown --watch",
+    "try": "bash ./try.sh"
   },
   "main": "./dist/index.js",
   "bin": {
