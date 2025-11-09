@@ -1,0 +1,10 @@
+{
+  "name": "@ruins/types",
+  "type": "module",
+  "private": true,
+  "main": "index.js",
+  "types": "types.d.ts",
+  "scripts": {},
+  "packageManager": "pnpm@10.20.0",
+  "dependencies": {}
+}
