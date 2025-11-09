@@ -1,6 +1,6 @@
 import { defineConfig } from "tsdown";
 
 export default defineConfig({
-  entry: ["./cli.ts"],
+  entry: ["./index.ts", "./cli.ts"],
   platform: "node",
 });

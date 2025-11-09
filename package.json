@@ -20,7 +20,7 @@
     "build": "tsdown",
     "dev": "tsdown --watch"
   },
-  "main": "index.js",
+  "main": "./dist/index.js",
   "bin": {
     "ruins": "./dist/cli.js"
   },
