@@ -1,5 +1,6 @@
 import { loadConfig } from "c12";
 import { RuinsModule } from "@ruins/types";
+import { resolve } from "node:path";
 
 /**
  * Definition of Ruins config in user's /ruins.config.ts file
@@ -15,11 +16,33 @@ export interface RuinsConfig {
   modules: Promise<RuinsModule>[];
 }
 
+/** Config with paths for internal use only */
+export interface RuinsConfigInternal extends RuinsConfig {
+  _paths: {
+    ruins: string;
+    bin: string;
+  };
+}
+
+const defaultConfig = Object.freeze({
+  dir: ".ruins/",
+});
+
 /** Returns user configuration in ruins.config.ts */
-export const readConfig = async () => {
+export const readConfig = async (): Promise<RuinsConfigInternal> => {
   const { config } = await loadConfig<RuinsConfig>({
     cwd: process.cwd(),
     configFile: "ruins.config",
   });
-  return config;
+
+  const internalConfig: RuinsConfigInternal = {
+    ...defaultConfig,
+    ...config,
+    _paths: {
+      ruins: resolve(process.cwd(), "node_modules", "ruins"),
+      bin: resolve(process.cwd(), "node_modules", ".bin"),
+    },
+  };
+
+  return internalConfig;
 };
