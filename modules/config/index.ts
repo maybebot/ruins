@@ -1,5 +1,5 @@
 import { loadConfig } from "c12";
-import { RuinsModule } from "../types";
+import { RuinsModule } from "@ruins/types";
 
 /**
  * Definition of Ruins config in user's /ruins.config.ts file

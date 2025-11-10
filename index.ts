@@ -1,5 +1,5 @@
-import { RuinsConfig } from "./modules/config/types";
-import { lint } from "./modules/lint";
+import { RuinsConfig } from "./modules/config/index.js";
+import { lint } from "./modules/lint/index.js";
 
 export const defineConfig = (config: RuinsConfig) => config;
 

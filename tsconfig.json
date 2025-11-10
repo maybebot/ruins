@@ -1,7 +1,9 @@
 {
     "compilerOptions": {
       "strict": true,
-      "erasableSyntaxOnly": true
+      "erasableSyntaxOnly": true,
+      "module": "node20",
+      "lib": [ "es2015" ]
     }
   }
   

@@ -2,6 +2,6 @@
 
 "use strict";
 
-import { cli } from "./apps/cli/index.ts";
+import { cli } from "./apps/cli/index.js";
 
 cli();
