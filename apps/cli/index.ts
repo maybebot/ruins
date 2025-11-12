@@ -27,10 +27,15 @@ export const cli = async () => {
       const commands = [...moduleCommands, uiCommand];
 
       let action;
-      const hasValidRunFlag = args.run && commands.find((c) => c.value === args.run && c.runnable);
+      const validFlags = commands.filter((cmd) => cmd.runnable).map((cmd) => cmd.value);
+      const hasValidRunFlag = validFlags.includes(args.run);
       if (hasValidRunFlag) {
         action = args.run;
         consola.info(`Found --run ${args.run}, running command without prompt...`);
+      } else if (typeof args.run === "string") {
+        consola.error(`Provided an invalid --run flag: "${args.run}"`);
+        consola.info(`Valid flags are: ${validFlags.join(",")}`);
+        return;
       } else {
         action = await consola.prompt("Ruins up and running", {
           type: "select",
@@ -42,6 +47,7 @@ export const cli = async () => {
       const selectedAction = selectedCommand!.getAction(config);
       await selectedAction();
       if (!hasValidRunFlag) {
+        // no reprompting run --run commands, facilitate CI/CDs
         cli();
       }
     },
@@ -49,12 +55,10 @@ export const cli = async () => {
 };
 
 const openDashboard = async (ruinsPath: string) => {
+  const port = "4848";
   consola.start("Preparing dashboard");
-  // await exec(`PORT=4848 node ./dist/.output/server/index.mjs`);
-  await exec(`PORT=4848 node ${ruinsPath}/dist/.output/server/index.mjs`);
-  console.log(ruinsPath);
-  // await exec(`${binPath}/http-server -p 4848 ${ruinsPath}/ui/dist/`);
-  consola.box("Dashboard available on http://localhost:4848");
+  await exec(`PORT=${port} node ${ruinsPath}/dist/.output/server/index.mjs`);
+  consola.box(`Dashboard available on http://localhost:${port}`);
 };
 const uiCommand = {
   label: "Open Dashboard",
