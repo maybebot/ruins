@@ -6,6 +6,7 @@
   "scripts": {},
   "packageManager": "pnpm@10.20.0",
   "dependencies": {
+    "@ruins/config": "workspace:*",
     "citty": "catalog:",
     "consola": "catalog:"
   }
