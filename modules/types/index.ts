@@ -17,6 +17,8 @@ export interface RuinsModule<ModuleSpecificSettings = {}> {
       value: string;
       hint: string;
       getAction: (config: RuinsConfigInternal) => () => void;
+      /** If true, can be run with --run flag. False for processes like opening dashboard */
+      runnable?: boolean;
     }[];
   };
   ui?: {
