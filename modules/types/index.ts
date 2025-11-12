@@ -1,4 +1,4 @@
-import type { RuinsConfig } from "@ruins/config";
+import { RuinsConfigInternal } from "@ruins/config";
 
 /**
  * A module is a a plugin that adds functionality to ruins.
@@ -16,7 +16,7 @@ export interface RuinsModule<ModuleSpecificSettings = {}> {
       label: string;
       value: string;
       hint: string;
-      action: () => void;
+      getAction: (config: RuinsConfigInternal) => () => void;
     }[];
   };
   ui?: {

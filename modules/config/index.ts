@@ -13,7 +13,7 @@ export interface RuinsConfig {
     dirs: string[];
   };
   /** Module-specific configuration */
-  modules: Promise<RuinsModule>[];
+  modules: RuinsModule[];
 }
 
 /** Config with paths for internal use only */

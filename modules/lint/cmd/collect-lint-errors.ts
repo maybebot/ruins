@@ -1,5 +1,6 @@
 import { RuinsConfigInternal } from "@ruins/config";
 import { writeFile } from "node:fs/promises";
+import { existsSync } from "node:fs";
 import { resolve } from "node:path";
 import { consola } from "consola";
 import { execSync } from "child_process";
@@ -14,6 +15,8 @@ export const collectLintErrors = (settings: LintSettings, config: RuinsConfigInt
 
   consola.info(`Searching for linting issues`);
 
+  // TODO: check for eslint/oxlint existance, files, etc.
+
   return async () => {
     // a reset is necessary for the linter to catch existing errors
     await resetExistingIgnores(ignoresFilePath);
@@ -23,7 +26,7 @@ export const collectLintErrors = (settings: LintSettings, config: RuinsConfigInt
 
     // a js file eslint can use as ignores/downgrades of errors in files
     const issues = await readLintIssuesFile(config, "lint-issues.json");
-    const ignores = transformIntoLintIgnores(issues, settings.preferOff, false);
+    const ignores = transformIntoLintIgnores(issues, settings.preferOff ?? false, false);
     await writeIgnoresFile(ignoresFilePath, ignores);
   };
 };
@@ -32,8 +35,10 @@ export const collectLintErrors = (settings: LintSettings, config: RuinsConfigInt
  * Eslint ignores need to be removed before trying to catch them again
  */
 const resetExistingIgnores = async (ignoresFile: string) => {
-  const resetConent = `export const ruinsIgnores = [];`;
-  await writeFile(ignoresFile, resetConent);
+  if (existsSync(ignoresFile)) {
+    const resetConent = `export const ruinsIgnores = [];`;
+    await writeFile(ignoresFile, resetConent);
+  }
 };
 
 /**
