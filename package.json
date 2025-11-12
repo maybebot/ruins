@@ -17,9 +17,9 @@
     "url": "https://github.com/maybebot/ruins"
   },
   "scripts": {
-    "build": "tsdown",
+    "build": "bash ./scripts/build.sh",
     "dev": "tsdown --watch",
-    "try": "bash ./try.sh"
+    "try": "bash ./scripts/try.sh"
   },
   "main": "./dist/index.js",
   "bin": {
