@@ -49,10 +49,10 @@ export const cli = async () => {
         return;
       }
       const selectedAction = selectedCommand.getAction(config);
-      await selectedAction();
+      selectedAction();
       if (!hasValidRunFlag) {
         // no reprompting run --run commands, facilitate CI/CDs
-        cli();
+        await cli();
       }
     },
   });
@@ -61,7 +61,7 @@ export const cli = async () => {
 const openDashboard = async (ruinsPath: string) => {
   const port = "4848";
   consola.start("Preparing dashboard");
-  await exec(`PORT=${port} node ${ruinsPath}/dist/.output/server/index.mjs`);
+  exec(`PORT=${port} node ${ruinsPath}/dist/.output/server/index.mjs`);
   consola.box(`Dashboard available on http://localhost:${port}`);
 };
 const uiCommand = {

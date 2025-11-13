@@ -4,4 +4,4 @@
 
 import { cli } from "./apps/cli/index.js";
 
-cli();
+await cli();
