@@ -40,6 +40,7 @@ export const lint = (userSettings?: LintSettings): RuinsModule => {
         {
           name: "default",
           processFn: (data: any) => data,
+          file: "lint-issues.json",
         },
       ],
     },

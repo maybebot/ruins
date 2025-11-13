@@ -19,6 +19,7 @@ export interface RuinsConfig {
 /** Config with paths for internal use only */
 export interface RuinsConfigInternal extends RuinsConfig {
   _paths: {
+    ruinsDir: string;
     ruins: string;
     bin: string;
   };
@@ -26,6 +27,7 @@ export interface RuinsConfigInternal extends RuinsConfig {
 
 const defaultConfig = Object.freeze({
   dir: ".ruins/",
+  modules: [],
 });
 
 /** Returns user configuration in ruins.config.ts */
@@ -35,10 +37,15 @@ export const readConfig = async (): Promise<RuinsConfigInternal> => {
     configFile: "ruins.config",
   });
 
-  const internalConfig: RuinsConfigInternal = {
+  const mergedConfig: RuinsConfig = {
     ...defaultConfig,
     ...config,
+  };
+
+  const internalConfig: RuinsConfigInternal = {
+    ...mergedConfig,
     _paths: {
+      ruinsDir: resolve(process.cwd(), mergedConfig.dir),
       ruins: resolve(process.cwd(), "node_modules", "ruins"),
       bin: resolve(process.cwd(), "node_modules", ".bin"),
     },

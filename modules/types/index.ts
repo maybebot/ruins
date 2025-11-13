@@ -26,7 +26,8 @@ export interface RuinsModule<ModuleSpecificSettings = {}> {
     icon?: string;
     views?: {
       name: string;
-      processFn?: (data: any) => any[];
+      processFn: (data: any) => any[];
+      file: string;
     }[];
   };
   settings?: ModuleSpecificSettings;

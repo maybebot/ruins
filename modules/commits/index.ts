@@ -40,6 +40,7 @@ export const commits = (userSettings?: CommitSettings): RuinsModule => {
         {
           name: "default",
           processFn: (data: any) => data,
+          file: "commits.json",
         },
       ],
     },
