@@ -48,7 +48,7 @@ const writeIssuesFile = (outputFile: string, ruinsPath: string, binPath: string)
   try {
     // TODO: resolve this, it cannot point at random-ish file like this
     execSync(
-      `${binPath}/eslint --quiet -o ${outputFile} -f ${ruinsPath}/dist/modules/lint/transformers/output.js`
+      `${binPath}/eslint --quiet -o ${outputFile} -f ${ruinsPath}/dist/modules/lint/transformers/output.js`,
     );
     consola.success(`Collected issues in ${outputFile}`);
   } catch {
@@ -59,7 +59,7 @@ const writeIssuesFile = (outputFile: string, ruinsPath: string, binPath: string)
 const writeIgnoresFile = async (ignoresFilePath: string, ignores: EslintIgnoreByFile) => {
   await writeFile(
     ignoresFilePath,
-    `export const ruinsIgnores = ${JSON.stringify(ignores, null, 2)}`
+    `export const ruinsIgnores = ${JSON.stringify(ignores, null, 2)}`,
   );
 };
 
@@ -68,6 +68,8 @@ const writeIgnoresFile = async (ignoresFilePath: string, ignores: EslintIgnoreBy
  */
 const readLintIssuesFile = async (config: RuinsConfigInternal, filename: string) => {
   const pathToFile = resolve(process.cwd(), config.dir, filename);
-  const { default: data } = await import(pathToFile, { with: { type: "json" } });
+  const { default: data } = await import(pathToFile, {
+    with: { type: "json" },
+  });
   return data as RuinsEslintOutput;
 };

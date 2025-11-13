@@ -26,6 +26,7 @@
     "ruins": "./dist/cli.js"
   },
   "devDependencies": {
+    "prettier": "3.6.2",
     "tsdown": "^0.15.12",
     "typescript": "~5.9.3",
     "unplugin-vue": "^7.0.4"
