@@ -80,6 +80,22 @@ importers:
         specifier: ^3.1.0
         version: 3.1.2(typescript@5.9.3)
 
+  modules/commits:
+    dependencies:
+      '@ruins/config':
+        specifier: workspace:*
+        version: link:../config
+      '@ruins/types':
+        specifier: workspace:*
+        version: link:../types
+      consola:
+        specifier: 'catalog:'
+        version: 3.4.2
+    devDependencies:
+      '@types/node':
+        specifier: ^24.9.2
+        version: 24.9.2
+
   modules/config:
     dependencies:
       '@ruins/types':

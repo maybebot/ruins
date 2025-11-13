@@ -1,0 +1,16 @@
+{
+  "name": "@ruins/lint",
+  "type": "module",
+  "private": true,
+  "main": "index.js",
+  "scripts": {},
+  "packageManager": "pnpm@10.20.0",
+  "dependencies": {
+    "@ruins/types": "workspace:*",
+    "@ruins/config": "workspace:*",
+    "consola": "catalog:"
+  },
+  "devDependencies": {
+    "@types/node": "^24.9.2"
+  }
+}
