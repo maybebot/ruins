@@ -43,8 +43,12 @@ export const cli = async () => {
         });
       }
 
-      const selectedCommand = commands.find((c) => c.value === action)!;
-      const selectedAction = selectedCommand!.getAction(config);
+      const selectedCommand = commands.find((c) => c.value === action);
+      if (!selectedCommand) {
+        // user might exit/ctrl+c
+        return;
+      }
+      const selectedAction = selectedCommand.getAction(config);
       await selectedAction();
       if (!hasValidRunFlag) {
         // no reprompting run --run commands, facilitate CI/CDs
