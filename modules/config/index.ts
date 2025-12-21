@@ -1,5 +1,5 @@
 import { loadConfig } from "c12";
-import { RuinsModule } from "@ruins/types";
+import type { RuinsModule } from "@ruins/types";
 import { resolve } from "node:path";
 
 /**

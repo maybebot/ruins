@@ -1,6 +1,6 @@
-import { RuinsModule } from "@ruins/types";
+import type { RuinsModule } from "@ruins/types";
 import { collectLintErrors } from "./cmd/collect-lint-errors.js";
-import { RuinsConfigInternal } from "@ruins/config";
+import type { RuinsConfigInternal } from "@ruins/config";
 
 export interface LintSettings {
   /** turns ignored from error to off, instead of default warn */

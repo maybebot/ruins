@@ -1,4 +1,4 @@
-import { RuinsConfigInternal } from "@ruins/config";
+import type { RuinsConfigInternal } from "@ruins/config";
 
 /**
  * A module is a a plugin that adds functionality to ruins.

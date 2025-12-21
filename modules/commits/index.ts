@@ -1,5 +1,5 @@
-import { RuinsModule } from "@ruins/types";
-import { RuinsConfigInternal } from "@ruins/config";
+import type { RuinsModule } from "@ruins/types";
+import type { RuinsConfigInternal } from "@ruins/config";
 import { scanCommits } from "./cmd/scan.js";
 
 export interface CommitSettings {

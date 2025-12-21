@@ -1,4 +1,4 @@
-import { RuinsConfigInternal } from "@ruins/config";
+import type { RuinsConfigInternal } from "@ruins/config";
 import { loadConfig } from "c12";
 
 /**

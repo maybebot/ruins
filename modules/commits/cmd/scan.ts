@@ -1,4 +1,4 @@
-import { RuinsConfigInternal } from "@ruins/config";
+import type { RuinsConfigInternal } from "@ruins/config";
 import { CommitSettings } from "../index.js";
 
 // oxlint-disable-next-line no-unused-vars

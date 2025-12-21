@@ -1,4 +1,4 @@
-import { RuinsConfigInternal } from "@ruins/config";
+import type { RuinsConfigInternal } from "@ruins/config";
 import { writeFile } from "node:fs/promises";
 import { existsSync } from "node:fs";
 import { resolve } from "node:path";
