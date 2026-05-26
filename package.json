@@ -15,6 +15,7 @@
     "url": "https://github.com/maybebot/ruins"
   },
   "type": "module",
+  "packageManager": "pnpm@11.2.2",
   "bin": {
     "ruins": "./cli.js"
   },
@@ -39,7 +40,7 @@
     "ui:dev": "cd ui && vite",
     "ui:build": "cd ui && vite build",
     "ui:preview": "cd ui && vite preview",
-    "dev": "concurrently \"npm run api:dev\" \"npm run ui:dev\"",
+    "dev": "concurrently \"pnpm api:dev\" \"pnpm ui:dev\"",
     "build": "tsc && cd ui && vite build && cd ../api && nitro build",
     "try": "bash ./scripts/try.sh",
     "release": "release-it"
@@ -58,6 +59,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.26.0",
+    "@types/node": "^25.9.1",
     "@vitejs/plugin-vue": "^5.2.1",
     "eslint": "^9.26.0",
     "nitropack": "latest",

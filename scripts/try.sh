@@ -5,8 +5,8 @@ set -e
 
 # Build the package
 echo "Building & pack"
-npm run build
-npm pack
+pnpm build
+pnpm pack
 
 # Get the name of the packed file (assuming there's only one .tgz file)
 PACKAGE_FILE=$(ls *.tgz)
