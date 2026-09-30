@@ -39,6 +39,9 @@ importers:
       '@ruins/lint':
         specifier: workspace:*
         version: link:modules/lint
+      '@ruins/todo':
+        specifier: workspace:*
+        version: link:modules/todo
       oxlint:
         specifier: ^1.83.0
         version: 1.83.0(oxlint-tsgolint@0.6.0)
@@ -124,6 +127,22 @@ importers:
         version: 3.3.1
 
   modules/lint:
+    dependencies:
+      '@ruins/config':
+        specifier: workspace:*
+        version: link:../config
+      '@ruins/types':
+        specifier: workspace:*
+        version: link:../types
+      consola:
+        specifier: 'catalog:'
+        version: 3.4.2
+    devDependencies:
+      '@types/node':
+        specifier: ^24.9.2
+        version: 24.13.6
+
+  modules/todo:
     dependencies:
       '@ruins/config':
         specifier: workspace:*

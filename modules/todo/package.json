@@ -1,0 +1,22 @@
+{
+  "name": "@ruins/todo",
+  "version": "0.3.0-beta.0",
+  "type": "module",
+  "private": true,
+  "types": "./index.ts",
+  "exports": {
+    ".": {
+      "types": "./index.ts",
+      "import": "./index.ts",
+      "default": "./index.ts"
+    }
+  },
+  "dependencies": {
+    "@ruins/types": "workspace:*",
+    "@ruins/config": "workspace:*",
+    "consola": "catalog:"
+  },
+  "devDependencies": {
+    "@types/node": "^24.9.2"
+  }
+}

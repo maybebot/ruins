@@ -35,6 +35,7 @@
     "@ruins/commits": "workspace:*",
     "@ruins/config": "workspace:*",
     "@ruins/lint": "workspace:*",
+    "@ruins/todo": "workspace:*",
     "oxlint": "^1.83.0",
     "oxlint-tsgolint": "^0.6.0",
     "prettier": "3.6.2",
