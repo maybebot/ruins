@@ -1,5 +1,6 @@
 {
   "name": "@ruins/commits",
+  "version": "0.3.0-beta.0",
   "type": "module",
   "private": true,
   "types": "./index.ts",

@@ -1,20 +1,22 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-# Exit the script if any command fails
-set -e
+set -euo pipefail
 
-# Build the package
-echo "Building & pack"
-pnpm build
-pnpm pack
+ROOT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)
+TEST_DIR=${RUINS_TRY_DIR:-"$ROOT_DIR/../monogon"}
 
-# Get the name of the packed file (assuming there's only one .tgz file)
-PACKAGE_FILE=$(ls *.tgz)
+if [[ ! -d "$TEST_DIR" ]]; then
+	printf 'Try project not found: %s\n' "$TEST_DIR" >&2
+	exit 1
+fi
 
-# Move and install in test folder
-echo "Moving package to test folder..."
-mv "$PACKAGE_FILE" ../monogon/
-cd ../monogon/
-pnpm add "./$PACKAGE_FILE"
-rm "$PACKAGE_FILE"
-pnpm ruins tried
+VERSION=$(node -e 'console.log(JSON.parse(require("node:fs").readFileSync(process.argv[1], "utf8")).version)' "$ROOT_DIR/package.json")
+PACKAGE_FILE="$ROOT_DIR/ruins-$VERSION-$(date +%s).tgz"
+
+echo "Building Ruins package"
+pnpm --dir "$ROOT_DIR" build
+pnpm --dir "$ROOT_DIR" pack --out "$PACKAGE_FILE"
+
+echo "Installing package in $TEST_DIR"
+pnpm --dir "$TEST_DIR" add "$PACKAGE_FILE"
+pnpm --dir "$TEST_DIR" exec ruins

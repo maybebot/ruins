@@ -16,6 +16,9 @@
     "type": "git",
     "url": "https://github.com/maybebot/ruins"
   },
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "bash ./scripts/build.sh",
     "dev": "tsx --watch ./index.ts",
