@@ -28,13 +28,16 @@
     "ruins": "./dist/cli.js"
   },
   "devDependencies": {
+    "@ruins/cli": "workspace:*",
+    "@ruins/commits": "workspace:*",
+    "@ruins/config": "workspace:*",
+    "@ruins/lint": "workspace:*",
     "oxlint": "^1.83.0",
     "oxlint-tsgolint": "^0.6.0",
     "prettier": "3.6.2",
     "tsdown": "^0.15.12",
     "tsx": "^4.20.4",
-    "typescript": "~5.9.3",
-    "unplugin-vue": "^7.2.0"
+    "typescript": "~5.9.3"
   },
   "dependencies": {
     "citty": "catalog:",

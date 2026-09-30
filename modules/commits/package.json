@@ -1,14 +1,18 @@
 {
-  "name": "@ruins/lint",
+  "name": "@ruins/commits",
   "type": "module",
   "private": true,
-  "main": "index.js",
-  "scripts": {},
-  "packageManager": "pnpm@10.20.0",
+  "types": "./index.ts",
+  "exports": {
+    ".": {
+      "types": "./index.ts",
+      "import": "./index.ts",
+      "default": "./index.ts"
+    }
+  },
   "dependencies": {
     "@ruins/types": "workspace:*",
-    "@ruins/config": "workspace:*",
-    "consola": "catalog:"
+    "@ruins/config": "workspace:*"
   },
   "devDependencies": {
     "@types/node": "^24.9.2"

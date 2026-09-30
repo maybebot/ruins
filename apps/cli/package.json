@@ -2,9 +2,14 @@
   "name": "@ruins/cli",
   "type": "module",
   "private": true,
-  "main": "index.js",
-  "scripts": {},
-  "packageManager": "pnpm@10.20.0",
+  "types": "./index.ts",
+  "exports": {
+    ".": {
+      "types": "./index.ts",
+      "import": "./index.ts",
+      "default": "./index.ts"
+    }
+  },
   "dependencies": {
     "@ruins/config": "workspace:*",
     "citty": "catalog:",

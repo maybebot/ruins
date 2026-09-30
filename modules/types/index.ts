@@ -1,5 +1,3 @@
-import type { RuinsConfigInternal } from "@ruins/config";
-
 /**
  * A module is a a plugin that adds functionality to ruins.
  */
@@ -42,4 +40,20 @@ export interface UiDataPanel {
   file: string;
   columns: Array<{ name: string }>;
   transformerFn: (data: any, context?: UiTransformContext) => UiDataRow[];
+}
+
+export interface RuinsConfig {
+  dir: string;
+  group?: {
+    dirs: string[];
+  };
+  modules: RuinsModule[];
+}
+
+export interface RuinsConfigInternal extends RuinsConfig {
+  _paths: {
+    ruinsDir: string;
+    ruins: string;
+    bin: string;
+  };
 }

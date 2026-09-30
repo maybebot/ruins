@@ -2,6 +2,6 @@
 
 "use strict";
 
-import { cli } from "./apps/cli/index.js";
+import { cli } from "@ruins/cli";
 
 await cli();
