@@ -15,6 +15,6 @@ PACKAGE_FILE=$(ls *.tgz)
 echo "Moving package to test folder..."
 mv "$PACKAGE_FILE" ../monogon/
 cd ../monogon/
-pnpm add ./"$PACKAGE_FILE"
+pnpm add "./$PACKAGE_FILE"
 rm "$PACKAGE_FILE"
 pnpm ruins tried

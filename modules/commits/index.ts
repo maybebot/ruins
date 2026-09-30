@@ -39,8 +39,9 @@ export const commits = (userSettings?: CommitSettings): RuinsModule => {
       views: [
         {
           name: "default",
-          processFn: (data: any) => data,
+          transformerFn: (data: any) => data,
           file: "commits.json",
+          columns: [{ name: "type" }, { name: "scope" }],
         },
       ],
     },

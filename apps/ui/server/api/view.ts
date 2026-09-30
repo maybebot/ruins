@@ -1,40 +1,41 @@
 import { defineHandler } from "nitro/h3";
 import { readConfig } from "@ruins/config";
 import { readRuinsFile } from "../utils/readRuinsFile.js";
+import type { UiTransformContext } from "@ruins/types";
 
-const loadView = async (moduleSearch: string, viewSearch: string) => {
+export type ViewData = Record<string, number | string | boolean | undefined | null>[];
+
+const loadView = async (
+  moduleName: string,
+  viewName: string,
+  query: Record<string, string>,
+): Promise<ViewData | undefined> => {
   const config = await readConfig();
   if (!config.modules) {
     return;
   }
-  console.log("mmmm", config);
 
-  const module = config.modules.find((m) => m.meta.name === moduleSearch);
-  console.log("fff", module, moduleSearch);
+  const module = config.modules.find((m) => m.meta.name === moduleName);
   if (!module) {
     return;
   }
-  const view = module.ui?.views?.find((v) => v.name === viewSearch);
+  const view = module.ui?.views?.find((v) => v.name === viewName);
   if (!view) {
     return;
   }
 
-  console.log("inside");
-
   const fileContents = await readRuinsFile(config, view.file);
-  const data = view.processFn(fileContents);
 
-  return {
-    data,
-    view,
-    module,
-  };
+  const context: UiTransformContext = { config, query };
+  const data = view.transformerFn(fileContents, context);
+
+  return data;
 };
 
 export default defineHandler(async (event) => {
-  const paramsString = event.req.url;
-  const params = new URLSearchParams(paramsString);
+  const requestUrl = new URL(event.req.url, "http://localhost");
+  const params = requestUrl.searchParams;
   const module = params.get("module") ?? "";
   const view = params.get("view") ?? "";
-  return await loadView(module, view);
+  return await loadView(module, view, Object.fromEntries(params.entries()));
 });

@@ -18,7 +18,8 @@
   },
   "scripts": {
     "build": "bash ./scripts/build.sh",
-    "dev": "tsdown --watch",
+    "dev": "tsx --watch ./index.ts",
+    "start": "tsx ./index.ts",
     "lint": "oxlint --type-aware",
     "try": "bash ./scripts/try.sh"
   },
@@ -31,6 +32,7 @@
     "oxlint-tsgolint": "^0.6.0",
     "prettier": "3.6.2",
     "tsdown": "^0.15.12",
+    "tsx": "^4.20.4",
     "typescript": "~5.9.3",
     "unplugin-vue": "^7.2.0"
   },

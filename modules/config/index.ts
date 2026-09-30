@@ -1,5 +1,6 @@
 import { loadConfig } from "c12";
 import type { RuinsModule } from "@ruins/types";
+import { existsSync } from "node:fs";
 import { resolve } from "node:path";
 
 /**
@@ -30,6 +31,21 @@ const defaultConfig = Object.freeze({
   modules: [],
 });
 
+const resolveRuinsRoot = (cwd: string) => {
+  const localBuildOutput = resolve(cwd, "dist", ".output", "server", "index.mjs");
+  if (existsSync(localBuildOutput)) {
+    return cwd;
+  }
+
+  const installedPackageRoot = resolve(cwd, "node_modules", "ruins");
+  const installedBuildOutput = resolve(installedPackageRoot, "dist", ".output", "server", "index.mjs");
+  if (existsSync(installedBuildOutput)) {
+    return installedPackageRoot;
+  }
+
+  return installedPackageRoot;
+};
+
 /** Returns user configuration in ruins.config.ts */
 export const readConfig = async (): Promise<RuinsConfigInternal> => {
   const { config } = await loadConfig<RuinsConfig>({
@@ -42,11 +58,13 @@ export const readConfig = async (): Promise<RuinsConfigInternal> => {
     ...config,
   };
 
+  const ruinsRoot = resolveRuinsRoot(process.cwd());
+
   const internalConfig: RuinsConfigInternal = {
     ...mergedConfig,
     _paths: {
       ruinsDir: resolve(process.cwd(), mergedConfig.dir),
-      ruins: resolve(process.cwd(), "node_modules", "ruins"),
+      ruins: ruinsRoot,
       bin: resolve(process.cwd(), "node_modules", ".bin"),
     },
   };

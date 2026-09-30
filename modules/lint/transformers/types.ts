@@ -12,7 +12,7 @@ export type EslintOutput = Array<{
 }>;
 
 export interface EslintMessage {
-  ruleId: string;
+  ruleId: string | null;
   severity: 0 | 1 | 2;
   message: string;
   line: number;
@@ -23,6 +23,7 @@ export interface EslintMessage {
   endColumn: number;
 }
 export type RuinsEslintOutput = {
+  meta: { timestamp: number };
   issues: {
     filePath: string;
     messages: RuinsEslintMessage[];
@@ -35,7 +36,7 @@ export type RuinsEslintOutput = {
 };
 
 export interface RuinsEslintMessage {
-  ruleId: string;
+  ruleId: string | null;
   severity: 0 | 1 | 2;
   message: string;
   line: number;

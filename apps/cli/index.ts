@@ -49,7 +49,7 @@ export const cli = async () => {
         return;
       }
       const selectedAction = selectedCommand.getAction(config);
-      selectedAction();
+      await selectedAction();
       if (!hasValidRunFlag) {
         // no reprompting run --run commands, facilitate CI/CDs
         await cli();
