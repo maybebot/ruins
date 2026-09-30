@@ -20,16 +20,14 @@ const loadView = async (
     return;
   }
   const view = module.ui?.views?.find((v) => v.name === viewName);
-  if (!view) {
+  if (!view || (!view.getData && !view.file)) {
     return;
   }
 
-  const fileContents = await readRuinsFile(config, view.file);
-
   const context: UiTransformContext = { config, query };
-  const data = view.transformerFn(fileContents, context);
+  const rawData = view.getData ? await view.getData(context) : await readRuinsFile(config, view.file!);
 
-  return data;
+  return view.transformerFn(rawData, context);
 };
 
 export default defineHandler(async (event) => {

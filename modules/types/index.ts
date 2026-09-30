@@ -37,9 +37,12 @@ export type UiDataRow = Record<string, number | string | boolean | undefined | n
 export interface UiDataPanel {
   name: string;
   label?: string;
-  file: string;
+  /** File read from the ruins dir, used when `getData` is not provided */
+  file?: string;
   columns: Array<{ name: string }>;
   transformerFn: (data: any, context?: UiTransformContext) => UiDataRow[];
+  /** Compute data on demand (e.g. running a shell command) instead of reading `file` from disk */
+  getData?: (context: UiTransformContext) => Promise<unknown> | unknown;
 }
 
 export interface RuinsConfig {
