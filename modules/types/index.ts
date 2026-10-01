@@ -11,6 +11,8 @@ export interface RuinsModule<ModuleSpecificSettings = {}> {
   cli?: {
     /** Array of commands that can be run in the ruins cli */
     commands: {
+      /** Long flag used to run this command without opening the interactive picker */
+      flag?: string;
       label: string;
       value: string;
       hint: string;

@@ -12,6 +12,7 @@ export const todo = (): RuinsModule => {
     cli: {
       commands: [
         {
+          flag: "todo-update",
           value: "collect-todos",
           label: "Collect TODOs",
           hint: "Collect all TODOs found in the project on a file per file basis.",

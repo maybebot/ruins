@@ -82,6 +82,7 @@ export const lint = (userSettings?: LintSettings): RuinsModule => {
     cli: {
       commands: [
         {
+          flag: "lint-update",
           value: "collect-lint-errors",
           label: "Collect lint errors",
           hint: "Collect existing lint errors, enables downgrade to warnings or analysis.",

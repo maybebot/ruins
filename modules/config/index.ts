@@ -1,13 +1,31 @@
 import { loadConfig } from "c12";
-import type { RuinsConfig, RuinsConfigInternal } from "@ruins/types";
+import type { RuinsModule } from "@ruins/types";
 import { existsSync } from "node:fs";
 import { resolve } from "node:path";
-
-export type { RuinsConfig, RuinsConfigInternal } from "@ruins/types";
 
 /**
  * Definition of Ruins config in user's /ruins.config.ts file
  */
+export interface RuinsConfig {
+  /** Directory where ruins files are stored. Do not .gitignore */
+  dir: string;
+  /** Paths in your app to directories you want to show grouped results */
+  group?: {
+    dirs: string[];
+  };
+  /** Module-specific configuration */
+  modules: RuinsModule[];
+}
+
+/** Config with paths for internal use only */
+export interface RuinsConfigInternal extends RuinsConfig {
+  _paths: {
+    ruinsDir: string;
+    ruins: string;
+    bin: string;
+  };
+}
+
 const defaultConfig = Object.freeze({
   dir: ".ruins/",
   modules: [],

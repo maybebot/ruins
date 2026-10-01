@@ -1,0 +1,23 @@
+{
+  "meta": {
+    "timestamp": 1790836234530
+  },
+  "data": [
+    {
+      "file": "index.ts",
+      "todo": "// TODO: change, make clear it's a module"
+    },
+    {
+      "file": "modules/todo/cmd/collect-todos.ts",
+      "todo": "// TODO\"], {"
+    },
+    {
+      "file": "modules/todo/transformers/parse.ts",
+      "todo": "// TODO(created=2025-03-26, author=ian): some message`"
+    },
+    {
+      "file": "scripts/build.sh",
+      "todo": "// TODO: find better solution"
+    }
+  ]
+}
