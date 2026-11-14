@@ -352,7 +352,7 @@ packages:
     engines: {node: '>=4'}
 
   ruins@file:../../ruins-0.3.0-beta.0.tgz:
-    resolution: {integrity: sha512-5y3JgY14dJY2e1mQV3eTDZBudxd/ImTkeUh4ADNkqTeIfLHSMVJju3SBvUQKu43+58edmqzKj9MPqrFUVujavA==, tarball: file:../../ruins-0.3.0-beta.0.tgz}
+    resolution: {integrity: sha512-s9tRrz7i6Qmc7QuDl6pj2BZKM8jXgLzXuq3o5r/sZdwMhxf8ANjJQxZcavIfplzj5NX8+spLXMMBTHyngDD8xQ==, tarball: file:../../ruins-0.3.0-beta.0.tgz}
     version: 0.3.0-beta.0
     hasBin: true
 

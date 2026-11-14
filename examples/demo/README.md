@@ -14,8 +14,10 @@ pnpm try
 
 The try script builds and packs Ruins, installs the resulting tarball into the
 demo, and opens the picker. It changes the demo's `package.json` and lockfile
-and leaves the tarball in the repository root. Set `RUINS_TRY_DIR` to use a
-different project. After installation, run commands directly from the demo:
+and leaves a versioned tarball in the repository root, overwriting it on
+subsequent runs for the same version. The lockfile can still change when the
+package contents change. Set `RUINS_TRY_DIR` to use a different project. After
+installation, run commands directly from the demo:
 
 ```sh
 cd examples/demo
