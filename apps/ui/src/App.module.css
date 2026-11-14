@@ -1,0 +1,21 @@
+.main {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1em;
+  width: 95%;
+  margin: 0.5em auto;
+}
+
+.dashboardError {
+  margin: 0;
+  padding: 1.4em 1.25em;
+  border: 1px solid #efc6bd;
+  color: #8a3527;
+  background: #fff5f2;
+}
+
+@media (max-width: 640px) {
+  .main {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

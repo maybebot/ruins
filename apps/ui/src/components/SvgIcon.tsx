@@ -1,13 +1,9 @@
-export const SvgIcon = ({
-  source,
-  className,
-}: {
-  source: string;
-  className?: string;
-}) => (
+import styles from "./SvgIcon.module.css";
+
+export const SvgIcon = ({ source, className }: { source: string; className?: string }) => (
   <span
     aria-hidden="true"
-    className={`svg-icon${className ? ` ${className}` : ""}`}
+    className={`${styles.svgIcon}${className ? ` ${className}` : ""}`}
     dangerouslySetInnerHTML={{ __html: source }}
   />
 );

@@ -1,0 +1,111 @@
+.appHeader {
+  border-bottom: 1px solid var(--line);
+  background: var(--page-bg);
+}
+
+.headerInner {
+  width: 95%;
+  min-height: 4em;
+  margin: 0 auto;
+  padding: 0.6em 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5em;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6em;
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.brandGhost {
+  display: grid;
+  width: 2em;
+  height: 2.25em;
+  place-items: center;
+  color: var(--accent);
+}
+
+.brandGhost svg {
+  overflow: visible;
+}
+
+.brandName {
+  font-size: 1.5em;
+  font-weight: 700;
+}
+
+.headerActions {
+  display: flex;
+  align-items: center;
+  gap: 0.4em;
+}
+
+.headerLink,
+.themeToggle {
+  display: inline-flex;
+  min-height: 3em;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6em;
+  padding: 0 0.8em;
+  border: 1px solid transparent;
+  color: var(--muted);
+  background: transparent;
+  font: inherit;
+  font-size: 0.8em;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.headerLink:hover,
+.themeToggle:hover {
+  color: var(--ink);
+  background: var(--table-head);
+}
+
+.headerLink svg,
+.themeToggle svg {
+  width: 1.4em;
+  height: 1.4em;
+}
+
+.themeToggle {
+  width: 3.1em;
+  padding: 0;
+  border-color: var(--line);
+  color: var(--ink);
+}
+
+.ghostFlight {
+  animation: move-up-shake-fade 10s ease-in-out;
+}
+
+@keyframes move-up-shake-fade {
+  0% {
+    transform: translate(0, 0);
+    opacity: 1;
+  }
+
+  5% {
+    transform: translate(-0.3em, -0.3em);
+  }
+
+  10% {
+    transform: translate(0.3em, -0.6em);
+  }
+
+  15% {
+    transform: translate(-0.25em, -0.9em);
+  }
+
+  20%,
+  100% {
+    transform: translate(0, -1.25em);
+    opacity: 0;
+  }
+}
