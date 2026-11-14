@@ -28,6 +28,10 @@
     "try": "bash ./scripts/try.sh"
   },
   "main": "./dist/index.mjs",
+  "exports": {
+    ".": "./dist/index.mjs",
+    "./rule-todo": "./dist/plugins/structured-todos.mjs"
+  },
   "bin": {
     "ruins": "./dist/cli.mjs"
   },
@@ -49,6 +53,7 @@
     "@bomb.sh/tty": "^0.10.0",
     "@clack/prompts": "^1.9.0",
     "confbox": "^0.3.2",
+    "eslint-plugin-structured-todo": "^0.2.2",
     "consola": "catalog:"
   }
 }
