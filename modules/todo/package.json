@@ -12,11 +12,11 @@
     }
   },
   "dependencies": {
-    "@ruins/types": "workspace:*",
     "@ruins/config": "workspace:*",
+    "@ruins/types": "workspace:*",
     "consola": "catalog:"
   },
   "devDependencies": {
-    "@types/node": "^24.9.2"
+    "@types/node": "^26.6.6"
   }
 }

@@ -11,13 +11,13 @@
     "@ruins/config": "workspace:",
     "@ruins/types": "workspace:",
     "c12": "catalog:",
-    "nitro": "3.0.1-alpha.1",
-    "preact": "^10.24.3"
+    "nitro": "3.0.261103-rc",
+    "preact": "^11.2.0"
   },
   "devDependencies": {
-    "@preact/preset-vite": "^2.9.3",
-    "@types/node": "^24.6.0",
-    "typescript": "~5.9.3",
-    "vite": "^7.1.7"
+    "@preact/preset-vite": "^2.10.6",
+    "@types/node": "^26.6.6",
+    "typescript": "~7.0.2",
+    "vite": "^8.3.8"
   }
 }
