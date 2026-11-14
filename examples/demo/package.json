@@ -1,0 +1,14 @@
+{
+  "name": "ruins-demo",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "lint": "eslint ."
+  },
+  "devDependencies": {
+    "eslint": "^9.39.1"
+  },
+  "dependencies": {
+    "ruins": "file:/home/ian/dev/ruins-next/ruins-0.3.0-beta.0.tgz"
+  }
+}
