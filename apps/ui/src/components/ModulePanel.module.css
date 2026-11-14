@@ -43,7 +43,7 @@
   min-height: 2.4em;
   align-items: center;
   gap: 0.5em;
-  padding: 1em;
+  padding: 0.25em 1em;
   border: 0;
   border-bottom: 2px solid transparent;
   color: var(--muted);
@@ -83,7 +83,7 @@
   font: inherit;
 }
 
-.ownerNote {
+.viewNote {
   margin: 0 1.25em 0.75em;
   color: var(--muted);
   font-size: 0.8em;

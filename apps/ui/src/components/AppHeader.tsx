@@ -17,7 +17,7 @@ export const AppHeader = ({
   const [ghostFlight, setGhostFlight] = useState(0);
 
   return (
-    <header className={styles.appHeader}>
+    <header>
       <div className={styles.headerInner}>
         <a
           className={styles.brand}

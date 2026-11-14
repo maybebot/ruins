@@ -58,3 +58,9 @@ input:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 2px;
 }
+
+button {
+  border: none;
+  background: none;
+  cursor: pointer;
+}
