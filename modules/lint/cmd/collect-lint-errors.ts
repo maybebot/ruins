@@ -6,7 +6,8 @@ import { relative, resolve, sep } from "node:path";
 import { consola } from "consola";
 import type { LintSettings } from "../index.js";
 import { transformIntoLintIgnores } from "../transformers/errors.js";
-import type { EslintIgnoreByFile, RuinsEslintOutput } from "../transformers/types.js";
+import formatLintOutput from "../transformers/output.js";
+import type { EslintIgnoreByFile, EslintOutput, RuinsEslintOutput } from "../transformers/types.js";
 
 const issuesFilename = "lint-issues.json";
 const ignoresFilename = "lint-ignores.js";
@@ -17,9 +18,9 @@ export const collectLintErrors = async (settings: LintSettings, config: RuinsCon
   await mkdir(config._paths.ruinsDir, { recursive: true });
   consola.info(`Searching for linting issues`);
 
-  assertLintToolsAvailable(config._paths.ruins, config._paths.bin);
+  assertLintToolsAvailable(config._paths.bin);
   await resetExistingIgnores(ignoresFilePath);
-  writeIssuesFile(issuesFilePath, config._paths.ruins, config._paths.bin);
+  await writeIssuesFile(issuesFilePath, config._paths.bin);
 
   const issues = await readLintIssuesFile(issuesFilePath);
   const ignores = transformIntoLintIgnores(
@@ -45,11 +46,10 @@ const resetExistingIgnores = async (ignoresFile: string) => {
 /**
  * Creates a /.ruins/lint-issues.json file
  */
-const writeIssuesFile = (outputFile: string, ruinsPath: string, binPath: string) => {
+const writeIssuesFile = async (outputFile: string, binPath: string) => {
   const eslintPath = resolve(binPath, process.platform === "win32" ? "eslint.cmd" : "eslint");
-  const formatterPath = resolve(ruinsPath, "dist/modules/lint/transformers/output.js");
   try {
-    execFileSync(eslintPath, ["--quiet", "--output-file", outputFile, "--format", formatterPath], {
+    execFileSync(eslintPath, ["--quiet", "--output-file", outputFile, "--format", "json"], {
       cwd: process.cwd(),
       shell: process.platform === "win32",
       stdio: ["ignore", "ignore", "inherit"],
@@ -59,19 +59,15 @@ const writeIssuesFile = (outputFile: string, ruinsPath: string, binPath: string)
       throw error;
     }
   }
+  const eslintOutput = JSON.parse(await readFile(outputFile, "utf8")) as EslintOutput;
+  await writeFile(outputFile, formatLintOutput(eslintOutput));
 };
 
-const assertLintToolsAvailable = (ruinsPath: string, binPath: string) => {
+const assertLintToolsAvailable = (binPath: string) => {
   const eslintPath = resolve(binPath, process.platform === "win32" ? "eslint.cmd" : "eslint");
-  const formatterPath = resolve(ruinsPath, "dist/modules/lint/transformers/output.js");
   if (!existsSync(eslintPath)) {
     throw new Error(
       `ESLint was not found at ${eslintPath}. Install eslint in the consuming project.`,
-    );
-  }
-  if (!existsSync(formatterPath)) {
-    throw new Error(
-      `Ruins ESLint formatter was not found at ${formatterPath}. Rebuild Ruins first.`,
     );
   }
 };

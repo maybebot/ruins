@@ -3,6 +3,8 @@ import { collectLintErrors } from "./cmd/collect-lint-errors.js";
 import type { RuinsConfigInternal } from "@ruins/config";
 import type { RuinsEslintOutput } from "./transformers/types.js";
 
+export { collectLintErrors };
+
 type IssueRow = { name: string; error: number; warning: number; total: number };
 
 const getFileRows = (data: RuinsEslintOutput, context?: UiTransformContext): IssueRow[] => {
@@ -83,11 +85,11 @@ export const lint = (userSettings?: LintSettings): RuinsModule => {
       commands: [
         {
           flag: "lint-update",
+          label: "Collect Lint Errors",
           value: "collect-lint-errors",
-          label: "Collect lint errors",
-          hint: "Collect existing lint errors, enables downgrade to warnings or analysis.",
-          getAction: (config: RuinsConfigInternal) => () => collectLintErrors(settings, config),
+          hint: "Collect existing lint errors, enables downgrade to warnings or analysis",
           runnable: true,
+          getAction: (config: RuinsConfigInternal) => () => collectLintErrors(settings, config),
         },
       ],
     },
