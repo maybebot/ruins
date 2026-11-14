@@ -34,6 +34,11 @@ Change the existing `export default [...]` to `const config = [...]`, then add
 resets and regenerates the ignores on each run. The `.ruins/` directory is
 ignored so generated state does not become part of the fixture.
 
+The demo also enables `codeowners()` and includes a CODEOWNERS file with mock
+owners. Open the lint dashboard's Owners tab to inspect owner totals and select
+an owner to see its files. The demo's CODEOWNERS file is detected automatically
+and its patterns are relative to the demo directory.
+
 TODO collection uses `git grep`, so the demo source files must be tracked or
 staged before running it. The intentionally faulty source files remain unchanged
 by collection and can be used again.

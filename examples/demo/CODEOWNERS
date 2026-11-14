@@ -1,0 +1,5 @@
+# Mock owners for the demo; these are not real review assignments.
+* @demo/general
+/src/ @demo/frontend
+/src/filters.js @demo/frontend @demo/quality
+/src/legacy-status.js

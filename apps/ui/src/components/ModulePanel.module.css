@@ -83,6 +83,12 @@
   font: inherit;
 }
 
+.ownerNote {
+  margin: 0 1.25em 0.75em;
+  color: var(--muted);
+  font-size: 0.8em;
+}
+
 .tableScroll {
   overflow-x: auto;
   max-height: 25vh;

@@ -26,6 +26,11 @@ export interface RuinsModule<ModuleSpecificSettings = {}> {
     icon?: string;
     views?: UiDataPanel[];
   };
+  /** Views contributed to another module's dashboard panel */
+  uiViews?: {
+    module: string;
+    views: UiDataPanel[];
+  };
   settings?: ModuleSpecificSettings;
 }
 
@@ -39,6 +44,8 @@ export type UiDataRow = Record<string, number | string | boolean | undefined | n
 export interface UiDataPanel {
   name: string;
   label?: string;
+  /** Make the first column selectable and request details using this query parameter*/
+  drilldown?: { query: string; backLabel: string; note?: string };
   /** File read from the ruins dir, used when `getData` is not provided */
   file?: string;
   columns: Array<{ name: string }>;

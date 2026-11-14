@@ -13,9 +13,12 @@ export interface RuinsModuleSimplified {
     views?: {
       name: string;
       label?: string;
+      drilldown?: { query: string; backLabel: string; note?: string };
       columns: { name: string }[];
     }[];
   };
 }
 
 export type UiDataPanel = Record<string, number | string | boolean | undefined | null>[];
+
+export type DrilldownSelection = { value: string; data: UiDataPanel };

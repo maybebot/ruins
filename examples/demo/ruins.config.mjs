@@ -1,6 +1,6 @@
-import { lint, todo } from "ruins";
+import { codeowners, lint, todo } from "ruins";
 
 export default {
-  modules: [lint(), todo()],
+  modules: [lint(), todo(), codeowners()],
   group: { dirs: ["src/"] },
 };

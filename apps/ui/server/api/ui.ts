@@ -1,5 +1,6 @@
 import { defineHandler } from "nitro/h3";
 import { readConfig } from "@ruins/config";
+import { getModuleViews } from "../utils/getModuleViews.js";
 
 /** Returns modules used by consumer */
 const loadModules = async () => {
@@ -15,7 +16,14 @@ const loadModules = async () => {
         ? {
             name: module.ui.name,
             icon: module.ui.icon,
-            views: module.ui.views?.map(({ name, label, columns }) => ({ name, label, columns })),
+            views: getModuleViews(config.modules, module).map(
+              ({ name, label, columns, drilldown }) => ({
+                name,
+                label,
+                columns,
+                drilldown,
+              }),
+            ),
           }
         : undefined,
     })),

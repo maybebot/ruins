@@ -1,4 +1,4 @@
-import type { RuinsModuleSimplified, UiDataPanel } from "../types";
+import type { DrilldownSelection, RuinsModuleSimplified, UiDataPanel } from "../types";
 import { SvgIcon } from "./SvgIcon";
 import compassIcon from "../assets/icons/compass.svg?raw";
 import foldersIcon from "../assets/icons/folders.svg?raw";
@@ -16,6 +16,9 @@ export const ModulePanel = ({
   onFilter,
   onSelectView,
   onSelectGroup,
+  selection,
+  onSelectDrilldown,
+  onBack,
 }: {
   module: RuinsModuleSimplified;
   activeViewName?: string;
@@ -24,12 +27,18 @@ export const ModulePanel = ({
   onFilter: (filter: string) => void;
   onSelectView: (viewName: string) => void;
   onSelectGroup: (viewName: string, directory: string) => void;
+  selection?: DrilldownSelection;
+  onSelectDrilldown: (viewName: string, query: string, value: string) => void;
+  onBack: () => void;
 }) => {
   const views = module.ui?.views ?? [];
   const defaultView = views.find((view) => view.name === "default") ?? views[0];
   const activeView = views.find((view) => view.name === (activeViewName ?? defaultView?.name));
   if (!activeView) return null;
-  const data = viewData[`${module.meta.name}:${activeView.name}`] ?? [];
+  const data =
+    activeView.drilldown && selection
+      ? selection.data
+      : (viewData[`${module.meta.name}:${activeView.name}`] ?? []);
   const filteredData = data.filter((item) =>
     Object.values(item).join(" ").toLowerCase().includes(filter.toLowerCase()),
   );
@@ -68,7 +77,7 @@ export const ModulePanel = ({
                 type="button"
                 aria-pressed={activeView.name === view.name}
                 onClick={() => {
-                  if (view.name === "grouped") onFilter("");
+                  if (view.name === "grouped" || view.drilldown) onFilter("");
                   onSelectView(view.name);
                 }}
               >
@@ -80,6 +89,11 @@ export const ModulePanel = ({
         </nav>
       )}
       <div className={styles.viewToolbar}>
+        {activeView.drilldown && selection && (
+          <button type="button" onClick={onBack}>
+            Back to {activeView.drilldown.backLabel} ({selection.value})
+          </button>
+        )}
         <input
           type="search"
           value={filter}
@@ -89,6 +103,9 @@ export const ModulePanel = ({
         />
         <span>{filteredData.length} results</span>
       </div>
+      {activeView.drilldown?.note && !selection && (
+        <p className={styles.viewNote}>{activeView.drilldown.note}</p>
+      )}
       <div className={styles.tableScroll}>
         <table>
           <thead>
@@ -103,12 +120,19 @@ export const ModulePanel = ({
               <tr key={index}>
                 {activeView.columns.map((column, columnIndex) => (
                   <td key={column.name}>
-                    {activeView.name === "grouped" && columnIndex === 0 ? (
+                    {(activeView.name === "grouped" || (activeView.drilldown && !selection)) &&
+                    columnIndex === 0 ? (
                       <button
                         type="button"
                         className={styles.groupLink}
                         onClick={() =>
-                          onSelectGroup(defaultView.name, String(item[column.name] ?? ""))
+                          activeView.drilldown
+                            ? onSelectDrilldown(
+                                activeView.name,
+                                activeView.drilldown.query,
+                                String(item[column.name] ?? ""),
+                              )
+                            : onSelectGroup(defaultView.name, String(item[column.name] ?? ""))
                         }
                       >
                         {String(item[column.name] ?? "")}

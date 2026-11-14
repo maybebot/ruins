@@ -37,6 +37,7 @@
   },
   "devDependencies": {
     "@ruins/cli": "workspace:*",
+    "@ruins/codeowners": "workspace:*",
     "@ruins/commits": "workspace:*",
     "@ruins/config": "workspace:*",
     "@ruins/lint": "workspace:*",
