@@ -10,6 +10,10 @@
   "dependencies": {
     "@ruins/config": "workspace:",
     "@ruins/types": "workspace:",
+    "@visx/group": "^4.0.0",
+    "@visx/scale": "^4.0.0",
+    "@visx/shape": "^4.0.0",
+    "@visx/tooltip": "^4.0.0",
     "c12": "catalog:",
     "nitro": "3.0.261103-rc",
     "preact": "^11.2.0"

@@ -1,4 +1,6 @@
+import { useState } from "preact/hooks";
 import type { DrilldownSelection, RuinsModuleSimplified, UiDataPanel } from "../types";
+import { ModuleChart } from "./ModuleChart";
 import { SvgIcon } from "./SvgIcon";
 import compassIcon from "../assets/icons/compass.svg?raw";
 import foldersIcon from "../assets/icons/folders.svg?raw";
@@ -31,6 +33,7 @@ export const ModulePanel = ({
   onSelectDrilldown: (viewName: string, query: string, value: string) => void;
   onBack: () => void;
 }) => {
+  const [showChart, setShowChart] = useState(false);
   const views = module.ui?.views ?? [];
   const defaultView = views.find((view) => view.name === "default") ?? views[0];
   const activeView = views.find((view) => view.name === (activeViewName ?? defaultView?.name));
@@ -59,6 +62,13 @@ export const ModulePanel = ({
           <h2>{module.ui?.name ?? module.meta.name}</h2>
           <p>{module.meta.description}</p>
         </div>
+        <button
+          type="button"
+          className={styles.viewToggle}
+          onClick={() => setShowChart(!showChart)}
+        >
+          {showChart ? "Show list" : "Show chart"}
+        </button>
       </header>
       {views.length > 1 && (
         <nav className={styles.viewTabs} aria-label={`${module.meta.name} views`}>
@@ -106,48 +116,56 @@ export const ModulePanel = ({
       {activeView.drilldown?.note && !selection && (
         <p className={styles.viewNote}>{activeView.drilldown.note}</p>
       )}
-      <div className={styles.tableScroll}>
-        <table>
-          <thead>
-            <tr>
-              {activeView.columns.map((column) => (
-                <th key={column.name}>{column.name}</th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {filteredData.map((item, index) => (
-              <tr key={index}>
-                {activeView.columns.map((column, columnIndex) => (
-                  <td key={column.name}>
-                    {(activeView.name === "grouped" || (activeView.drilldown && !selection)) &&
-                    columnIndex === 0 ? (
-                      <button
-                        type="button"
-                        className={styles.groupLink}
-                        onClick={() =>
-                          activeView.drilldown
-                            ? onSelectDrilldown(
-                                activeView.name,
-                                activeView.drilldown.query,
-                                String(item[column.name] ?? ""),
-                              )
-                            : onSelectGroup(defaultView.name, String(item[column.name] ?? ""))
-                        }
-                      >
-                        {String(item[column.name] ?? "")}
-                      </button>
-                    ) : (
-                      String(item[column.name] ?? "")
-                    )}
-                  </td>
+      {showChart ? (
+        <ModuleChart
+          moduleName={module.meta.name}
+          columns={activeView.columns.map((column) => column.name)}
+          rows={filteredData}
+        />
+      ) : (
+        <div className={styles.tableScroll}>
+          <table>
+            <thead>
+              <tr>
+                {activeView.columns.map((column) => (
+                  <th key={column.name}>{column.name}</th>
                 ))}
               </tr>
-            ))}
-          </tbody>
-        </table>
-        {filteredData.length === 0 && <p className={styles.emptyState}>No data for this view.</p>}
-      </div>
+            </thead>
+            <tbody>
+              {filteredData.map((item, index) => (
+                <tr key={index}>
+                  {activeView.columns.map((column, columnIndex) => (
+                    <td key={column.name}>
+                      {(activeView.name === "grouped" || (activeView.drilldown && !selection)) &&
+                      columnIndex === 0 ? (
+                        <button
+                          type="button"
+                          className={styles.groupLink}
+                          onClick={() =>
+                            activeView.drilldown
+                              ? onSelectDrilldown(
+                                  activeView.name,
+                                  activeView.drilldown.query,
+                                  String(item[column.name] ?? ""),
+                                )
+                              : onSelectGroup(defaultView.name, String(item[column.name] ?? ""))
+                          }
+                        >
+                          {String(item[column.name] ?? "")}
+                        </button>
+                      ) : (
+                        String(item[column.name] ?? "")
+                      )}
+                    </td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          {filteredData.length === 0 && <p className={styles.emptyState}>No data for this view.</p>}
+        </div>
+      )}
     </section>
   );
 };

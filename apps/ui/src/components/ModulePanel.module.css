@@ -31,6 +31,16 @@
   font-size: 0.8em;
 }
 
+.viewToggle {
+  margin-left: auto;
+  padding: 0.35em 0.9em;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  color: var(--ink);
+  font: inherit;
+  font-size: 0.8em;
+}
+
 .viewTabs {
   display: flex;
   gap: 0.25em;

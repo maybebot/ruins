@@ -1,0 +1,92 @@
+.wrap {
+  position: relative;
+  margin: 0.5em 1em 1em;
+}
+
+.chart {
+  display: block;
+  overflow: visible;
+  font-size: 12px;
+  --chart-1: var(--accent);
+  --chart-2: #0ea5e9;
+  --chart-3: #10b981;
+  --chart-4: #f59e0b;
+  --chart-5: #f43f5e;
+  --chart-6: #14b8a6;
+  --chart-7: #94a3b8;
+}
+
+:root[data-theme="dark"] .chart {
+  --chart-2: #38bdf8;
+  --chart-3: #34d399;
+  --chart-4: #fbbf24;
+  --chart-5: #fb7185;
+  --chart-6: #2dd4bf;
+}
+
+.chart:hover .slice {
+  opacity: 0.45;
+}
+
+.chart .slice:hover {
+  opacity: 1;
+}
+
+.slice {
+  transition: opacity 0.15s;
+}
+
+.grid {
+  stroke: var(--line);
+  stroke-dasharray: 3 4;
+}
+
+.label {
+  fill: var(--muted);
+}
+
+.value {
+  fill: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+
+.empty {
+  margin: 1em;
+  color: var(--muted);
+}
+
+.tooltip {
+  position: absolute;
+  z-index: 1;
+  padding: 0.5em 0.75em;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  color: var(--ink);
+  background: var(--paper);
+  box-shadow: 0 4px 16px rgb(0 0 0 / 0.25);
+  font-size: 12px;
+  pointer-events: none;
+  white-space: nowrap;
+  transform: translate(12px, 12px);
+}
+
+.tooltipRow {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  color: var(--muted);
+}
+
+.tooltipRow i {
+  display: block;
+  flex-shrink: 0;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.tooltipRow b {
+  margin-left: auto;
+  padding-left: 1em;
+  color: var(--ink);
+}
