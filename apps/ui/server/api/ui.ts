@@ -1,6 +1,6 @@
 import { defineHandler } from "nitro/h3";
 import { readConfig } from "@ruins/config";
-import { getModuleViews } from "../utils/getModuleViews.js";
+import { getModuleViews } from "@ruins/views";
 
 /** Returns modules used by consumer */
 const loadModules = async () => {

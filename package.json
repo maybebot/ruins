@@ -42,6 +42,7 @@
     "@ruins/config": "workspace:*",
     "@ruins/lint": "workspace:*",
     "@ruins/todo": "workspace:*",
+    "@ruins/views": "workspace:*",
     "oxlint": "^1.93.0",
     "oxlint-tsgolint": "^7.0.2007",
     "prettier": "3.10.1",

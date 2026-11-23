@@ -1,8 +1,7 @@
 import { defineHandler } from "nitro/h3";
 import { readConfig } from "@ruins/config";
-import { readRuinsFile } from "../utils/readRuinsFile.js";
+import { getModuleViews, readRuinsFile } from "@ruins/views";
 import type { UiTransformContext } from "@ruins/types";
-import { getModuleViews } from "../utils/getModuleViews.js";
 
 export type ViewData = Record<string, number | string | boolean | undefined | null>[];
 

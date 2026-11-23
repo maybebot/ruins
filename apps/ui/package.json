@@ -10,6 +10,7 @@
   "dependencies": {
     "@ruins/config": "workspace:",
     "@ruins/types": "workspace:",
+    "@ruins/views": "workspace:",
     "@visx/group": "^4.0.0",
     "@visx/scale": "^4.0.0",
     "@visx/shape": "^4.0.0",
