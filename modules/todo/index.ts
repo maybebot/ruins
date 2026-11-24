@@ -18,6 +18,7 @@ export const todo = (): RuinsModule => {
           hint: "Collect all TODOs found in the project on a file per file basis.",
           getAction: (config: RuinsConfigInternal) => () => collectTodos(config),
           runnable: true,
+          snapshotCollector: true,
         },
       ],
     },

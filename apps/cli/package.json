@@ -15,6 +15,7 @@
     "@bomb.sh/args": "^0.3.1",
     "@bomb.sh/tty": "^0.10.0",
     "@clack/prompts": "^1.9.0",
-    "@ruins/config": "workspace:*"
+    "@ruins/config": "workspace:*",
+    "@ruins/snapshots": "workspace:*"
   }
 }

@@ -14,17 +14,17 @@ export const collectTodos = async (config: RuinsConfigInternal) => {
 
   const output: RuinsTodoOutput = {
     meta: { timestamp: Date.now() },
-    data: getTodoEntries(),
+    data: getTodoEntries(config._paths.cwd),
   };
   await writeFile(outputFilePath, JSON.stringify(output, null, 2));
   consola.success(`Collected TODOs in ${outputFilePath}`);
 };
 
-const getTodoEntries = (): RuinsTodoEntry[] => {
+const getTodoEntries = (cwd: string): RuinsTodoEntry[] => {
   let grepOutput: string;
   try {
     grepOutput = execFileSync("git", ["grep", "-rn", "// TODO"], {
-      cwd: process.cwd(),
+      cwd,
       encoding: "utf8",
     });
   } catch (error) {
@@ -33,7 +33,7 @@ const getTodoEntries = (): RuinsTodoEntry[] => {
       return [];
     }
     consola.error("Could not search for TODOs", error);
-    return [];
+    throw error;
   }
 
   return grepOutput

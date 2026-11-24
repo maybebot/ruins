@@ -51,6 +51,9 @@ importers:
       '@ruins/lint':
         specifier: workspace:*
         version: link:modules/lint
+      '@ruins/snapshots':
+        specifier: workspace:*
+        version: link:modules/snapshots
       '@ruins/todo':
         specifier: workspace:*
         version: link:modules/todo
@@ -90,12 +93,18 @@ importers:
       '@ruins/config':
         specifier: workspace:*
         version: link:../../modules/config
+      '@ruins/snapshots':
+        specifier: workspace:*
+        version: link:../../modules/snapshots
 
   apps/ui:
     dependencies:
       '@ruins/config':
         specifier: 'workspace:'
         version: link:../../modules/config
+      '@ruins/snapshots':
+        specifier: 'workspace:'
+        version: link:../../modules/snapshots
       '@ruins/types':
         specifier: 'workspace:'
         version: link:../../modules/types
@@ -191,6 +200,21 @@ importers:
         specifier: ^26.6.6
         version: 26.6.6
 
+  modules/snapshots:
+    dependencies:
+      '@clack/prompts':
+        specifier: ^1.9.0
+        version: 1.9.0
+      '@ruins/config':
+        specifier: workspace:*
+        version: link:../config
+      '@ruins/types':
+        specifier: workspace:*
+        version: link:../types
+      '@ruins/views':
+        specifier: workspace:*
+        version: link:../views
+
   modules/todo:
     dependencies:
       '@ruins/config':
@@ -207,10 +231,17 @@ importers:
         specifier: ^26.6.6
         version: 26.6.6
 
-  modules/types: {}
+  modules/types:
+    dependencies:
+      '@ruins/config':
+        specifier: workspace:*
+        version: link:../config
 
   modules/views:
     dependencies:
+      '@ruins/config':
+        specifier: workspace:*
+        version: link:../config
       '@ruins/types':
         specifier: workspace:*
         version: link:../types

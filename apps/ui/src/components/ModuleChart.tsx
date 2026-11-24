@@ -1,9 +1,9 @@
-import { useEffect, useRef, useState } from "preact/hooks";
 import { Group } from "@visx/group";
 import { scaleBand, scaleLinear, scaleOrdinal } from "@visx/scale";
 import { Bar, Pie } from "@visx/shape";
 import { Tooltip, useTooltip } from "@visx/tooltip";
 import type { UiDataPanel } from "../types";
+import { useElementWidth } from "./useElementWidth";
 import styles from "./ModuleChart.module.css";
 
 const height = 240;
@@ -48,16 +48,7 @@ const toData = (rows: UiDataPanel, spec: ReturnType<typeof getSpec>, limit: numb
 type ChartProps = { moduleName: string; columns: string[]; rows: UiDataPanel };
 
 export const ModuleChart = (props: ChartProps) => {
-  const ref = useRef<HTMLDivElement>(null);
-  const [width, setWidth] = useState(0);
-  useEffect(() => {
-    const element = ref.current;
-    if (!element) return;
-    setWidth(element.clientWidth);
-    const observer = new ResizeObserver(() => setWidth(element.clientWidth));
-    observer.observe(element);
-    return () => observer.disconnect();
-  }, []);
+  const { ref, width } = useElementWidth();
   return (
     <div ref={ref} className={styles.wrap}>
       {width > 0 && <Chart {...props} width={width} />}

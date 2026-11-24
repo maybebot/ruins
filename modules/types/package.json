@@ -10,5 +10,8 @@
       "import": "./index.ts",
       "default": "./index.ts"
     }
+  },
+  "dependencies": {
+    "@ruins/config": "workspace:*"
   }
 }

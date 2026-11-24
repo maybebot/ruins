@@ -1,6 +1,9 @@
 import type { RuinsCommitsOutput } from "./types.js";
 
-const getGroupedRows = (data: RuinsCommitsOutput, getKey: (entry: RuinsCommitsOutput["data"][number]) => string) => {
+const getGroupedRows = (
+  data: RuinsCommitsOutput,
+  getKey: (entry: RuinsCommitsOutput["data"][number]) => string,
+) => {
   const totals = new Map<string, number>();
   for (const entry of data?.data ?? []) {
     const key = getKey(entry);

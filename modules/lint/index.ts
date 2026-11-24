@@ -89,6 +89,7 @@ export const lint = (userSettings?: LintSettings): RuinsModule => {
           value: "collect-lint-errors",
           hint: "Collect existing lint errors, enables downgrade to warnings or analysis",
           runnable: true,
+          snapshotCollector: true,
           getAction: (config: RuinsConfigInternal) => () => collectLintErrors(settings, config),
         },
       ],

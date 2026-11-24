@@ -1,5 +1,6 @@
 import { useState } from "preact/hooks";
 import type { DrilldownSelection, RuinsModuleSimplified, UiDataPanel } from "../types";
+import { HistoryChart } from "./HistoryChart";
 import { ModuleChart } from "./ModuleChart";
 import { SvgIcon } from "./SvgIcon";
 import compassIcon from "../assets/icons/compass.svg?raw";
@@ -27,14 +28,16 @@ export const ModulePanel = ({
   viewData: Record<string, UiDataPanel>;
   filter: string;
   onFilter: (filter: string) => void;
-  onSelectView: (viewName: string) => void;
+  onSelectView: (viewName: string, loadData?: boolean) => void;
   onSelectGroup: (viewName: string, directory: string) => void;
   selection?: DrilldownSelection;
   onSelectDrilldown: (viewName: string, query: string, value: string) => void;
   onBack: () => void;
 }) => {
-  const [showChart, setShowChart] = useState(false);
-  const views = module.ui?.views ?? [];
+  const [mode, setMode] = useState<"list" | "chart" | "history">("list");
+  const views = (module.ui?.views ?? []).filter(
+    (view) => module.meta.name !== "commits" || view.name !== "activity",
+  );
   const defaultView = views.find((view) => view.name === "default") ?? views[0];
   const activeView = views.find((view) => view.name === (activeViewName ?? defaultView?.name));
   if (!activeView) return null;
@@ -62,15 +65,25 @@ export const ModulePanel = ({
           <h2>{module.ui?.name ?? module.meta.name}</h2>
           <p>{module.meta.description}</p>
         </div>
-        <button
-          type="button"
-          className={styles.viewToggle}
-          onClick={() => setShowChart(!showChart)}
-        >
-          {showChart ? "Show list" : "Show chart"}
-        </button>
+        <div className={styles.viewToggle} role="group" aria-label={`${module.meta.name} display`}>
+          {(["list", "chart", "history"] as const).map((value) => (
+            <button
+              key={value}
+              type="button"
+              aria-pressed={mode === value}
+              onClick={() => {
+                setMode(value);
+                if (value !== "history" && !viewData[`${module.meta.name}:${activeView.name}`]) {
+                  onSelectView(activeView.name);
+                }
+              }}
+            >
+              {value === "list" ? "List" : value === "chart" ? "Chart" : "History"}
+            </button>
+          ))}
+        </div>
       </header>
-      {views.length > 1 && (
+      {views.length > 1 && !(mode === "history" && module.meta.name === "todo") && (
         <nav className={styles.viewTabs} aria-label={`${module.meta.name} views`}>
           {views.map((view) => {
             const viewIcon =
@@ -88,7 +101,7 @@ export const ModulePanel = ({
                 aria-pressed={activeView.name === view.name}
                 onClick={() => {
                   if (view.name === "grouped" || view.drilldown) onFilter("");
-                  onSelectView(view.name);
+                  onSelectView(view.name, mode !== "history");
                 }}
               >
                 {viewIcon && <SvgIcon source={viewIcon} className={styles.viewTabIcon} />}
@@ -98,73 +111,87 @@ export const ModulePanel = ({
           })}
         </nav>
       )}
-      <div className={styles.viewToolbar}>
-        {activeView.drilldown && selection && (
-          <button type="button" onClick={onBack}>
-            Back to {activeView.drilldown.backLabel} ({selection.value})
-          </button>
-        )}
-        <input
-          type="search"
-          value={filter}
-          aria-label={`Filter ${module.ui?.name ?? module.meta.name}`}
-          placeholder="Filter results"
-          onInput={(event) => onFilter(event.currentTarget.value)}
-        />
-        <span>{filteredData.length} results</span>
-      </div>
-      {activeView.drilldown?.note && !selection && (
-        <p className={styles.viewNote}>{activeView.drilldown.note}</p>
-      )}
-      {showChart ? (
-        <ModuleChart
+      {mode === "history" ? (
+        <HistoryChart
           moduleName={module.meta.name}
-          columns={activeView.columns.map((column) => column.name)}
-          rows={filteredData}
+          moduleLabel={module.ui?.name ?? module.meta.name}
+          viewName={activeView.name}
+          viewLabel={activeView.label ?? activeView.name}
         />
       ) : (
-        <div className={styles.tableScroll}>
-          <table>
-            <thead>
-              <tr>
-                {activeView.columns.map((column) => (
-                  <th key={column.name}>{column.name}</th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {filteredData.map((item, index) => (
-                <tr key={index}>
-                  {activeView.columns.map((column, columnIndex) => (
-                    <td key={column.name}>
-                      {(activeView.name === "grouped" || (activeView.drilldown && !selection)) &&
-                      columnIndex === 0 ? (
-                        <button
-                          type="button"
-                          className={styles.groupLink}
-                          onClick={() =>
-                            activeView.drilldown
-                              ? onSelectDrilldown(
-                                  activeView.name,
-                                  activeView.drilldown.query,
-                                  String(item[column.name] ?? ""),
-                                )
-                              : onSelectGroup(defaultView.name, String(item[column.name] ?? ""))
-                          }
-                        >
-                          {String(item[column.name] ?? "")}
-                        </button>
-                      ) : (
-                        String(item[column.name] ?? "")
-                      )}
-                    </td>
+        <>
+          <div className={styles.viewToolbar}>
+            {activeView.drilldown && selection && (
+              <button type="button" onClick={onBack}>
+                Back to {activeView.drilldown.backLabel} ({selection.value})
+              </button>
+            )}
+            <input
+              type="search"
+              value={filter}
+              aria-label={`Filter ${module.ui?.name ?? module.meta.name}`}
+              placeholder="Filter results"
+              onInput={(event) => onFilter(event.currentTarget.value)}
+            />
+            <span>{filteredData.length} results</span>
+          </div>
+          {activeView.drilldown?.note && !selection && (
+            <p className={styles.viewNote}>{activeView.drilldown.note}</p>
+          )}
+          {mode === "chart" ? (
+            <ModuleChart
+              moduleName={module.meta.name}
+              columns={activeView.columns.map((column) => column.name)}
+              rows={filteredData}
+            />
+          ) : (
+            <div className={styles.tableScroll}>
+              <table>
+                <thead>
+                  <tr>
+                    {activeView.columns.map((column) => (
+                      <th key={column.name}>{column.name}</th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {filteredData.map((item, index) => (
+                    <tr key={index}>
+                      {activeView.columns.map((column, columnIndex) => (
+                        <td key={column.name}>
+                          {(activeView.name === "grouped" ||
+                            (activeView.drilldown && !selection)) &&
+                          columnIndex === 0 ? (
+                            <button
+                              type="button"
+                              className={styles.groupLink}
+                              onClick={() =>
+                                activeView.drilldown
+                                  ? onSelectDrilldown(
+                                      activeView.name,
+                                      activeView.drilldown.query,
+                                      String(item[column.name] ?? ""),
+                                    )
+                                  : onSelectGroup(defaultView.name, String(item[column.name] ?? ""))
+                              }
+                            >
+                              {String(item[column.name] ?? "")}
+                            </button>
+                          ) : (
+                            String(item[column.name] ?? "")
+                          )}
+                        </td>
+                      ))}
+                    </tr>
                   ))}
-                </tr>
-              ))}
-            </tbody>
-          </table>
-          {filteredData.length === 0 && <p className={styles.emptyState}>No data for this view.</p>}
-        </div>
+                </tbody>
+              </table>
+              {filteredData.length === 0 && (
+                <p className={styles.emptyState}>No data for this view.</p>
+              )}
+            </div>
+          )}
+        </>
       )}
     </section>
   );

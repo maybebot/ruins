@@ -11,7 +11,7 @@ type OwnedIssue = { issue: Issue; owners: string[] };
 const unowned = "Unowned";
 
 const getData = async (context: UiTransformContext): Promise<OwnedIssue[]> => {
-  const cwd = process.cwd();
+  const cwd = context.config._paths.cwd;
   const [codeowners, content] = await Promise.all([
     loadCodeowners(cwd),
     readFile(resolve(context.config._paths.ruinsDir, "lint-issues.json"), "utf8"),

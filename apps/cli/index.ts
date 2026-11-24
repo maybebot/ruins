@@ -16,7 +16,8 @@ import {
   type Op,
 } from "@bomb.sh/tty";
 import { log, spinner } from "@clack/prompts";
-import { readConfig, RuinsConfigInternal } from "@ruins/config";
+import { snapshotCommands } from "@ruins/snapshots/commands";
+import { readConfig, type RuinsConfigInternal } from "@ruins/config";
 import { exec } from "child_process";
 import { readFile } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
@@ -48,7 +49,7 @@ export const cli = async () => {
   }
 
   const moduleCommands = config.modules.flatMap((module) => module?.cli?.commands ?? []);
-  const commands = [...moduleCommands, uiCommand];
+  const commands = [...moduleCommands, uiCommand, ...snapshotCommands];
   const runnableCommands = commands.filter((command) => command.runnable);
   const args = parse(argv, {
     alias: { h: "help" },

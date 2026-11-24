@@ -84,11 +84,11 @@ export const App = () => {
     };
   }, []);
 
-  const selectView = async (moduleName: string, viewName: string) => {
+  const selectView = async (moduleName: string, viewName: string, loadData = true) => {
     setActiveViews((current) => ({ ...current, [moduleName]: viewName }));
     setSelections((current) => ({ ...current, [moduleName]: undefined }));
     const key = `${moduleName}:${viewName}`;
-    if (viewData[key]) return;
+    if (!loadData || viewData[key]) return;
     try {
       const data = await getView(moduleName, viewName);
       setViewData((current) => ({ ...current, [key]: data }));
@@ -140,7 +140,9 @@ export const App = () => {
             onFilter={(filter) =>
               setFilters((current) => ({ ...current, [module.meta.name]: filter }))
             }
-            onSelectView={(viewName) => void selectView(module.meta.name, viewName)}
+            onSelectView={(viewName, loadData) =>
+              void selectView(module.meta.name, viewName, loadData)
+            }
             onSelectGroup={(viewName, directory) =>
               selectGroup(module.meta.name, viewName, directory)
             }

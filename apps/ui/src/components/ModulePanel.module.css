@@ -9,6 +9,7 @@
 .moduleHeading {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   gap: 0.75em;
   padding: 0.75em 1em;
 }
@@ -32,17 +33,28 @@
 }
 
 .viewToggle {
+  display: flex;
   margin-left: auto;
-  padding: 0.35em 0.9em;
   border: 1px solid var(--line);
   border-radius: 6px;
+  overflow: hidden;
+}
+
+.viewToggle button {
+  padding: 0.35em 0.7em;
   color: var(--ink);
   font: inherit;
   font-size: 0.8em;
 }
 
+.viewToggle button[aria-pressed="true"] {
+  background: var(--accent);
+  color: var(--paper);
+}
+
 .viewTabs {
   display: flex;
+  flex-wrap: wrap;
   gap: 0.25em;
   padding: 0 1em;
   border-bottom: 1px solid var(--line);

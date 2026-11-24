@@ -1,3 +1,5 @@
+import type { RuinsConfigInternal } from "@ruins/config";
+
 /**
  * A module is a a plugin that adds functionality to ruins.
  */
@@ -19,6 +21,8 @@ export interface RuinsModule<ModuleSpecificSettings = {}> {
       getAction: (config: RuinsConfigInternal) => () => void | Promise<void>;
       /** If true, can be run with --run flag. False for processes like opening dashboard */
       runnable?: boolean;
+      /** Run this collection command when rebuilding historical snapshots. */
+      snapshotCollector?: boolean;
     }[];
   };
   ui?: {
@@ -52,20 +56,4 @@ export interface UiDataPanel {
   transformerFn: (data: any, context?: UiTransformContext) => UiDataRow[];
   /** Compute data on demand (e.g. running a shell command) instead of reading `file` from disk */
   getData?: (context: UiTransformContext) => Promise<unknown> | unknown;
-}
-
-export interface RuinsConfig {
-  dir: string;
-  group?: {
-    dirs: string[];
-  };
-  modules: RuinsModule[];
-}
-
-export interface RuinsConfigInternal extends RuinsConfig {
-  _paths: {
-    ruinsDir: string;
-    ruins: string;
-    bin: string;
-  };
 }

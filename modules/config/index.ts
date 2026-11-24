@@ -9,6 +9,13 @@ import { resolve } from "node:path";
 export interface RuinsConfig {
   /** Directory where ruins files are stored. Do not .gitignore */
   dir: string;
+  /** Snapshot storage and Git history settings. */
+  snapshots?: {
+    /** Number of completed weeks to generate, from 1 to 5200 (default 26). */
+    historyWeeks?: number;
+    /** Snapshot directory relative to dir, or an absolute path (default "snapshots"). */
+    directory?: string;
+  };
   /** Paths in your app to directories you want to show grouped results */
   group?: {
     dirs: string[];
@@ -20,6 +27,7 @@ export interface RuinsConfig {
 /** Config with paths for internal use only */
 export interface RuinsConfigInternal extends RuinsConfig {
   _paths: {
+    cwd: string;
     ruinsDir: string;
     ruins: string;
     bin: string;
@@ -53,9 +61,11 @@ const resolveRuinsRoot = (cwd: string) => {
 };
 
 /** Returns user configuration in ruins.config.ts */
-export const readConfig = async (): Promise<RuinsConfigInternal> => {
+export const readConfig = async (): Promise<RuinsConfigInternal> => readConfigAt(process.cwd());
+
+export const readConfigAt = async (cwd: string): Promise<RuinsConfigInternal> => {
   const { config } = await loadConfig<RuinsConfig>({
-    cwd: process.cwd(),
+    cwd,
     configFile: "ruins.config",
   });
 
@@ -64,14 +74,15 @@ export const readConfig = async (): Promise<RuinsConfigInternal> => {
     ...config,
   };
 
-  const ruinsRoot = resolveRuinsRoot(process.cwd());
+  const ruinsRoot = resolveRuinsRoot(cwd);
 
   const internalConfig: RuinsConfigInternal = {
     ...mergedConfig,
     _paths: {
-      ruinsDir: resolve(process.cwd(), mergedConfig.dir),
+      cwd,
+      ruinsDir: resolve(cwd, mergedConfig.dir),
       ruins: ruinsRoot,
-      bin: resolve(process.cwd(), "node_modules", ".bin"),
+      bin: resolve(cwd, "node_modules", ".bin"),
     },
   };
 

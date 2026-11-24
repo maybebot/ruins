@@ -41,6 +41,7 @@
     "@ruins/commits": "workspace:*",
     "@ruins/config": "workspace:*",
     "@ruins/lint": "workspace:*",
+    "@ruins/snapshots": "workspace:*",
     "@ruins/todo": "workspace:*",
     "@ruins/views": "workspace:*",
     "oxlint": "^1.93.0",

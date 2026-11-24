@@ -1,5 +1,6 @@
 import { loadConfig } from "c12";
-import type { RuinsConfigInternal, RuinsModule } from "@ruins/types";
+import type { RuinsConfigInternal } from "@ruins/config";
+import type { RuinsModule } from "@ruins/types";
 
 export const getModuleViews = (modules: RuinsModule[], module: RuinsModule) => {
   const views = [

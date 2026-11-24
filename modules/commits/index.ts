@@ -30,14 +30,16 @@ export const commits = (userSettings?: CommitSettings): RuinsModule => {
           name: "default",
           label: "Scope",
           columns: [{ name: "name" }, { name: "total" }],
-          getData: () => getGitlogData(settings.months),
+          getData: ({ config, query }) =>
+            getGitlogData(settings.months, config._paths.cwd, query.asOf),
           transformerFn: getScopeRows,
         },
         {
           name: "type",
           label: "Type",
           columns: [{ name: "name" }, { name: "total" }],
-          getData: () => getGitlogData(settings.months),
+          getData: ({ config, query }) =>
+            getGitlogData(settings.months, config._paths.cwd, query.asOf),
           transformerFn: getTypeRows,
         },
       ],
@@ -45,4 +47,3 @@ export const commits = (userSettings?: CommitSettings): RuinsModule => {
     settings,
   };
 };
-

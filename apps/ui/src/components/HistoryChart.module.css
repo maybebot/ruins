@@ -1,0 +1,61 @@
+.wrap {
+  min-width: 0;
+  margin: 0.5em 1em 1em;
+}
+
+.scroll {
+  overflow-x: auto;
+}
+
+.scroll svg {
+  display: block;
+}
+
+.grid {
+  stroke: var(--line);
+  stroke-dasharray: 3 4;
+}
+
+.axis {
+  fill: var(--muted);
+  font-size: 11px;
+}
+
+.missing {
+  fill: var(--muted);
+  font-size: 18px;
+}
+
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3em 1em;
+  max-height: 10em;
+  overflow: auto;
+  padding: 0.5em;
+  color: var(--muted);
+  font-size: 0.8em;
+}
+
+.legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  overflow-wrap: anywhere;
+}
+
+.legend i {
+  flex: none;
+  width: 0.75em;
+  height: 0.75em;
+  border-radius: 2px;
+}
+
+.message {
+  color: var(--muted);
+  font-size: 0.85em;
+}
+
+.error {
+  color: #b42318;
+}

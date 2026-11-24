@@ -12,6 +12,7 @@
     }
   },
   "dependencies": {
+    "@ruins/config": "workspace:*",
     "@ruins/types": "workspace:*",
     "c12": "catalog:"
   }
