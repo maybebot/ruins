@@ -1,10 +1,13 @@
 {
   "$schema": "./node_modules/oxlint/configuration_schema.json",
   "plugins": ["typescript", "oxc"],
-  "type-aware": true,
-  "categories": {},
+  "categories": {
+    "correctness": "error",
+    "suspicious": "warn",
+    "perf": "warn"
+  },
   "rules": {
   },
   "globals": {},
-  "ignorePatterns": []
+  "ignorePatterns": ["examples/demo/**"]
 }

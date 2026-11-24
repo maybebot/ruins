@@ -24,9 +24,9 @@
   ],
   "scripts": {
     "build": "bash ./scripts/build.sh",
-    "dev": "tsx --watch ./index.ts",
+    "dev": "tsx --watch ./cli.ts",
     "dev:ui": "pnpm exec tsdown && node ./apps/ui/node_modules/vite/bin/vite.js apps/ui --config apps/ui/vite.config.ts",
-    "start": "tsx ./index.ts",
+    "start": "tsx ./cli.ts",
     "lint": "oxlint --type-aware",
     "try": "bash ./scripts/try.sh"
   },

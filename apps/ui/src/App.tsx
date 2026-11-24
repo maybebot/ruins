@@ -50,7 +50,7 @@ export const App = () => {
 
   useEffect(() => {
     let active = true;
-    (async () => {
+    void (async () => {
       try {
         const res = await fetch("/api/ui");
         if (!res.ok) {

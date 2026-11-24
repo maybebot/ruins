@@ -55,5 +55,5 @@ export interface UiDataPanel {
   columns: Array<{ name: string }>;
   transformerFn: (data: any, context?: UiTransformContext) => UiDataRow[];
   /** Compute data on demand (e.g. running a shell command) instead of reading `file` from disk */
-  getData?: (context: UiTransformContext) => Promise<unknown> | unknown;
+  getData?: (context: UiTransformContext) => unknown;
 }
