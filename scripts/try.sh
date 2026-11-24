@@ -18,7 +18,8 @@ pnpm --dir "$ROOT_DIR" build
 pnpm --dir "$ROOT_DIR" pack --out "$PACKAGE_FILE"
 
 echo "Installing package in $TEST_DIR"
+# Local tarballs keep the same filename across builds but have different
+# contents, so refresh their lockfile checksum before adding the package.
+pnpm --dir "$TEST_DIR" install --update-checksums
 pnpm --dir "$TEST_DIR" add "$PACKAGE_FILE"
-# Refresh the tarball even when its filename and version are unchanged.
-pnpm --dir "$TEST_DIR" update ruins
 pnpm --dir "$TEST_DIR" exec ruins

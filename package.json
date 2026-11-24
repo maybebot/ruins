@@ -3,6 +3,9 @@
   "version": "0.3.0-beta.0",
   "type": "module",
   "license": "MIT",
+  "engines": {
+    "node": ">=22.0.0"
+  },
   "author": "Ian Bobinac",
   "description": "",
   "keywords": [
@@ -56,7 +59,6 @@
     "@bomb.sh/tty": "^0.10.0",
     "@clack/prompts": "^1.9.0",
     "c12": "catalog:",
-    "confbox": "^0.3.2",
     "eslint-plugin-structured-todo": "^0.2.2",
     "jiti": "^2.7.0"
   }

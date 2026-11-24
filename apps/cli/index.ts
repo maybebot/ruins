@@ -18,7 +18,7 @@ import {
 import { log, spinner } from "@clack/prompts";
 import { snapshotCommands } from "@ruins/snapshots/commands";
 import { readConfig, type RuinsConfigInternal } from "@ruins/config";
-import { exec } from "child_process";
+import { spawn } from "node:child_process";
 import { readFile } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 
@@ -306,10 +306,19 @@ const pickCommand = async (options: Array<{ value: string; label: string; hint?:
 const truncate = (value: string, width: number) =>
   value.length > width ? `${value.slice(0, width - 3)}...` : value;
 
-const openDashboard = async (ruinsPath: string) => {
+const openDashboard = (ruinsPath: string) => {
   const port = "4848";
   log.step("Starting dashboard");
-  exec(`PORT=${port} node ${ruinsPath}/dist/.output/server/index.mjs`);
+  const dashboard = spawn(
+    process.execPath,
+    [resolve(ruinsPath, "dist", ".output", "server", "index.mjs")],
+    {
+      detached: true,
+      env: { ...process.env, PORT: port },
+      stdio: "ignore",
+    },
+  );
+  dashboard.unref();
   log.success(`Dashboard available at http://localhost:${port}`);
 };
 const uiCommand = {

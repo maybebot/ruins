@@ -1,7 +1,8 @@
 import { loadConfig } from "c12";
 import type { RuinsModule } from "@ruins/types";
-import { existsSync } from "node:fs";
-import { resolve } from "node:path";
+import { readFileSync } from "node:fs";
+import { dirname, resolve } from "node:path";
+import { fileURLToPath } from "node:url";
 
 /**
  * Definition of Ruins config in user's /ruins.config.ts file
@@ -39,25 +40,22 @@ const defaultConfig = Object.freeze({
   modules: [],
 });
 
-const resolveRuinsRoot = (cwd: string) => {
-  const localBuildOutput = resolve(cwd, "dist", ".output", "server", "index.mjs");
-  if (existsSync(localBuildOutput)) {
-    return cwd;
-  }
+const resolveRuinsRoot = () => {
+  let directory = dirname(fileURLToPath(import.meta.url));
+  while (true) {
+    try {
+      const manifest = JSON.parse(readFileSync(resolve(directory, "package.json"), "utf8")) as {
+        name?: string;
+      };
+      if (manifest.name === "ruins") return directory;
+    } catch (error) {
+      if (!(error instanceof Error && "code" in error && error.code === "ENOENT")) throw error;
+    }
 
-  const installedPackageRoot = resolve(cwd, "node_modules", "ruins");
-  const installedBuildOutput = resolve(
-    installedPackageRoot,
-    "dist",
-    ".output",
-    "server",
-    "index.mjs",
-  );
-  if (existsSync(installedBuildOutput)) {
-    return installedPackageRoot;
+    const parent = dirname(directory);
+    if (parent === directory) throw new Error("Could not locate the installed ruins package.");
+    directory = parent;
   }
-
-  return installedPackageRoot;
 };
 
 /** Returns user configuration in ruins.config.ts */
@@ -74,7 +72,7 @@ export const readConfigAt = async (cwd: string): Promise<RuinsConfigInternal> =>
     ...config,
   };
 
-  const ruinsRoot = resolveRuinsRoot(cwd);
+  const ruinsRoot = resolveRuinsRoot();
 
   const internalConfig: RuinsConfigInternal = {
     ...mergedConfig,

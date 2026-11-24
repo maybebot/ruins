@@ -25,9 +25,6 @@ importers:
       c12:
         specifier: "catalog:"
         version: 4.0.0-rc.4(jiti@2.7.0)
-      confbox:
-        specifier: ^0.3.2
-        version: 0.3.2
       eslint-plugin-structured-todo:
         specifier: ^0.2.2
         version: 0.2.2(eslint@9.39.5(jiti@2.7.0)(supports-color@7.2.0))
