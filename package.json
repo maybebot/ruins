@@ -55,8 +55,10 @@
     "@bomb.sh/args": "^0.3.1",
     "@bomb.sh/tty": "^0.10.0",
     "@clack/prompts": "^1.9.0",
+    "c12": "catalog:",
     "confbox": "^0.3.2",
+    "consola": "catalog:",
     "eslint-plugin-structured-todo": "^0.2.2",
-    "consola": "catalog:"
+    "jiti": "^2.7.0"
   }
 }
