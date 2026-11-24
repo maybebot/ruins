@@ -1,5 +1,5 @@
 import { execFileSync } from "node:child_process";
-import { consola } from "consola";
+import { log } from "@clack/prompts";
 import { parseConventionalCommit } from "./conventional-commit.js";
 import type { CommitEntry, RuinsCommitsOutput } from "./types.js";
 
@@ -14,17 +14,11 @@ export const getCommitEntries = (
     const dateArgs = asOf ? getDateRange(months, asOf) : [`--since=${months} months ago`];
     logOutput = execFileSync(
       "git",
-      [
-        "log",
-        ...dateArgs,
-        `--pretty=format:%h | %ae | %s | %ad`,
-        "--date=short",
-        "--no-merges",
-      ],
+      ["log", ...dateArgs, `--pretty=format:%h | %ae | %s | %ad`, "--date=short", "--no-merges"],
       { cwd, encoding: "utf8" },
     );
   } catch (error) {
-    consola.error("Could not read git log", error);
+    log.error(`Could not read git log: ${error instanceof Error ? error.message : String(error)}`);
     return [];
   }
 
@@ -53,10 +47,7 @@ const getDateRange = (months: number, asOf: string) => {
   const targetMonth = end.getUTCMonth() - months;
   const year = end.getUTCFullYear() + Math.floor(targetMonth / 12);
   const month = ((targetMonth % 12) + 12) % 12;
-  const day = Math.min(
-    end.getUTCDate(),
-    new Date(Date.UTC(year, month + 1, 0)).getUTCDate(),
-  );
+  const day = Math.min(end.getUTCDate(), new Date(Date.UTC(year, month + 1, 0)).getUTCDate());
   const since = new Date(
     Date.UTC(
       year,

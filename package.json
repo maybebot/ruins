@@ -57,7 +57,6 @@
     "@clack/prompts": "^1.9.0",
     "c12": "catalog:",
     "confbox": "^0.3.2",
-    "consola": "catalog:",
     "eslint-plugin-structured-todo": "^0.2.2",
     "jiti": "^2.7.0"
   }

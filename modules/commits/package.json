@@ -12,6 +12,7 @@
     }
   },
   "dependencies": {
+    "@clack/prompts": "^1.9.0",
     "@ruins/config": "workspace:*",
     "@ruins/types": "workspace:*"
   },

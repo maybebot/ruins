@@ -2,7 +2,7 @@ import type { RuinsConfigInternal } from "@ruins/config";
 import { execFileSync } from "node:child_process";
 import { mkdir, writeFile } from "node:fs/promises";
 import { resolve } from "node:path";
-import { consola } from "consola";
+import { log } from "@clack/prompts";
 import type { RuinsTodoEntry, RuinsTodoOutput } from "../transformers/types.js";
 
 const todosFilename = "todos.json";
@@ -10,14 +10,14 @@ const todosFilename = "todos.json";
 export const collectTodos = async (config: RuinsConfigInternal) => {
   const outputFilePath = resolve(config._paths.ruinsDir, todosFilename);
   await mkdir(config._paths.ruinsDir, { recursive: true });
-  consola.info("Searching for TODO comments");
+  log.info("Searching for TODO comments");
 
   const output: RuinsTodoOutput = {
     meta: { timestamp: Date.now() },
     data: getTodoEntries(config._paths.cwd),
   };
   await writeFile(outputFilePath, JSON.stringify(output, null, 2));
-  consola.success(`Collected TODOs in ${outputFilePath}`);
+  log.success(`Collected TODOs in ${outputFilePath}`);
 };
 
 const getTodoEntries = (cwd: string): RuinsTodoEntry[] => {
@@ -32,7 +32,9 @@ const getTodoEntries = (cwd: string): RuinsTodoEntry[] => {
     if (typeof error === "object" && error !== null && "status" in error && error.status === 1) {
       return [];
     }
-    consola.error("Could not search for TODOs", error);
+    log.error(
+      `Could not search for TODOs: ${error instanceof Error ? error.message : String(error)}`,
+    );
     throw error;
   }
 

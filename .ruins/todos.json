@@ -1,8 +1,36 @@
 {
   "meta": {
-    "timestamp": 1790836234530
+    "timestamp": 1795537181569
   },
   "data": [
+    {
+      "file": ".ruins/todos.json",
+      "todo": "// TODO: change, make clear it's a module\""
+    },
+    {
+      "file": ".ruins/todos.json",
+      "todo": "// TODO\\\"], {\""
+    },
+    {
+      "file": ".ruins/todos.json",
+      "todo": "// TODO(created=2025-03-26, author=ian): some message`\""
+    },
+    {
+      "file": ".ruins/todos.json",
+      "todo": "// TODO: find better solution\""
+    },
+    {
+      "file": "examples/demo/src/main.js",
+      "todo": "// TODO: Add a way to update the status from the page."
+    },
+    {
+      "file": "examples/demo/src/main.js",
+      "todo": "// TODO: Handle a missing status element before updating the page."
+    },
+    {
+      "file": "examples/demo/src/status.js",
+      "todo": "// TODO: Add support for status labels from the Ruins configuration."
+    },
     {
       "file": "index.ts",
       "todo": "// TODO: change, make clear it's a module"

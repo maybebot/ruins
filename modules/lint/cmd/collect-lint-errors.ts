@@ -3,7 +3,7 @@ import { execFileSync } from "node:child_process";
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { existsSync } from "node:fs";
 import { relative, resolve, sep } from "node:path";
-import { consola } from "consola";
+import { box, log } from "@clack/prompts";
 import type { LintSettings } from "../index.js";
 import { transformIntoLintIgnores } from "../transformers/errors.js";
 import formatLintOutput from "../transformers/output.js";
@@ -16,7 +16,7 @@ export const collectLintErrors = async (settings: LintSettings, config: RuinsCon
   const issuesFilePath = resolve(config._paths.ruinsDir, issuesFilename);
   const ignoresFilePath = resolve(config._paths.ruinsDir, ignoresFilename);
   await mkdir(config._paths.ruinsDir, { recursive: true });
-  consola.info(`Searching for linting issues`);
+  log.info("Searching for linting issues");
 
   assertLintToolsAvailable(config._paths.bin);
   await resetExistingIgnores(ignoresFilePath);
@@ -29,9 +29,9 @@ export const collectLintErrors = async (settings: LintSettings, config: RuinsCon
     settings.filenameOnly ?? false,
   );
   await writeIgnoresFile(ignoresFilePath, ignores);
-  consola.success(`Collected issues in ${issuesFilePath}`);
+  log.success(`Collected issues in ${issuesFilePath}`);
   const ignoreImportPath = `./${relative(process.cwd(), ignoresFilePath).split(sep).join("/")}`;
-  consola.box(
+  box(
     `Import the generated ignores at the end of your eslint.config file:\n\nimport { ruinsIgnores } from "${ignoreImportPath}";\n\nexport default [...existingConfig, ...ruinsIgnores];`,
   );
 };
